@@ -1,4 +1,4 @@
-import { Home } from "./pages";
+import { Home, NotFound } from "./pages";
 import App from "./App";
 
 export default [
@@ -9,6 +9,9 @@ export default [
         ...Home,
         path: "/",
         exact: true
+      },
+      {
+        ...NotFound
       }
     ]
   }
