@@ -3,15 +3,14 @@ import { Provider } from "react-redux";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
-import serialize from "javascript-serialize";
+import serialize from "serialize-javascript";
 import routes from "../client/routes";
-import Layout from "../client/hoc/Layout/Layout";
 
 const renderer = (path, store) => {
   const content = renderToString(
     <Provider store={store}>
       <StaticRouter location={path} context={{}}>
-        <Layout>{renderRoutes(routes)}</Layout>
+        {renderRoutes(routes)}
       </StaticRouter>
     </Provider>
   );

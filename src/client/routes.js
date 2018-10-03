@@ -1,9 +1,15 @@
 import { Home } from "./pages";
+import App from "./App";
 
 export default [
   {
-    path: "/",
-    component: Home,
-    exact: true
+    ...App,
+    routes: [
+      {
+        ...Home,
+        path: "/",
+        exact: true
+      }
+    ]
   }
 ];
