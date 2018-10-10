@@ -7,6 +7,7 @@ const config = {
   entry: "./src/client/index.js",
   output: {
     filename: "bundle.js",
+    chunkFilename: "[id].js",
     path: path.resolve(__dirname, "public")
   }
 };
