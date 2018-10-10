@@ -1,0 +1,35 @@
+@import "./__var";
+
+body,
+html {
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  color: whitesmoke;
+}
+
+.wrapper {
+  display: grid;
+  position: relative;
+  height: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-gap: 1px;
+  grid-template-areas: "header" "main" "footer";
+
+  .header {
+    position: sticky;
+    background-color: $navbarColor;
+    height: $navbarHeight;
+    width: 100%;
+    z-index: 90;
+  }
+
+  .main {
+    grid-area: main;
+  }
+
+  .footer {
+    grid-area: footer;
+  }
+}

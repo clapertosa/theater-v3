@@ -1,19 +1,34 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Switch } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
+import Navbar from "./components/Header/Navbar/Navbar";
+import styles from "./App.scss";
 
-const App = ({ route }) => {
-  return (
-    <div>
-      <header>Header</header>
-      <main>
-        <Switch>{renderRoutes(route.routes)}</Switch>
-      </main>
-      <footer>Footer</footer>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <div className={styles.wrapper}>
+          <header className={styles.header}>
+            <Navbar />
+          </header>
+          <main className={styles.main}>
+            <Switch>{renderRoutes(this.props.route.routes)}</Switch>
+          </main>
+          <footer className={styles.footer}>Footer</footer>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
 };
 
 export default {
-  component: App
+  component: connect(mapStateToProps)(App)
 };

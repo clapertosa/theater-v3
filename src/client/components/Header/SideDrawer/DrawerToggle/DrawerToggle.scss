@@ -1,0 +1,17 @@
+@import "../../../../_var";
+
+.drawer {
+  cursor: pointer;
+  margin: 0 10px;
+  div {
+    border: 2px solid white;
+    margin: 8px 0;
+    width: 25px;
+  }
+}
+
+@media (min-width: $mediaQueryMinWidth) {
+  .drawer {
+    display: none;
+  }
+}
