@@ -8,7 +8,8 @@ const config = {
   output: {
     filename: "bundle.js",
     chunkFilename: "[id].js",
-    path: path.resolve(__dirname, "public")
+    path: path.resolve(__dirname, "public"),
+    publicPath: "/"
   }
 };
 

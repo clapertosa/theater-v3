@@ -11,14 +11,14 @@ const NavbarItems = () => {
     <React.Fragment>
       <ul className={styles.left}>
         <NavbarDropdownItem icon={reelIcon} shake title="Movies">
-          <NavbarItem url="#">Most popular</NavbarItem>
-          <NavbarItem url="#">Most popular</NavbarItem>
-          <NavbarItem url="#">Most popular</NavbarItem>
+          <NavbarItem url="/movies/latest">Latest</NavbarItem>
+          <NavbarItem url="/movies/top-rated">Top Rated</NavbarItem>
+          <NavbarItem url="/movies/most-voted">Most Voted</NavbarItem>
         </NavbarDropdownItem>
         <NavbarDropdownItem icon={tvIcon} shake title="Series">
-          <NavbarItem url="#">Most popular</NavbarItem>
-          <NavbarItem url="#">Most popular</NavbarItem>
-          <NavbarItem url="#">Most popular</NavbarItem>
+          <NavbarItem url="/series/on-the-air">On The Air</NavbarItem>
+          <NavbarItem url="/series/top-rated">Top Rated</NavbarItem>
+          <NavbarItem url="/series/most-popular">Most Popular</NavbarItem>
         </NavbarDropdownItem>
         <NavbarDropdownItem
           className={styles["mobile-only"]}
@@ -26,8 +26,8 @@ const NavbarItems = () => {
           rotate
           title="User"
         >
-          <NavbarItem url="#">Signup</NavbarItem>
-          <NavbarItem url="#">Login</NavbarItem>
+          <NavbarItem url="/register">Register</NavbarItem>
+          <NavbarItem url="/login">Login</NavbarItem>
         </NavbarDropdownItem>
       </ul>
       <ul className={styles.right}>

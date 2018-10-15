@@ -8,20 +8,20 @@ import Backdrop from "../../UI/Backdrop/Backdrop";
 import styles from "./Navbar.scss";
 
 class Navbar extends Component {
+  state = {
+    showSideDrawer: false,
+    pathname: null
+  };
+
   componentDidMount = () => {
-    this.setState({ location: this.props.location });
+    this.setState({ pathname: this.props.location.pathname });
   };
 
   componentDidUpdate = () => {
-    if (this.props.location !== this.state.location) {
+    if (this.props.location.pathname !== this.state.pathname) {
       this.closeSideDrawer();
-      this.setState({ location: this.props.location });
+      this.setState({ pathname: this.props.location.pathname });
     }
-  };
-
-  state = {
-    showSideDrawer: false,
-    location: null
   };
 
   onDrawerClick = () => {

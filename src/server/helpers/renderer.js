@@ -4,7 +4,7 @@ import { renderToString } from "react-dom/server";
 import { StaticRouter, Switch } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import serialize from "serialize-javascript";
-import routes from "../client/routes";
+import routes from "../../client/routes";
 
 const renderer = (path, store, context) => {
   const content = renderToString(
@@ -23,12 +23,12 @@ const renderer = (path, store, context) => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>Theater - Movies and Series</title>
-      <link rel="stylesheet" href="main.css" />
+      <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
-      <div id="root">${content}</div>
+      <div id="root" style="height: 100%;">${content}</div>
       <script>window.INITIAL_STATE = ${serialize(store.getState())}</script>
-      <script src="bundle.js"></script>
+      <script src="/bundle.js"></script>
     </body>
   </html>
   `;

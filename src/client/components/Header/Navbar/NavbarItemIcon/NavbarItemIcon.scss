@@ -1,14 +1,15 @@
 .icon {
-  max-height: 2rem;
+  min-width: 2rem;
+  max-width: 2rem;
 }
 
 button:hover {
   .shake {
-    animation: shake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    animation: shake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both infinite;
   }
 
   .rotate {
-    animation: rotate 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    animation: rotate 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both infinite;
   }
 }
 

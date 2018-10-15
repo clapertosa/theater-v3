@@ -1,9 +1,17 @@
 import express from "express";
-import renderer from "./helpers/renderer";
+import bodyParser from "body-parser";
 import { matchRoutes } from "react-router-config";
-import routes from "./client/routes";
+import routes from "../client/routes";
+import renderer from "./helpers/renderer";
 import createStore from "./helpers/createStore";
+// Import API Routes
+import moviesRoutes from "./routes/api/movies";
+import seriesRoutes from "./routes/api/series";
+
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(express.static("public"));
 
@@ -12,11 +20,11 @@ app.get("*", (req, res) => {
 
   const promises = matchRoutes(routes, req.path)
     .map(({ route }) => {
-      return route.loadData ? route.loadData(store) : null;
+      return route.loadData ? route.loadData(store, req.path, req.query) : null;
     })
     .map(promise => {
       if (promise)
-        new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
           promise.then(resolve).catch(resolve);
         });
     });
@@ -33,4 +41,6 @@ app.get("*", (req, res) => {
   });
 });
 
+app.use("/api/movies", moviesRoutes);
+app.use("/api/series", seriesRoutes);
 app.listen(3000, () => console.log("Server started"));

@@ -5,11 +5,12 @@ const path = require("path");
 
 const config = {
   mode: "development",
-  entry: "./src/index.js",
+  entry: "./src/server/index.js",
   target: "node",
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "build")
+    path: path.resolve(__dirname, "build"),
+    publicPath: "/"
   },
   externals: [externals()]
 };
