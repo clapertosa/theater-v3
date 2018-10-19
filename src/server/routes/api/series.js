@@ -44,4 +44,15 @@ router.post("/most-popular", (req, res) => {
     );
 });
 
+router.post("/serie/:id", (req, res) => {
+  axios
+    .get(`/tv/${req.params.id}`, {
+      params: {
+        append_to_response: "videos,credits"
+      }
+    })
+    .then(response => res.status(200).json(response.data))
+    .catch(error => res.status(400).json("An error occurred during get serie"));
+});
+
 export default router;

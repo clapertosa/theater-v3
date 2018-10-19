@@ -2,6 +2,7 @@
 
 .container {
   position: fixed;
+  top: $navbarHeight;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;

@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.poster {
+  max-width: 100%;
+  height: auto;
+}

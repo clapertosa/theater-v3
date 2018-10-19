@@ -1,0 +1,18 @@
+@import "../../_var";
+
+.content {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+
+  .actors {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  .characters {
+    display: flex;
+    align-items: center;
+  }
+}

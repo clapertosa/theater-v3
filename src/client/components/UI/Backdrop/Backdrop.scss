@@ -1,5 +1,8 @@
+@import "../../../_var";
+
 .backdrop {
   position: fixed;
+  top: $navbarHeight;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.507);
@@ -11,4 +14,10 @@
 
 .hide {
   display: none;
+}
+
+@media (min-width: $mediaQueryMinWidth) {
+  .backdrop {
+    display: none;
+  }
 }

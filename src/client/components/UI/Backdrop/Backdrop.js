@@ -16,7 +16,9 @@ const Backdrop = props => {
       onTouchEnd={() =>
         touchEnd < touchStart ? props.closeSideDrawer() : null
       }
-    />
+    >
+      {props.children}
+    </div>
   );
 };
 

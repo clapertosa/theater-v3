@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.473);
+  z-index: 100;
+}
+
+.modal-container {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.3fr 2.4fr 0.3fr;
+  grid-gap: 1px;
+  grid-template-areas: "." "." ".";
+  background-color: rgba(2, 2, 2, 0.692);
+  width: 50rem;
+  height: 30rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid white;
+
+  span {
+    margin: 10px 20px;
+    font-weight: bold;
+  }
+}
+
+.close {
+  cursor: pointer;
+}
+
+.video {
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid white;
+
+  button {
+    margin: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+}

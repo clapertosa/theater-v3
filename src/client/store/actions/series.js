@@ -9,7 +9,7 @@ export const getSeriesInit = () => {
 
 export const getOnTheAirSeries = page => {
   return dispatch => {
-    getSeriesInit();
+    dispatch(getSeriesInit());
     return axios
       .post("/series/on-the-air", { page })
       .then(response => dispatch(getSeriesDone(response.data)))
@@ -19,7 +19,7 @@ export const getOnTheAirSeries = page => {
 
 export const getTopRatedSeries = page => {
   return dispatch => {
-    getSeriesInit();
+    dispatch(getSeriesInit());
     return axios
       .post("/series/top-rated", { page })
       .then(response => dispatch(getSeriesDone(response.data)))
@@ -29,7 +29,7 @@ export const getTopRatedSeries = page => {
 
 export const getMostPopularSeries = page => {
   return dispatch => {
-    getSeriesInit();
+    dispatch(getSeriesInit());
     return axios
       .post("/series/most-popular", { page })
       .then(response => dispatch(getSeriesDone(response.data)))
@@ -39,7 +39,7 @@ export const getMostPopularSeries = page => {
 
 export const getSeriesDone = data => {
   return {
-    type: actionTypes.GET_CARDS_DONE,
+    type: actionTypes.GET_SERIES_CARDS_DONE,
     payload: data
   };
 };

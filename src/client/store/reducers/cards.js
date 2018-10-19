@@ -2,6 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   data: { results: [] },
+  type: undefined,
   error: undefined,
   loading: false,
   success: false
@@ -16,13 +17,23 @@ const reducer = (state = initialState, action) => {
         success: false,
         error: undefined
       };
-    case actionTypes.GET_CARDS_DONE:
+    case actionTypes.GET_MOVIES_CARDS_DONE:
       return {
         ...state,
         loading: false,
         success: true,
         error: undefined,
-        data: action.payload
+        data: action.payload,
+        type: "movies"
+      };
+    case actionTypes.GET_SERIES_CARDS_DONE:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        error: undefined,
+        data: action.payload,
+        type: "series"
       };
     case actionTypes.GET_CARDS_FAILED:
       return {

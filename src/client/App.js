@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Switch } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import Navbar from "./components/Header/Navbar/Navbar";
+import "../assets/fonts/fontello/css/fontello.css?raw";
 import styles from "./App.scss";
 
 class App extends Component {

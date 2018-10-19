@@ -14,7 +14,7 @@ module.exports = {
           {
             test: /\.css$/,
             resourceQuery: /^\?raw$/,
-            use: [MiniCssExtractPlugin.loader, require.resolve("css-loader")]
+            use: [MiniCssExtractPlugin.loader, "css-loader"]
           },
           {
             test: /\.(sa|sc|c)ss$/,
@@ -43,12 +43,11 @@ module.exports = {
           }
         ]
       },
-
       {
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
           {
-            loader: "file-loader",
+            loader: "url-loader",
             options: {
               name: "[name].[ext]",
               outputPath: "fonts/"

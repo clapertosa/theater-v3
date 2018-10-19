@@ -9,3 +9,7 @@ export {
   getTopRatedSeries,
   getMostPopularSeries
 } from "./series";
+
+export { getMedia } from "./media";
+
+export { search, searchReset } from "./searchbar";

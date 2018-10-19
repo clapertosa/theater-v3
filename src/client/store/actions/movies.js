@@ -9,7 +9,7 @@ export const getMoviesInit = () => {
 
 export const getLatestMovies = page => {
   return dispatch => {
-    getMoviesInit();
+    dispatch(getMoviesInit());
     return axios
       .post("/movies/get-latest", { page })
       .then(response => dispatch(getMoviesDone(response.data)))
@@ -19,7 +19,7 @@ export const getLatestMovies = page => {
 
 export const getTopRatedMovies = page => {
   return dispatch => {
-    getMoviesInit();
+    dispatch(getMoviesInit());
     return axios
       .post("/movies/top-rated", { page })
       .then(response => dispatch(getMoviesDone(response.data)))
@@ -29,7 +29,7 @@ export const getTopRatedMovies = page => {
 
 export const getMostVotedMovies = page => {
   return dispatch => {
-    getMoviesInit();
+    dispatch(getMoviesInit());
     return axios
       .post("/movies/most-voted", { page })
       .then(response => dispatch(getMoviesDone(response.data)))
@@ -39,7 +39,7 @@ export const getMostVotedMovies = page => {
 
 export const getMoviesDone = data => {
   return {
-    type: actionTypes.GET_CARDS_DONE,
+    type: actionTypes.GET_MOVIES_CARDS_DONE,
     payload: data
   };
 };

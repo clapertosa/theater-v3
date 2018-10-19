@@ -15,11 +15,12 @@ html {
   background-color: black;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
-  grid-gap: 0;
+  grid-gap: 1rem;
   grid-template-areas: "header" "main" "footer";
 
   .header {
     position: sticky;
+    top: 0;
     background-color: $navbarColor;
     height: $navbarHeight;
     width: 100%;

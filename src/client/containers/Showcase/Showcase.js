@@ -18,14 +18,12 @@ class Showcase extends Component {
     const cards = this.props.cards.results.map(media => (
       <Card
         key={media.id}
+        type={this.props.mediaType}
+        id={media.id}
         title={media.title || media.name}
         rating={media.vote_average}
         release={media.release_date || media.first_air_date}
-        poster={
-          media.poster_path
-            ? `https://image.tmdb.org/t/p/w300${media.poster_path}`
-            : "https://via.placeholder.com/350x450/0000000/ffffff?text=No%20Poster"
-        }
+        poster={media.poster_path}
       />
     ));
     return (
@@ -63,7 +61,8 @@ const loadShowcase = (store, path, query) => {
 
 const mapStateToProps = state => {
   return {
-    cards: state.cards.data
+    cards: state.cards.data,
+    mediaType: state.cards.type
   };
 };
 

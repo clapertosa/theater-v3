@@ -7,6 +7,7 @@ import createStore from "./helpers/createStore";
 // Import API Routes
 import moviesRoutes from "./routes/api/movies";
 import seriesRoutes from "./routes/api/series";
+import searchRoutes from "./routes/api/search";
 
 const app = express();
 
@@ -20,7 +21,9 @@ app.get("*", (req, res) => {
 
   const promises = matchRoutes(routes, req.path)
     .map(({ route }) => {
-      return route.loadData ? route.loadData(store, req.path, req.query) : null;
+      return route.loadData
+        ? route.loadData(store, req.path, req.query, req.params)
+        : null;
     })
     .map(promise => {
       if (promise)
@@ -43,4 +46,5 @@ app.get("*", (req, res) => {
 
 app.use("/api/movies", moviesRoutes);
 app.use("/api/series", seriesRoutes);
+app.use("/api/search", searchRoutes);
 app.listen(3000, () => console.log("Server started"));

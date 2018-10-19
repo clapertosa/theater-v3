@@ -1,6 +1,7 @@
 import React from "react";
 import NavbarItem from "./NavbarItem/NavbarItem";
 import NavbarDropdownItem from "./NavbarDropdownItem/NavbarDropdownItem";
+import SearchBar from "./SearchBar/SearchBar";
 import reelIcon from "../../../../../assets/images/reel.svg";
 import tvIcon from "../../../../../assets/images/tv.svg";
 import userIcon from "../../../../../assets/images/user.svg";
@@ -31,10 +32,8 @@ const NavbarItems = () => {
         </NavbarDropdownItem>
       </ul>
       <ul className={styles.right}>
-        <li>
-          <div>
-            <input type="text" name="" id="" />
-          </div>
+        <li className={styles.searchbar}>
+          <SearchBar />
         </li>
         <NavbarDropdownItem
           className={styles["desktop-only"]}
