@@ -9,7 +9,7 @@ const Card = props => {
       }`}
       className={styles.container}
     >
-      <div className={styles["image-container"]}>
+      <div className={styles.poster}>
         <img
           src={
             props.poster
@@ -21,7 +21,10 @@ const Card = props => {
       </div>
       <div className={styles.caption}>
         <span className={styles.title}>{props.title}</span>
-        <span>{props.rating}</span>
+        <span>
+          <i className={`${styles.star} icon-star`} />
+          {props.rating}
+        </span>
         <span>Release: {props.release}</span>
       </div>
     </a>

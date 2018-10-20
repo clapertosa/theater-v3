@@ -1,31 +1,44 @@
+@import "../../_var";
+
 a {
   text-decoration: none;
   color: white;
 }
 
 .container {
-  display: block;
-  margin: 10px;
+  display: grid;
+  height: 100%;
   border: 1px solid gray;
-  max-height: 30rem;
-  max-width: 15rem;
-  overflow: hidden;
+  margin: 10px auto;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.5fr 0.5fr;
+  grid-gap: 10px;
+  grid-template-areas: "poster" "caption";
+}
+
+.poster {
+  grid-area: poster;
+}
+
+.caption {
+  grid-area: caption;
 }
 
 .container:hover {
-  .image-container {
+  .poster {
     img {
       transform: scale(1.2);
     }
   }
 }
 
-.image-container {
-  height: 23rem;
+.poster {
+  max-height: 29rem;
+  height: 100%;
   overflow: hidden;
   img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: auto;
     transition: transform 0.3s ease-out;
   }
 }
@@ -35,9 +48,23 @@ a {
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  margin: 10px auto;
   text-align: center;
+
+  .star {
+    color: #fbff00;
+  }
 
   .title {
     font-weight: bold;
+  }
+}
+
+@media (min-width: $mediaQueryMinWidth) {
+  .poster {
+    img {
+      height: 29rem;
+      width: 20rem;
+    }
   }
 }
