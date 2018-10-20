@@ -21,11 +21,10 @@ class SearchBar extends Component {
         <i className="icon-search" />
         <input
           className={styles.input}
+          autoComplete="off"
           onChange={e => this.inputChange(e.target.value)}
           onFocus={() => this.setState({ showResults: true })}
-          onBlur={() =>
-            setTimeout(() => this.setState({ showResults: false }), 100)
-          }
+          onBlur={() => this.setState({ showResults: false })}
           type="text"
           placeholder="Search movies/series"
         />
@@ -37,7 +36,11 @@ class SearchBar extends Component {
             {this.props.success && this.props.totalResults >= 1 ? (
               this.props.results.slice(0, 8).map(result => {
                 return (
-                  <li key={result.id} className={styles["result-item"]}>
+                  <li
+                    key={result.id}
+                    className={styles["result-item"]}
+                    onMouseDown={event => event.preventDefault()}
+                  >
                     <a
                       className={styles["result-item-box"]}
                       href={
