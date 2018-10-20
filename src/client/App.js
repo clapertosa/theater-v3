@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Switch } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import Navbar from "./components/Header/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 import "../assets/fonts/fontello/css/fontello.css?raw";
 import styles from "./App.scss";
 
@@ -17,7 +18,9 @@ class App extends Component {
           <main className={styles.main}>
             <Switch>{renderRoutes(this.props.route.routes)}</Switch>
           </main>
-          <footer className={styles.footer}>Footer</footer>
+          <footer className={styles.footer}>
+            <Footer />
+          </footer>
         </div>
       </React.Fragment>
     );
