@@ -1,5 +1,6 @@
 const merge = require("webpack-merge");
 const path = require("path");
+const externals = require("webpack-node-externals");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
@@ -7,11 +8,11 @@ const commonConfig = require("./webpack.config.base");
 
 module.exports = merge.smart(commonConfig, {
   mode: "production",
-  entry: "./src/client/index.js",
+  entry: "./src/server/index.js",
+  target: "node",
   output: {
     filename: "bundle.js",
-    chunkFilename: "[id].js",
-    path: path.resolve(__dirname, "public"),
+    path: path.resolve(__dirname, "build"),
     publicPath: "/"
   },
   optimization: {
@@ -28,5 +29,6 @@ module.exports = merge.smart(commonConfig, {
       new OptimizeCSSAssetsPlugin({})
     ]
   },
-  plugins: [new CompressionPlugin()]
+  plugins: [new CompressionPlugin()],
+  externals: [externals()]
 });
