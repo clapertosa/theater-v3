@@ -15,7 +15,7 @@ import searchRoutes from "./routes/api/search";
 import userRoutes from "./routes/api/user";
 import dashboardRoutes from "./routes/api/dashboard";
 
-const client = redis.createClient();
+const client = redis.createClient(process.env.REDIS_URL);
 const redisStore = require("connect-redis")(session);
 const app = express();
 
@@ -93,4 +93,6 @@ app.use("/api/series", seriesRoutes);
 app.use("/api/search", searchRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/user/dashboard", dashboardRoutes);
-app.listen(3000, () => console.log("Server started"));
+app.listen(process.env.PORT || 3000, () =>
+  console.log(`Server started as ${process.env.NODE_ENV}`)
+);
