@@ -6,6 +6,8 @@ import thunk from "redux-thunk";
 import reducers from "./store/reducers";
 import { BrowserRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
+import "slick-carousel/slick/slick.css?raw";
+import "slick-carousel/slick/slick-theme.css?raw";
 import routes from "./routes";
 
 const composeEnhancers =

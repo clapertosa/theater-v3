@@ -8,7 +8,16 @@ import InfoContent from "../../components/InfoCard/InfoContent/InfoContent";
 import Cast from "../../components/Cast/Cast";
 import Button from "../../components/Button/Button";
 import Modal from "../../components/Modal/Modal";
-import { getMedia } from "../../store/actions";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import {
+  getMedia,
+  addToFavorites,
+  addToLikes,
+  isFavorited,
+  isLiked,
+  removeFromFavorites,
+  removeFromLikes
+} from "../../store/actions";
 import styles from "./SerieInfo.scss";
 
 class SerieInfo extends Component {
@@ -16,12 +25,54 @@ class SerieInfo extends Component {
     showModal: false
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.isAuthenticated) {
+      this.props.isFavorited({
+        mediaId: this.props.media.id,
+        mediaType: "serie"
+      });
+      this.props.isLiked({ mediaId: this.props.media.id, mediaType: "serie" });
+    }
+  }
+
   openModal = () => {
     this.setState({ showModal: true });
   };
 
   closeModal = () => {
     this.setState({ showModal: false });
+  };
+
+  onSocialButtonHandler = e => {
+    if (!this.props.isAuthenticated) {
+      window.location.href = "/login";
+    } else {
+      if (e.target.name === "add-to-favorites") {
+        this.props.addToFavorites({
+          mediaId: this.props.media.id,
+          mediaType: "serie",
+          mediaTitle: this.props.media.name,
+          mediaPosterPath: this.props.media.poster_path
+        });
+      } else if (e.target.name === "add-to-likes") {
+        this.props.addToLikes({
+          mediaId: this.props.media.id,
+          mediaType: "serie",
+          mediaTitle: this.props.media.name,
+          mediaPosterPath: this.props.media.poster_path
+        });
+      } else if (e.target.name === "remove-from-favorites") {
+        this.props.removeFromFavorites({
+          mediaId: this.props.media.id,
+          mediaType: "serie"
+        });
+      } else if (e.target.name === "remove-from-likes") {
+        this.props.removeFromLikes({
+          mediaId: this.props.media.id,
+          mediaType: "serie"
+        });
+      }
+    }
   };
 
   render() {
@@ -69,16 +120,58 @@ class SerieInfo extends Component {
             </div>
             <div className={styles["social-container"]}>
               <div className={styles.favorites}>
-                <a href="#">
-                  <i className={`icon-heart ${styles.icon}`} />{" "}
-                  <span className={styles.label}>Add To Favorites</span>
-                </a>
+                {this.props.favorited ? (
+                  <button
+                    name="remove-from-favorites"
+                    onClick={this.onSocialButtonHandler}
+                  >
+                    <i className={`icon-heart ${styles.icon}`} />{" "}
+                    {this.props.isFavoritesLoading ? (
+                      <Spinner />
+                    ) : (
+                      <span className={styles.label}>Remove</span>
+                    )}
+                  </button>
+                ) : (
+                  <button
+                    name="add-to-favorites"
+                    onClick={this.onSocialButtonHandler}
+                  >
+                    <i className={`icon-heart ${styles.icon}`} />{" "}
+                    {this.props.isFavoritesLoading ? (
+                      <Spinner />
+                    ) : (
+                      <span className={styles.label}>Add To Favorites</span>
+                    )}
+                  </button>
+                )}
               </div>
               <div className={styles.likes}>
-                <a href="#">
-                  <i className={`icon-thumbs-up-alt ${styles.icon}`} />{" "}
-                  <span className={styles.label}>Like</span>
-                </a>
+                {this.props.liked ? (
+                  <button
+                    name="remove-from-likes"
+                    onClick={this.onSocialButtonHandler}
+                  >
+                    <i className={`icon-thumbs-up-alt ${styles.icon}`} />{" "}
+                    {this.props.isLikesLoading ? (
+                      <Spinner />
+                    ) : (
+                      <span className={styles.label}>Remove</span>
+                    )}
+                  </button>
+                ) : (
+                  <button
+                    name="add-to-likes"
+                    onClick={this.onSocialButtonHandler}
+                  >
+                    <i className={`icon-thumbs-up-alt ${styles.icon}`} />{" "}
+                    {this.props.isLikesLoading ? (
+                      <Spinner />
+                    ) : (
+                      <span className={styles.label}>Like</span>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
             <Rating
@@ -145,13 +238,24 @@ const mapStateToProps = state => {
   return {
     media: state.media.data,
     loading: state.media.loading,
-    success: state.media.success
+    success: state.media.success,
+    isAuthenticated: state.auth.isAuthenticated,
+    isFavoritesLoading: state.favorites.loading,
+    isLikesLoading: state.likes.loading,
+    favorited: state.favorites.isFavorited,
+    liked: state.likes.isLiked
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getSerie: (mediaType, mediaId) => dispatch(getMedia(mediaType, mediaId))
+    getSerie: (mediaType, mediaId) => dispatch(getMedia(mediaType, mediaId)),
+    addToFavorites: data => dispatch(addToFavorites(data)),
+    addToLikes: data => dispatch(addToLikes(data)),
+    removeFromFavorites: data => dispatch(removeFromFavorites(data)),
+    removeFromLikes: data => dispatch(removeFromLikes(data)),
+    isFavorited: data => dispatch(isFavorited(data)),
+    isLiked: data => dispatch(isLiked(data))
   };
 };
 

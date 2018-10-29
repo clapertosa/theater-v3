@@ -1,9 +1,18 @@
 import React from "react";
 import { Redirect } from "react-router";
-import { Home, Movie, Serie, NotFound, Register, Login } from "./pages";
+import {
+  Home,
+  Movie,
+  Serie,
+  NotFound,
+  Register,
+  Login,
+  Dashboard
+} from "./pages";
 import { loadShowcase } from "./containers/Showcase/Showcase";
 import { loadMovie } from "./containers/MovieInfo/MovieInfo";
 import { loadSerie } from "./containers/SerieInfo/SerieInfo";
+import Logout from "./pages/Logout/Logout";
 import App from "./App";
 
 export default [
@@ -24,8 +33,10 @@ export default [
       { ...Home, path: "/series/most-popular", loadData: loadShowcase },
       { ...Movie, path: "/movies/movie/:id", loadData: loadMovie },
       { ...Serie, path: "/series/serie/:id", loadData: loadSerie },
+      { ...Dashboard, path: "/dashboard" },
       { ...Register, path: "/register" },
       { ...Login, path: "/login" },
+      { ...Logout, path: "/logout" },
       { ...NotFound }
     ]
   }

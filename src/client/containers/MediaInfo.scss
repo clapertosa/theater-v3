@@ -48,16 +48,22 @@
   justify-content: center;
   align-items: center;
 
-  a {
+  button {
     color: rgb(243, 67, 47);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-size: unset;
+    background-color: unset;
+    border: unset;
   }
 
   .icon {
     border-radius: 100%;
-    padding: 5px 10px;
+    padding: 10px 10px;
     color: white;
     border: 2px solid rgb(243, 67, 47);
     background-color: transparent;

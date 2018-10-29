@@ -1,13 +1,8 @@
 import React from "react";
-import Modal from "../../components/Modal/Modal";
+import LoginForm from "../../components/Form/LoginForm/LoginForm";
 
 const Login = () => {
-  return (
-    <div>
-      LOGIN
-      <Modal />
-    </div>
-  );
+  return <LoginForm />;
 };
 
 export default {

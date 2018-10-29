@@ -4,10 +4,15 @@ import { Switch } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import Navbar from "./components/Header/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import { fetchCurrentUser } from "./store/actions";
 import "../assets/fonts/fontello/css/fontello.css?raw";
 import styles from "./App.scss";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchCurrentUser();
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -27,12 +32,15 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapDispatchToProps = dispatch => {
   return {
-    auth: state.auth
+    fetchCurrentUser: () => dispatch(fetchCurrentUser())
   };
 };
 
 export default {
-  component: connect(mapStateToProps)(App)
+  component: connect(
+    null,
+    mapDispatchToProps
+  )(App)
 };
