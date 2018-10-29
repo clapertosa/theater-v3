@@ -85,7 +85,8 @@
     margin: 0 10px;
     line-height: 32px;
 
-    :hover {
+    :hover,
+    :active {
       .icon {
         background-color: #580a96;
         transition: 0.5s background-color ease-in-out;
