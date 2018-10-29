@@ -23,6 +23,7 @@ const renderer = (path, store, context) => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>Theater - Movies and Series</title>
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
       <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
