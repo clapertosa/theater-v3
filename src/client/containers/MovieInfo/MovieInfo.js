@@ -43,30 +43,30 @@ class MovieInfo extends Component {
     this.setState({ showModal: false });
   };
 
-  onSocialButtonHandler = e => {
+  onSocialButtonHandler = target => {
     if (!this.props.isAuthenticated) {
       window.location.href = "/login";
     } else {
-      if (e.target.name === "add-to-favorites") {
+      if (target === "add-to-favorites") {
         this.props.addToFavorites({
           mediaId: this.props.media.id,
           mediaType: "movie",
           mediaTitle: this.props.media.title,
           mediaPosterPath: this.props.media.poster_path
         });
-      } else if (e.target.name === "add-to-likes") {
+      } else if (target === "add-to-likes") {
         this.props.addToLikes({
           mediaId: this.props.media.id,
           mediaType: "movie",
           mediaTitle: this.props.media.title,
           mediaPosterPath: this.props.media.poster_path
         });
-      } else if (e.target.name === "remove-from-favorites") {
+      } else if (target === "remove-from-favorites") {
         this.props.removeFromFavorites({
           mediaId: this.props.media.id,
           mediaType: "movie"
         });
-      } else if (e.target.name === "remove-from-likes") {
+      } else if (target === "remove-from-likes") {
         this.props.removeFromLikes({
           mediaId: this.props.media.id,
           mediaType: "movie"
@@ -122,8 +122,9 @@ class MovieInfo extends Component {
               <div className={styles.favorites}>
                 {this.props.favorited ? (
                   <button
-                    name="remove-from-favorites"
-                    onClick={this.onSocialButtonHandler}
+                    onClick={() =>
+                      this.onSocialButtonHandler("remove-from-favorites")
+                    }
                   >
                     <i className={`icon-heart ${styles.icon}`} />{" "}
                     {this.props.isFavoritesLoading ? (
@@ -134,8 +135,9 @@ class MovieInfo extends Component {
                   </button>
                 ) : (
                   <button
-                    name="add-to-favorites"
-                    onClick={this.onSocialButtonHandler}
+                    onClick={() =>
+                      this.onSocialButtonHandler("add-to-favorites")
+                    }
                   >
                     <i className={`icon-heart ${styles.icon}`} />{" "}
                     {this.props.isFavoritesLoading ? (
@@ -149,8 +151,9 @@ class MovieInfo extends Component {
               <div className={styles.likes}>
                 {this.props.liked ? (
                   <button
-                    name="remove-from-likes"
-                    onClick={this.onSocialButtonHandler}
+                    onClick={() =>
+                      this.onSocialButtonHandler("remove-from-likes")
+                    }
                   >
                     <i className={`icon-thumbs-up-alt ${styles.icon}`} />{" "}
                     {this.props.isLikesLoading ? (
@@ -161,8 +164,7 @@ class MovieInfo extends Component {
                   </button>
                 ) : (
                   <button
-                    name="add-to-likes"
-                    onClick={this.onSocialButtonHandler}
+                    onClick={() => this.onSocialButtonHandler("add-to-likes")}
                   >
                     <i className={`icon-thumbs-up-alt ${styles.icon}`} />{" "}
                     {this.props.isLikesLoading ? (
