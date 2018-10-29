@@ -1,0 +1,59 @@
+@import "../../../_var";
+
+.container {
+  display: grid;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  min-height: 200px;
+  max-height: 900px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: $navbarColor;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.2fr 0.5fr 0.4fr;
+  grid-gap: 10px;
+  grid-template-areas: "form-title" "form-body" "form-buttons";
+}
+
+.form-title {
+  grid-area: form-title;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    text-shadow: 3px 3px 3px black;
+  }
+}
+
+.form-body {
+  grid-area: form-body;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  i {
+    margin-right: 10px;
+  }
+}
+
+.form-buttons {
+  grid-area: form-buttons;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.input-container {
+  display: block;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.error-message {
+  color: salmon;
+  font-weight: bold;
+}

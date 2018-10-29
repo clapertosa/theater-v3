@@ -14,6 +14,7 @@ a {
   grid-template-rows: 1.5fr 0.5fr;
   grid-gap: 10px;
   grid-template-areas: "poster" "caption";
+  overflow: hidden;
 }
 
 .poster {
@@ -33,9 +34,10 @@ a {
 }
 
 .poster {
-  max-height: 29rem;
+  max-height: 23rem;
   height: 100%;
   overflow: hidden;
+
   img {
     width: 100%;
     height: auto;
@@ -49,6 +51,7 @@ a {
   justify-content: center;
   align-items: center;
   margin: 10px auto;
+  max-width: 16rem;
   text-align: center;
 
   .star {
@@ -63,8 +66,8 @@ a {
 @media (min-width: $mediaQueryMinWidth) {
   .poster {
     img {
-      height: 29rem;
-      width: 20rem;
+      height: 23rem;
+      width: 16rem;
     }
   }
 }

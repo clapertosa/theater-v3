@@ -5,6 +5,7 @@ const Button = props => {
   return (
     <button
       className={styles.button}
+      type={props.type || "button"}
       onClick={props.clicked}
       style={{
         cursor: props.cursor,

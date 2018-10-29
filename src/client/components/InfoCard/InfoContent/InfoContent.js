@@ -22,9 +22,9 @@ const renderer = props => {
           <p className={styles["category-data"]}>
             {props.data.map((array, index) => {
               return index < props.data.length - 1 ? (
-                <span key={array.name}>{array.name}, </span>
+                <span key={index}>{array.name}, </span>
               ) : (
-                <span key={array.name}>{array.name}</span>
+                <span key={index}>{array.name}</span>
               );
             })}
           </p>

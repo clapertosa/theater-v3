@@ -36,7 +36,11 @@ class NavbarDropdownItem extends Component {
               rotate={this.props.rotate}
             />
           ) : null}{" "}
-          <span className={styles.title}>{this.props.title}</span>
+          <span className={styles.title}>
+            {this.props.title.trim().length > 7
+              ? this.props.title.trim().substring(0, 7) + "..."
+              : this.props.title.trim()}
+          </span>
         </button>
         <div
           className={[

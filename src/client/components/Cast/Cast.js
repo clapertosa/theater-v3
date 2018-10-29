@@ -7,7 +7,11 @@ const Cast = props => {
       <div key={index} className={styles.content}>
         <div className={styles.actors}>
           <img
-            src={`https://image.tmdb.org/t/p/w45/${actor.profile_path}`}
+            src={
+              actor.profile_path
+                ? `https://image.tmdb.org/t/p/w45/${actor.profile_path}`
+                : "https://via.placeholder.com/45x68/7f7979/0000000?text=No Image"
+            }
             alt={actor.name}
           />
           &nbsp;

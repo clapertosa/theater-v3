@@ -3,7 +3,11 @@ import logo from "../../../../assets/images/logo.svg";
 import styles from "./Logo.scss";
 
 const Logo = () => {
-  return <img className={styles.logo} src={logo} alt="Logo" />;
+  return (
+    <a href="/">
+      <img className={styles.logo} src={logo} alt="Logo" />
+    </a>
+  );
 };
 
 export default Logo;

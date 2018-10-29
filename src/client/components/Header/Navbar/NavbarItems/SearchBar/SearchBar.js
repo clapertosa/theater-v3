@@ -58,7 +58,7 @@ class SearchBar extends Component {
                               }`
                             : "https://via.placeholder.com/92x138text=No%20Poster"
                         }
-                        alt={`${result.title || result.name} poster`}
+                        alt="Poster"
                       />
                       <span className={styles.title}>
                         {result.title || result.name} (

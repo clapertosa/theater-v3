@@ -1,0 +1,20 @@
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+
+  input {
+    width: 100%;
+    min-width: 182px;
+  }
+}
+
+.error {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: salmon;
+  font-weight: bold;
+}
