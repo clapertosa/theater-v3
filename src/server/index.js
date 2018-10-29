@@ -44,7 +44,7 @@ app.use(
     unset: "destroy",
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000,
-      secure: process.env.NODE_ENV === "production" ? true : false
+      secure: false
     }
   })
 );
