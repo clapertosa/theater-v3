@@ -3,7 +3,7 @@ import styles from "./Cast.scss";
 
 const Cast = props => {
   return props.data.slice(0, 10).map((actor, index) => {
-    return (
+    return actor.profile_path ? (
       <div key={index} className={styles.content}>
         <div className={styles.actors}>
           <img
@@ -19,7 +19,7 @@ const Cast = props => {
         </div>
         <div className={styles.characters}>as {actor.character}</div>
       </div>
-    );
+    ) : null;
   });
 };
 
