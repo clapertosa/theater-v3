@@ -4,7 +4,7 @@ let instance = axios.create({
   baseURL: `http${process.env.NODE_ENV === "development" ? "" : "s"}://${
     process.env.NODE_ENV === "development"
       ? "localhost:3000"
-      : "whispering-earth-57793.herokuapp.com"
+      : "theater-webapp.herokuapp.com"
   }/api`
 });
 
