@@ -4,7 +4,8 @@ import Link from "next/link";
 
 const Container = styled.div`
   grid-area: ${({ gridArea }) => gridArea};
-  display: ${({ title }) => (title ? "grid" : "block")};
+  display: ${({ title }) => (title ? "grid" : "flex")};
+  justify-content: ${({ title }) => (title ? "none" : "center")};
   grid-template-areas: "icon title" ". list";
   grid-template-columns: auto 1fr;
   grid-template-rows: auto auto;
@@ -42,8 +43,15 @@ const List = styled.ul`
     list-style: none;
 
     a {
-      text-decoration: underline;
       color: ${({ theme: { colors } }) => colors.white};
+      text-decoration: underline;
+      transition: color 0.3s;
+    }
+
+    &:hover {
+      a {
+        color: ${({ theme: { colors } }) => colors.candy};
+      }
     }
   }
 `;

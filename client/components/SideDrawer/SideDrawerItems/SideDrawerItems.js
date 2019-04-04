@@ -8,7 +8,8 @@ const Container = styled.div`
   display: grid;
   grid-template-areas: "searchbar" "discover" "movies" "series" "user";
   grid-template-rows: auto auto auto auto auto;
-  margin: 2px 0;
+  margin: 10px auto;
+  width: 90%;
 `;
 
 const SideDrawerItems = () => {

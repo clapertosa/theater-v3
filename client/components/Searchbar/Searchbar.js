@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Results from "./Results/Results";
 
 const Container = styled.div`
+  position: relative;
   border-radius: 10px;
   width: 100%;
-  min-width: 15rem;
 `;
 
 const Input = styled.input`
@@ -17,13 +18,28 @@ const Input = styled.input`
 const MagnifyingGlass = styled.i`
   position: absolute;
   font-size: 1.5rem;
+  color: black;
 `;
 
 const Searchbar = () => {
+  const [query, setQuery] = useState("");
+  const [showResults, setShowResults] = useState(false);
+  const [results, setResults] = useState([]);
+
+  const onChangeHandler = e => {
+    setQuery(e.target.value);
+  };
+
   return (
     <Container>
       <MagnifyingGlass className="icon-search" />
-      <Input type="text" placeholder="Search Movies or Series" />
+      <Input
+        type="text"
+        placeholder="Search"
+        value={query}
+        onChange={onChangeHandler}
+      />
+      <Results showResults={showResults} results={results} />
     </Container>
   );
 };

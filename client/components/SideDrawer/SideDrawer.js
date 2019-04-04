@@ -12,6 +12,7 @@ const Container = styled.div`
   width: 70%;
   background-color: ${({ theme: { colors } }) => colors.gunMetal};
   border-right: ${({ theme: { colors } }) => `2px solid ${colors.candy}`};
+  overflow: auto;
   transition: all 0.3s;
   transform: ${({ show }) => (show ? "translateX(0)" : "translateX(-200%)")};
 

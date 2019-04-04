@@ -22,12 +22,15 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     color: ${theme.colors.white}
+
+    a {
+      text-decoration: none;
+    }
   }
 
   *, *:before, *:after {
     box-sizing: inherit
   }
-
 `;
 
 const Wrapper = styled.div`
