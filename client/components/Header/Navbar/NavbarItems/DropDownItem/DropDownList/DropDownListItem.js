@@ -12,12 +12,12 @@ const Container = styled.li`
     background-color: ${({ theme: { colors } }) => colors.red};
   }
 
-  & a {
+  a {
     display: block;
     padding: 10px 5px;
     text-decoration: none;
     text-align: center;
-    color: white;
+    color: ${({ theme: { colors } }) => colors.white};
   }
 `;
 

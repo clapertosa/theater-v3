@@ -30,7 +30,6 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
-  color: white;
   font-size: 0.8rem;
 
   & h3 {

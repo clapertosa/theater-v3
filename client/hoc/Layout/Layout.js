@@ -11,7 +11,7 @@ const theme = {
     candy: "#d90429"
   },
   navbarHeight: "4rem",
-  mediaQueryMinWidth: "40rem"
+  mediaQueryMinWidth: "55rem"
 };
 
 const GlobalStyle = createGlobalStyle`
@@ -21,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: ${theme.colors.white}
   }
 
   *, *:before, *:after {
@@ -42,6 +43,10 @@ const Layout = ({ children }) => {
         <Wrapper>
           <Navbar />
           {children}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
+          ratione quos omnis rem deserunt ullam repellendus ducimus est
+          necessitatibus fugiat vero reiciendis veritatis asperiores doloremque
+          enim, corporis quia itaque fuga.
         </Wrapper>
       </ThemeProvider>
     </>
