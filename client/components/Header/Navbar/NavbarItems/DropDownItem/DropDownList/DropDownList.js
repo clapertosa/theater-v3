@@ -22,7 +22,7 @@ const DropDownList = ({ show, list }) => {
       {list.map((item, index) => (
         <DropDownListItem
           key={index}
-          background={index}
+          index={index}
           title={item.title}
           url={item.url}
         />

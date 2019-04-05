@@ -32,9 +32,15 @@ const Title = styled.div`
   height: 100%;
   font-size: 0.8rem;
 
-  & h3 {
+  h3 {
     margin: 0;
     padding: 0;
+  }
+
+  i {
+    transition: transform 0.3s;
+    transform: ${({ showDropDown }) =>
+      showDropDown ? "rotate(-180deg)" : "rotate(0)"};
   }
 `;
 
@@ -65,8 +71,8 @@ const DropDownItem = ({ list, marginLeft, marginRight, icon, title }) => {
       <Icon>
         <img src={icon} alt={`${title} icon`} />
       </Icon>
-      <Title>
-        <h3>{title}</h3> <i className="icon-down-open-big" />
+      <Title showDropDown={showDropDown}>
+        <h3>{title}</h3> <i className="icon-down-open" />
       </Title>
       <DropDownList show={showDropDown} list={list} />
     </Container>

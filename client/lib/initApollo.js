@@ -12,7 +12,10 @@ if (!process.browser) {
 
 function create(initialState, { getToken }) {
   const httpLink = createHttpLink({
-    uri: "/graphql",
+    uri:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/graphql"
+        : "CAMBIA_URL!!",
     credentials: "same-origin"
   });
 

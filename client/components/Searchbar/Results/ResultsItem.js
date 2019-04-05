@@ -8,8 +8,8 @@ const Container = styled.div`
   grid-template-columns: auto 1fr;
   grid-column-gap: 10px;
   margin: 5px 0;
-  background-color: ${({ background, theme: { colors } }) =>
-    background === 0 ? colors.gunMetal : colors.gray};
+  background-color: ${({ index, theme: { colors } }) =>
+    index === 0 ? colors.gunMetal : colors.gray};
   transition: background-color 0.3s;
 
   &:hover {
@@ -45,11 +45,11 @@ const Title = styled.div`
   }
 `;
 
-const ResultsItem = ({ background, image, title }) => {
+const ResultsItem = ({ index, image, title, url }) => {
   return (
-    <Link href="#">
-      <a>
-        <Container background={background}>
+    <Link href={url}>
+      <a tabIndex={index}>
+        <Container index={index % 2}>
           <Poster>
             <img src={image} alt={`${title} poster`} />
           </Poster>

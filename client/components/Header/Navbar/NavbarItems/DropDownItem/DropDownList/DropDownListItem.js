@@ -4,8 +4,8 @@ import Link from "next/link";
 
 const Container = styled.li`
   list-style: none;
-  background-color: ${({ background, theme: { colors } }) =>
-    background === 0 ? colors.gunMetal : colors.gray};
+  background-color: ${({ index, theme: { colors } }) =>
+    index === 0 ? colors.gunMetal : colors.gray};
   transition: background-color 0.3s;
 
   & :hover {
@@ -21,9 +21,9 @@ const Container = styled.li`
   }
 `;
 
-const DropDownListItem = ({ background, title, url }) => {
+const DropDownListItem = ({ index, title, url }) => {
   return (
-    <Container background={background % 2}>
+    <Container index={index % 2}>
       <Link href={url}>
         <a>{title}</a>
       </Link>

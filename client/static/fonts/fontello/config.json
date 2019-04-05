@@ -13,16 +13,16 @@
       "src": "typicons"
     },
     {
-      "uid": "289b5f92f23acf1059c93fbf401c1ad5",
-      "css": "down-open-big",
-      "code": 59394,
-      "src": "entypo"
-    },
-    {
       "uid": "7222571caa5c15f83dcfd447c58d68d9",
       "css": "search",
       "code": 59393,
       "src": "entypo"
+    },
+    {
+      "uid": "ccddff8e8670dcd130e3cb55fdfc2fd0",
+      "css": "down-open",
+      "code": 59394,
+      "src": "fontawesome"
     }
   ]
 }
