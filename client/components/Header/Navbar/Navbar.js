@@ -9,10 +9,13 @@ import SideDrawer from "../../SideDrawer/SideDrawer";
 
 const Header = styled.header`
   grid-area: header;
+  position: sticky;
+  top: 0;
   height: ${({ theme: { navbarHeight } }) => navbarHeight};
   width: 100%;
   background-color: ${({ theme: { colors } }) => colors.gunMetal};
   border-bottom: ${({ theme: { colors } }) => `1px solid ${colors.candy}`};
+  z-index: ${({ theme: { zIndex } }) => zIndex.navbar};
 `;
 
 const Nav = styled.nav`

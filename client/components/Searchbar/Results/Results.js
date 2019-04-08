@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ResultsItem from "./ResultsItem";
 import Spinner from "../../Spinner/Spinner";
+import * as data from "../../../../utils/searchbar_data";
 
 const Container = styled.div`
   display: ${({ show }) => (show ? "block" : "none")};
@@ -22,21 +23,6 @@ const Message = styled.p`
 `;
 
 const Results = ({ showResults, closeResults, query, loading, results }) => {
-  const setImageUrl = (posterPath, profilePath) => {
-    const POSTER_URL = "http://image.tmdb.org/t/p/w92";
-    const PROFILE_URL = "http://image.tmdb.org/t/p/w185";
-
-    if (posterPath) return POSTER_URL + posterPath;
-    else if (profilePath) return PROFILE_URL + profilePath;
-    else return "https://via.placeholder.com/50x75/fff?text=No%20Image";
-  };
-
-  const setUrl = (id, mediaType) => {
-    if (mediaType === "movie") return `movie?id=${id}`;
-    else if (mediaType === "tv") return `series?id=${id}`;
-    else if (mediaType === "person") return `person?id=${id}`;
-  };
-
   if (loading) {
     return (
       <Container
@@ -68,14 +54,9 @@ const Results = ({ showResults, closeResults, query, loading, results }) => {
           <ResultsItem
             key={index}
             index={index}
-            title={
-              result.name ||
-              result.original_name ||
-              result.title ||
-              result.original_title
-            }
-            image={setImageUrl(result.poster_path, result.profile_path)}
-            url={setUrl(result.id, result.media_type)}
+            title={data.getTitle(result)}
+            image={data.getImageUrl(result)}
+            url={data.getUrl(result)}
           />
         ))}
       </Container>

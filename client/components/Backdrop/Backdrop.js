@@ -8,6 +8,7 @@ const Container = styled.div`
   width: 100%;
   top: ${({ theme: { navbarHeight } }) => navbarHeight};
   background-color: #00000080;
+  z-index: ${({ theme: { zIndex } }) => zIndex.backdrop};
 `;
 
 const Backdrop = ({ show, clicked }) => {

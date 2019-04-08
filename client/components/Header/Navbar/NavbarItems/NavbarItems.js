@@ -71,7 +71,7 @@ const NavbarItems = () => {
         />
       </First>
       <Second>
-        <Item width="90%">
+        <Item justifyContent="flex-end" width="90%">
           <Searchbar />
         </Item>
         <DropDownItem

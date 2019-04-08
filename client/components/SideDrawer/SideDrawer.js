@@ -13,6 +13,7 @@ const Container = styled.div`
   background-color: ${({ theme: { colors } }) => colors.gunMetal};
   border-right: ${({ theme: { colors } }) => `2px solid ${colors.candy}`};
   overflow: auto;
+  z-index: ${({ theme: { zIndex } }) => zIndex.sideDrawer};
   transition: all 0.3s;
   transform: ${({ show }) => (show ? "translateX(0)" : "translateX(-200%)")};
 

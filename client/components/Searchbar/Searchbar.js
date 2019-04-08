@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Results from "./Results/Results";
 
 // Apollo Query
-const SEARCH_QUERY = gql`
+export const SEARCH_QUERY = gql`
   query SEARCH_QUERY($query: String) {
     search(query: $query) {
       results {
@@ -28,6 +28,7 @@ const Container = styled.div`
   position: relative;
   border-radius: 10px;
   width: 100%;
+  max-width: 22rem;
 `;
 
 const Input = styled.input`
