@@ -1,3 +1,5 @@
+const searchResolver = require("./search");
+const discoverResolver = require("./discover");
 const userResolver = require("./user");
 
-module.exports = { ...userResolver };
+module.exports = { ...searchResolver, ...discoverResolver, ...userResolver };
