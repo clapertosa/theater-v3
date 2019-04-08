@@ -4,13 +4,16 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "dev": "nodemon server/index.js",
-    "build": "next build",
-    "start": "NODE_ENV=production node server/index.js"
+    "dev": "NODE_ENV=development nodemon server/index.js",
+    "build": "next build client",
+    "start": "NODE_ENV=production node server/index.js",
+    "test": "NODE_ENV=test jest --watch",
+    "test:coverage": "NODE_ENV=test jest -- --coverage"
   },
   "dependencies": {
-    "apollo-boost": "^0.1.6",
-    "apollo-link-context": "^1.0.8",
+    "apollo-boost": "^0.3.1",
+    "apollo-link-context": "^1.0.17",
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cookie": "^0.3.1",
@@ -20,16 +23,26 @@
     "express-graphql": "^0.7.1",
     "graphql": "^14.2.1",
     "helmet": "^3.16.0",
-    "isomorphic-unfetch": "^2.0.0",
+    "isomorphic-unfetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash.debounce": "^4.0.8",
+    "moment": "^2.24.0",
     "next": "^8.0.4",
-    "prop-types": "^15.6.1",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-apollo": "^2.1.4",
+    "react-apollo": "^2.5.4",
     "react-dom": "^16.8.6",
+    "react-slick": "^0.23.2",
     "styled-components": "^4.2.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "@types/jest": "^24.0.11",
+    "@types/styled-components": "^4.1.13",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.0",
+    "eslint-plugin-jest": "^22.4.1",
+    "jest": "^24.7.1",
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2"
   }
 }

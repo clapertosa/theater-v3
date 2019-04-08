@@ -1,3 +1,6 @@
 node_modules
 .next
+dev.js
 auth.txt
+credits.txt
+TMDB_images_sizes.txt
