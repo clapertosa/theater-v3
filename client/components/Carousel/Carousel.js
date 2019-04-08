@@ -40,7 +40,7 @@ const PrevButton = styled.i`
 
 const settings = {
   infinite: true,
-  speed: 1000,
+  speed: 500,
   dots: false,
   nextArrow: (
     <NextButton>
