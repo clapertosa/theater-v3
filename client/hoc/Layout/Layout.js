@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import Navbar from "../../components/Header/Navbar/Navbar";
+import Footer from "../../components/Footer";
 
 const theme = {
   colors: {
@@ -11,17 +12,28 @@ const theme = {
     candy: "#d90429"
   },
   navbarHeight: "4rem",
-  mediaQueryMinWidth: "55rem"
+  mediaQueryMinWidth: "55rem",
+  zIndex: {
+    navbar: 10,
+    sideDrawer: 9,
+    backdrop: 7,
+    carouselArrows: 8
+  }
 };
 
 const GlobalStyle = createGlobalStyle`
   @import url('/static/fonts/fontello/css/fontello.css');
+  @import url('/static/styles/slick.min.css');
+  @import url('/static/styles/slick-theme.min.css');
 
   html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: ${theme.colors.white}
+    height: 100%;
+    color: ${theme.colors.white};
+    background-color: ${theme.colors.gunMetal};
+    background-image: url('/static/images/background.gif');
 
     a {
       text-decoration: none;
@@ -31,11 +43,29 @@ const GlobalStyle = createGlobalStyle`
   *, *:before, *:after {
     box-sizing: inherit
   }
+
+  .slick-slider,
+  .slick-list,
+  .slick-track,
+  .slick-slide,
+  .slick-slide > div {
+    height: 100%;
+  }
+
+  #__next {
+    height: 100%;
+  }
 `;
 
 const Wrapper = styled.div`
   display: grid;
   grid-template-areas: "header" "main" "footer";
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+`;
+
+const Main = styled.div`
+  grid-area: main;
 `;
 
 const Layout = ({ children }) => {
@@ -45,11 +75,8 @@ const Layout = ({ children }) => {
       <ThemeProvider theme={theme}>
         <Wrapper>
           <Navbar />
-          {children}
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
-          ratione quos omnis rem deserunt ullam repellendus ducimus est
-          necessitatibus fugiat vero reiciendis veritatis asperiores doloremque
-          enim, corporis quia itaque fuga.
+          <Main>{children}</Main>
+          <Footer />
         </Wrapper>
       </ThemeProvider>
     </>

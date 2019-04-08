@@ -2,3 +2,6 @@
 .icon-menu:before { content: '\e800'; } /* '' */
 .icon-search:before { content: '\e801'; } /* '' */
 .icon-down-open:before { content: '\e802'; } /* '' */
+.icon-left-circle:before { content: '\e803'; } /* '' */
+.icon-right-circle:before { content: '\e804'; } /* '' */
+.icon-star-1:before { content: '\e806'; } /* '' */

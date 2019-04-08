@@ -15,7 +15,7 @@ function create(initialState, { getToken }) {
     uri:
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000/graphql"
-        : "CAMBIA_URL!!",
+        : "http://localhost:3000/graphql",
     credentials: "same-origin"
   });
 

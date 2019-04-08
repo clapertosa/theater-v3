@@ -23,6 +23,24 @@
       "css": "down-open",
       "code": 59394,
       "src": "fontawesome"
+    },
+    {
+      "uid": "7e092c82e9a758b6e95297007969aac1",
+      "css": "left-circle",
+      "code": 59395,
+      "src": "websymbols"
+    },
+    {
+      "uid": "d30928620bda0d5eaa85d3b65bf19963",
+      "css": "right-circle",
+      "code": 59396,
+      "src": "websymbols"
+    },
+    {
+      "uid": "474656633f79ea2f1dad59ff63f6bf07",
+      "css": "star-1",
+      "code": 59398,
+      "src": "fontawesome"
     }
   ]
 }
