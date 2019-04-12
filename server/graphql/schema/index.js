@@ -77,6 +77,7 @@ module.exports = buildSchema(`
   type RootQuery {
     # Search
     search(query: String): Search
+    searchCast(query: String): Search
 
     # Discover
     discoverMovies: Discover
