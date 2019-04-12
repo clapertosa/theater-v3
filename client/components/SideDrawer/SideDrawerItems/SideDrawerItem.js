@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import DrawerContext from "../../../contexts/DrawerContext";
 import Link from "next/link";
 
 const Container = styled.div`
@@ -57,6 +58,8 @@ const List = styled.ul`
 `;
 
 const SideDrawerItem = ({ gridArea, icon, title, list, children }) => {
+  const { closeSideDrawer } = useContext(DrawerContext);
+
   if (title) {
     return (
       <Container gridArea={gridArea} title={title}>
@@ -66,7 +69,7 @@ const SideDrawerItem = ({ gridArea, icon, title, list, children }) => {
         <Title>{title}</Title>
         <List>
           {list.map((item, index) => (
-            <li key={index}>
+            <li key={index} onClick={closeSideDrawer}>
               <Link href={item.url}>
                 <a>{item.title}</a>
               </Link>
