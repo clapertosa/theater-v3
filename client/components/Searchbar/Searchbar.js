@@ -1,29 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ApolloConsumer } from "react-apollo";
-import { gql } from "apollo-boost";
 import debounce from "lodash.debounce";
 import styled from "styled-components";
 import Results from "./Results/Results";
 
-// Apollo Query
-export const SEARCH_QUERY = gql`
-  query SEARCH_QUERY($query: String) {
-    search(query: $query) {
-      results {
-        id
-        name
-        original_name
-        title
-        original_title
-        media_type
-        poster_path
-        profile_path
-      }
-    }
-  }
-`;
-
-// Styles
 const Container = styled.div`
   position: relative;
   border-radius: 10px;
@@ -44,7 +24,7 @@ const MagnifyingGlass = styled.i`
   color: black;
 `;
 
-const Searchbar = () => {
+const Searchbar = ({ apolloQuery }) => {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -70,11 +50,11 @@ const Searchbar = () => {
 
     setLoading(true);
     const res = await client.query({
-      query: SEARCH_QUERY,
+      query: apolloQuery,
       variables: { query }
     });
 
-    setResults(res.data.search.results);
+    setResults(res.data[Object.keys(res.data)[0]].results);
     setShowResults(true);
     setLoading(false);
   }, 1500);
@@ -87,6 +67,7 @@ const Searchbar = () => {
             <MagnifyingGlass className="icon-search" />
             <Input
               className="search-input"
+              autoComplete="off"
               type="text"
               placeholder="Search"
               onFocus={() => setShowResults(true)}

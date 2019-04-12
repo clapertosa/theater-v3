@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import SlidingCardsItem from "./SlidingCardsItem";
 import Carousel from "../Carousel/Carousel";
-import getMedias from "../../../utils/slidingCards_data";
+import getMedias from "../../utils/components/slidingCards_data";
 
 const carouselResponsiveness = [
   {

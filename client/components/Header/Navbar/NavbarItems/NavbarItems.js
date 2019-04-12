@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { SEARCH_QUERY } from "../../../../apollo/queries";
 import Item from "./Item";
 import DropDownItem from "./DropDownItem/DropDownItem";
 import Searchbar from "../../../Searchbar/Searchbar";
@@ -72,7 +73,7 @@ const NavbarItems = () => {
       </First>
       <Second>
         <Item justifyContent="flex-end" width="90%">
-          <Searchbar />
+          <Searchbar apolloQuery={SEARCH_QUERY} />
         </Item>
         <DropDownItem
           icon="/static/images/navbar/user.svg"

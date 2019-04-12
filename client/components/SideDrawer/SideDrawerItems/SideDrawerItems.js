@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { SEARCH_QUERY } from "../../../apollo/queries";
 import SideDrawerItem from "./SideDrawerItem";
 import Searchbar from "../../Searchbar/Searchbar";
 
@@ -16,7 +17,7 @@ const SideDrawerItems = () => {
   return (
     <Container>
       <SideDrawerItem gridArea="searchbar">
-        <Searchbar />
+        <Searchbar apolloQuery={SEARCH_QUERY} />
       </SideDrawerItem>
       <SideDrawerItem
         gridArea="discover"

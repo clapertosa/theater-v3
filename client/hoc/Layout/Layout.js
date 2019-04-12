@@ -2,6 +2,7 @@ import React from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import Navbar from "../../components/Header/Navbar/Navbar";
 import Footer from "../../components/Footer";
+import "../../static/styles/main.css";
 
 const theme = {
   colors: {
@@ -15,8 +16,10 @@ const theme = {
   mediaQueryMinWidth: "55rem",
   zIndex: {
     navbar: 10,
+    footer: 10,
     sideDrawer: 9,
     backdrop: 7,
+    filter: 6,
     carouselArrows: 8
   }
 };
@@ -33,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     color: ${theme.colors.white};
     background-color: ${theme.colors.gunMetal};
-    background-image: url('/static/images/background.gif');
+    /* background-image: url('/static/images/background.gif'); */
 
     a {
       text-decoration: none;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: ${({ show }) => (show ? "block" : "none")};
-  position: absolute;
+  position: fixed;
   height: ${({ theme: { navbarHeight } }) => `calc(100% - ${navbarHeight})`};
   width: 100%;
   top: ${({ theme: { navbarHeight } }) => navbarHeight};

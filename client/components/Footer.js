@@ -11,6 +11,7 @@ const Container = styled.div`
   width: 100%;
   height: ${({ theme: { navbarHeight } }) => navbarHeight};
   background-color: ${({ theme: { colors } }) => colors.gunMetal};
+  z-index: ${({ theme: { zIndex } }) => zIndex.footer};
 
   a {
     display: inline-block;

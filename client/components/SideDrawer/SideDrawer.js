@@ -5,7 +5,7 @@ import Backdrop from "../Backdrop/Backdrop";
 import SideDrawerItems from "./SideDrawerItems/SideDrawerItems";
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   top: ${({ theme: { navbarHeight } }) => navbarHeight};
   left: 0;
   height: ${({ theme: { navbarHeight } }) => `calc(100% - ${navbarHeight})`};

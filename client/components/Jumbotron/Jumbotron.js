@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import getMedias from "../../../utils/jumbotron_data";
+import getMedias from "../../utils/components/jumbotron_data";
 import Carousel from "../Carousel/Carousel";
 
 const Container = styled.div`
