@@ -25,11 +25,7 @@ const theme = {
 };
 
 const GlobalStyle = createGlobalStyle`
-  @import url('/static/fonts/fontello/css/fontello.css');
-  @import url('/static/styles/slick.min.css');
-  @import url('/static/styles/slick-theme.min.css');
-
-  html, body {
+    html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;

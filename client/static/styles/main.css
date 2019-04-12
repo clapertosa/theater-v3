@@ -1,3 +1,7 @@
+@import url("/static/fonts/fontello/css/fontello.css");
+@import url("/static/styles/slick.min.css");
+@import url("/static/styles/slick-theme.min.css");
+
 body {
   background-image: url("/static/images/background.gif");
 }
