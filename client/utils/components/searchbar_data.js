@@ -9,7 +9,7 @@ export const getImageUrl = media => {
   const PROFILE_URL = "https://image.tmdb.org/t/p/w185";
 
   if (media.poster_path) return POSTER_URL + media.poster_path;
-  else if (media.profile_ath) return PROFILE_URL + media.profile_ath;
+  else if (media.profile_path) return PROFILE_URL + media.profile_path;
   else return "https://via.placeholder.com/50x75/fff?text=No%20Image";
 };
 
