@@ -10,37 +10,15 @@ module.exports = buildSchema(`
   }
 
   type Result {
-    id: ID
-    name: String
-    original_name: String
-    title: String
-    original_title: String
-    media_type: String
-    poster_path: String
-    profile_path: String
-    vote_count: Int
-    vote_average: Float
-    first_air_date: String
-    popularity: Float
-    genre_ids: [Int]
-  }
-
-  # Discover
-  type Discover {
-    page: Int,
-    total_results: Int,
-    total_pages: Int,
-    results: [DiscoveredMedia]
-  }
-
-  type DiscoveredMedia {
     id: ID!
+    media_type: String
     original_title: String
     original_name: String
     title: String
     name: String
     original_language: String
     poster_path: String
+    profile_path: String
     backdrop_path: String
     adult: Boolean
     overview: String
@@ -50,6 +28,23 @@ module.exports = buildSchema(`
     popularity: Float
     vote_count: Int
     vote_average: Float
+  }
+
+  # Discover
+  type Discover {
+    page: Int
+    total_results: Int
+    total_pages: Int
+    results: [Result]
+  }
+
+  input DiscoverInput {
+    page: Int
+    release_year: String
+    sort_by: String
+    with_genres: String
+    without_genres: String
+    with_cast: String
   }
 
   # User
@@ -79,9 +74,13 @@ module.exports = buildSchema(`
     search(query: String): Search
     searchCast(query: String): Search
 
+    # Home
+    homeMovies: Discover!
+    homeSeries: Discover!
+
     # Discover
-    discoverMovies: Discover
-    discoverSeries: Discover
+    discoverMovies(input: DiscoverInput): Discover
+    discoverSeries(input: DiscoverInput): Discover
 
     # User
     getUser: String
