@@ -4,10 +4,11 @@ import styled from "styled-components";
 const Container = styled.div`
   margin: auto;
   width: 95%;
+  height: 100%;
 
   @media (min-width: ${({ theme: { mediaQueryMinWidth } }) =>
       mediaQueryMinWidth}) {
-    width: 80%;
+    width: 90%;
   }
 `;
 

@@ -31,7 +31,10 @@ const Searchbar = ({ apolloQuery }) => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    window.addEventListener("click", closeResults);
+    document.addEventListener("click", closeResults);
+    return () => {
+      document.removeEventListener("click", closeResults);
+    };
   });
 
   const closeResults = () => {

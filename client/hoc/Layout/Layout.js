@@ -4,7 +4,7 @@ import Navbar from "../../components/Header/Navbar/Navbar";
 import Footer from "../../components/Footer";
 import "../../static/styles/main.css";
 
-const theme = {
+export const theme = {
   colors: {
     gunMetal: "#2b2d42",
     gray: "#8d99ae",
@@ -29,10 +29,12 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    height: 100%;
     color: ${theme.colors.white};
     background-color: ${theme.colors.gunMetal};
-    /* background-image: url('/static/images/background.gif'); */
+
+    body {
+      min-height: 100vh;
+    }
 
     a {
       text-decoration: none;
@@ -52,7 +54,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   #__next {
-    height: 100%;
+    height: inherit;
   }
 `;
 
@@ -65,6 +67,8 @@ const Wrapper = styled.div`
 
 const Main = styled.div`
   grid-area: main;
+  min-height: ${({ theme: { navbarHeight } }) =>
+    `calc(100vh - ${navbarHeight} * 2)`};
 `;
 
 const Layout = ({ children }) => {

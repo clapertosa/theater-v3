@@ -2,6 +2,51 @@
 @import url("/static/styles/slick.min.css");
 @import url("/static/styles/slick-theme.min.css");
 
+@font-face {
+  font-family: Montserrat;
+  src: url("/static/fonts/Montserrat-Regular.ttf");
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("/static/fonts/Montserrat-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold;
+  src: url("/static/fonts/Montserrat-SemiBold.ttf");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("/static/fonts/Montserrat-Italic.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("/static/fonts/Montserrat-Light.ttf");
+  font-weight: 100;
+}
+
 body {
   background-image: url("/static/images/background.gif");
+  font-family: Montserrat, sans-serif;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s;
 }

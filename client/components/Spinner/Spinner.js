@@ -10,8 +10,8 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  height: 60px;
-  width: 60px;
+  height: ${({ size }) => (size ? size : "60px")};
+  width: ${({ size }) => (size ? size : "60px")};
   border: 3px solid transparent;
   border-top-color: #a04668;
   margin: -30px;
@@ -54,10 +54,10 @@ const Container = styled.div`
   }
 `;
 
-const Spinner = () => {
+const Spinner = ({ size }) => {
   return (
     <Wrapper>
-      <Container />
+      <Container size={size} />
     </Wrapper>
   );
 };

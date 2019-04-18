@@ -1,6 +1,6 @@
 export const getTitle = media => {
   return (
-    media.name || media.original_name || media.title || media.original_title
+    media.title || media.original_title || media.name || media.original_name
   );
 };
 

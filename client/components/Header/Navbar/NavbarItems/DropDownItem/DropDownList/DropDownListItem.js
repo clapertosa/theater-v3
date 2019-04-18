@@ -13,6 +13,8 @@ const Container = styled.li`
   }
 
   a {
+    font-family: Montserrat-SemiBold;
+    font-size: 0.9rem;
     display: block;
     padding: 10px 5px;
     text-decoration: none;

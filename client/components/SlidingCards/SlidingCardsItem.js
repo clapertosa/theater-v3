@@ -76,7 +76,10 @@ const SlidingCardsItem = ({ media }) => {
         <a>
           <Image
             src={imageUrl + "w300" + media.backdrop_path}
-            alt={`${media.title || media.name} backdrop`}
+            alt={`${media.title ||
+              media.original_title ||
+              media.name ||
+              media.original_name} backdrop`}
           />
           <Info className="slideCard-info">
             <Title>
