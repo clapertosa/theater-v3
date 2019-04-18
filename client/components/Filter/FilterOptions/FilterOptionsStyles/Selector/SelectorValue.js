@@ -6,7 +6,9 @@ const Value = styled.div`
   cursor: pointer;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   padding: 10px;
+  min-height: 43px;
   color: ${({ theme: { colors } }) => colors.gunMetal};
   background-color: ${({ valuesListOpened, theme: { colors } }) =>
     valuesListOpened ? colors.gray : colors.white};

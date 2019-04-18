@@ -8,10 +8,13 @@ import ValuesList from "./FilterOptionsStyles/Selector/SelectorValuesList";
 const Year = ({ onValueChange }) => {
   useEffect(() => {
     document.addEventListener("click", closeValuesList);
+    return () => {
+      document.removeEventListener("click", closeValuesList);
+    };
   });
 
   const years = getYears();
-  const [value, setValue] = useState(years[1] - 1);
+  const [value, setValue] = useState(years[1].value - 1);
   const [showValues, setShowValues] = useState(false);
 
   const onClickHandler = () => {
@@ -24,9 +27,9 @@ const Year = ({ onValueChange }) => {
     }
   };
 
-  const onValueListItemClick = e => {
-    setValue(e.target.innerText);
-    onValueChange({ year: e.target.innerText });
+  const onValueListItemClick = value => {
+    setValue(value.text);
+    onValueChange({ year: value.value.toString() });
     setShowValues(false);
   };
 

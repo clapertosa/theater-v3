@@ -21,6 +21,9 @@ const Cast = ({ onValueChange }) => {
 
   useEffect(() => {
     document.addEventListener("click", closeResults);
+    return () => {
+      document.removeEventListener("click", closeResults);
+    };
   });
 
   useEffect(() => {
@@ -60,13 +63,13 @@ const Cast = ({ onValueChange }) => {
   };
 
   const onResultsItemClick = (id, name) => {
-    onValueChange({ cast: { id, name } });
+    onValueChange({ cast: id });
     setSelectedValue(name);
     setShowResults(false);
   };
 
   const resetFilter = () => {
-    onValueChange({ cast: {} });
+    onValueChange({ cast: "" });
     document.querySelector("#cast-input").focus();
     setSelectedValue("");
   };

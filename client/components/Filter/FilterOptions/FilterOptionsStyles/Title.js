@@ -31,7 +31,7 @@ const Title = ({ children, resetOption, reset }) => {
       <Text>{children}</Text>
       {resetOption ? (
         <ResetIcon onClick={reset}>
-          reset filter
+          reset
           <i className="icon-cancel" />
         </ResetIcon>
       ) : null}

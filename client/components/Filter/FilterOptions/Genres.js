@@ -2,28 +2,38 @@ import React, { useState, useEffect } from "react";
 import { getGenres } from "../../../utils/components/filter";
 import SelectorContainer from "./FilterOptionsStyles/Selector/SelectorContainer";
 import Title from "./FilterOptionsStyles/Title";
-import GenresValuesList from "./FilterOptionsStyles/Genre/GenresValuesList";
-import GenresInput from "./FilterOptionsStyles/Genre/GenresInput";
+import GenresValuesList from "./FilterOptionsStyles/Genres/GenresValuesList";
+import GenresInput from "./FilterOptionsStyles/Genres/GenresInput";
 
-const Genre = ({ mediaType, onValueChange }) => {
+const Genres = ({ mediaType, onValueChange }) => {
+  const [mounted, setMounted] = useState(false);
   const [values, setValues] = useState(getGenres(mediaType));
   const [selectedValues, setSelectedValues] = useState([]);
   const [showValues, setShowValues] = useState(false);
 
   useEffect(() => {
     document.addEventListener("click", closeValuesList);
+    return () => {
+      document.removeEventListener("click", closeValuesList);
+    };
   });
 
   useEffect(() => {
-    onValueChange({ genres: selectedValues });
+    setMounted(true);
+  });
+
+  useEffect(() => {
+    if (mounted) {
+      onValueChange({ genres: selectedValues.toString() });
+    }
   }, [selectedValues]);
 
   const closeValuesList = () => {
     if (
       showValues &&
-      document.activeElement.id !== "genre-input" &&
-      !document.activeElement.className.startsWith("values-list-item") &&
-      !document.activeElement.className.startsWith("checkbox-input")
+      document.activeElement.id !== "genres-input" &&
+      !document.activeElement.className.startsWith("genres-values-list-item") &&
+      !document.activeElement.className.startsWith("genres-checkbox-input")
     ) {
       setShowValues(false);
     }
@@ -35,12 +45,12 @@ const Genre = ({ mediaType, onValueChange }) => {
   };
 
   const onGenresListItemClick = e => {
-    const { id, name } = JSON.parse(e.target.value);
+    const id = e.target.value;
     if (e.target.checked) {
-      setSelectedValues(selectedValues => [...selectedValues, { id, name }]);
+      setSelectedValues(selectedValues => [...selectedValues, id]);
     } else {
       setSelectedValues(selectedValues =>
-        selectedValues.filter(value => value.id !== id)
+        selectedValues.filter(selectedValue => selectedValue !== id)
       );
     }
   };
@@ -51,12 +61,12 @@ const Genre = ({ mediaType, onValueChange }) => {
 
   const resetFilter = () => {
     setSelectedValues([]);
-    onValueChange({ genres: [] });
-    document.querySelector("#genre-input").value = "";
+    onValueChange({ genres: "" });
+    document.querySelector("#genres-input").value = "";
     document
-      .querySelectorAll(".checkbox-input")
+      .querySelectorAll(".genres-checkbox-input")
       .forEach(checkbox => (checkbox.checked = false));
-    document.querySelector("#genre-input").focus();
+    document.querySelector("#genres-input").focus();
   };
 
   return (
@@ -74,4 +84,4 @@ const Genre = ({ mediaType, onValueChange }) => {
   );
 };
 
-export default Genre;
+export default Genres;

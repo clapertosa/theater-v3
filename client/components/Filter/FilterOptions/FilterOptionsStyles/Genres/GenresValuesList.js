@@ -45,7 +45,11 @@ const GenresValuesList = ({ show, values, clicked }) => {
   if (values.length <= 0) {
     return (
       <ValuesList show={show}>
-        <ValuesListItem noResults className="values-list-item" tabIndex="0">
+        <ValuesListItem
+          noResults
+          className="genres-values-list-item"
+          tabIndex="0"
+        >
           <ValueLabel noResults>Genre not found</ValueLabel>
         </ValuesListItem>
       </ValuesList>
@@ -56,16 +60,16 @@ const GenresValuesList = ({ show, values, clicked }) => {
         {values.map((value, index) => (
           <ValuesListItem
             id={value.id}
-            className="values-list-item"
+            className="genres-values-list-item"
             tabIndex={index}
             key={value.id}
           >
             <ValueLabel>
               <ValueCheckbox
                 autoComplete="off" // Uncheck all values on reload
-                className="checkbox-input"
+                className="genres-checkbox-input"
                 type="checkbox"
-                value={JSON.stringify({ id: value.id, name: value.name })}
+                value={value.id}
                 onClick={clicked}
               />
               {value.name}

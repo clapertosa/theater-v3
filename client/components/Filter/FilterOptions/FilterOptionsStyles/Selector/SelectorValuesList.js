@@ -22,6 +22,7 @@ const ValuesListItem = styled.li`
   color: ${({ theme: { colors } }) => colors.gunMetal};
   background-color: ${({ theme: { colors } }) => colors.white};
   text-align: center;
+  text-transform: capitalize;
   transition: background-color 0.3s;
 
   &:hover {
@@ -36,10 +37,13 @@ const SelectorValuesList = ({ show, values, clicked }) => {
         <ValuesListItem
           tabIndex={index}
           className="values-list-item"
-          key={value}
-          onClick={clicked}
+          key={value.value}
+          value={value.value}
+          onClick={() => {
+            clicked(value);
+          }}
         >
-          {value}
+          {value.text}
         </ValuesListItem>
       ))}
     </ValuesList>

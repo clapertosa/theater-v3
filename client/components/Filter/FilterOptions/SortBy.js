@@ -8,10 +8,13 @@ import ValuesList from "./FilterOptionsStyles/Selector/SelectorValuesList";
 const SortBy = ({ mediaType, onValueChange }) => {
   useEffect(() => {
     document.addEventListener("click", closeValuesList);
+    return () => {
+      document.removeEventListener("click", closeValuesList);
+    };
   });
 
   const sortValues = getSortValues(mediaType);
-  const [value, setValue] = useState(sortValues[0]);
+  const [value, setValue] = useState(sortValues[0].text);
   const [showValues, setShowValues] = useState(false);
 
   const onClickHandler = () => {
@@ -24,9 +27,9 @@ const SortBy = ({ mediaType, onValueChange }) => {
     }
   };
 
-  const onValueListItemClick = e => {
-    setValue(e.target.innerText);
-    onValueChange({ sortedBy: e.target.innerText });
+  const onValueListItemClick = value => {
+    setValue(value.text);
+    onValueChange({ sortBy: value.value });
     setShowValues(false);
   };
 

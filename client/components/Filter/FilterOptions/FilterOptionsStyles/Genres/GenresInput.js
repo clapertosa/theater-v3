@@ -8,13 +8,14 @@ const Input = styled.input`
   border-radius: 3px;
   font-size: 1rem;
   padding: 10px;
+  min-height: 43px;
   width: 100%;
 `;
 
 const GenresInput = ({ clicked, changed }) => {
   return (
     <Input
-      id="genre-input"
+      id="genres-input"
       autoComplete="off"
       type="text"
       onClick={clicked}

@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Input = styled.input`
-  grid-area: input;
-  background-color: #edf2f4;
+  grid-area: value;
+  background-color: ${({ theme: { colors } }) => colors.white};
   border-style: none;
   border-radius: 3px;
   font-size: 1rem;
@@ -12,16 +12,17 @@ const Input = styled.input`
   width: 100%;
 `;
 
-const CastInput = ({ clicked, changed }) => {
+const GenresInput = ({ clicked, changed }) => {
   return (
     <Input
-      id="cast-input"
+      id="without-genres-input"
       autoComplete="off"
-      placeholder="Filter by person"
+      type="text"
       onClick={clicked}
       onChange={changed}
+      placeholder="Filter by genre"
     />
   );
 };
 
-export default CastInput;
+export default GenresInput;

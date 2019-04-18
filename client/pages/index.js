@@ -1,57 +1,7 @@
-import { gql } from "apollo-boost";
 import styled from "styled-components";
+import { HOME_MOVIES_QUERY, HOME_SERIES_QUERY } from "../apollo/queries";
 import Jumbotron from "../components/Jumbotron/Jumbotron";
 import SlidingCards from "../components/SlidingCards/SlidingCards";
-
-const DISCOVER_MOVIES_QUERY = gql`
-  query DISCOVER_MOVIES_QUERY {
-    discoverMovies {
-      results {
-        id
-        original_title
-        original_name
-        title
-        name
-        original_language
-        poster_path
-        backdrop_path
-        adult
-        overview
-        first_air_date
-        release_date
-        genre_ids
-        popularity
-        vote_count
-        vote_average
-      }
-    }
-  }
-`;
-
-const DISCOVER_SERIES_QUERY = gql`
-  query DISCOVER_SERIES_QUERY {
-    discoverSeries {
-      results {
-        id
-        original_title
-        original_name
-        title
-        name
-        original_language
-        poster_path
-        backdrop_path
-        adult
-        overview
-        first_air_date
-        release_date
-        genre_ids
-        popularity
-        vote_count
-        vote_average
-      }
-    }
-  }
-`;
 
 const Container = styled.div`
   display: grid;
@@ -80,11 +30,11 @@ const Index = ({ movies, series }) => {
 };
 
 Index.getInitialProps = async ({ apolloClient }) => {
-  const movies = await apolloClient.query({ query: DISCOVER_MOVIES_QUERY });
-  const series = await apolloClient.query({ query: DISCOVER_SERIES_QUERY });
+  const movies = await apolloClient.query({ query: HOME_MOVIES_QUERY });
+  const series = await apolloClient.query({ query: HOME_SERIES_QUERY });
   return {
-    movies: movies.data.discoverMovies.results,
-    series: series.data.discoverSeries.results
+    movies: movies.data.homeMovies.results,
+    series: series.data.homeSeries.results
   };
 };
 
