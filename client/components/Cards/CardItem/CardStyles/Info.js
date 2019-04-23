@@ -15,6 +15,7 @@ const Container = styled.div`
 const Vote = styled.div`
   grid-area: vote;
   max-width: 60px;
+  max-height: 60px;
 `;
 
 const Title = styled.h4`

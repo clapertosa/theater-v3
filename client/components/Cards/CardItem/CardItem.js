@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { CSSTransition } from "react-transition-group";
 import Link from "next/link";
 import Poster from "./CardStyles/Poster";
 import Info from "./CardStyles/Info";
@@ -8,6 +7,8 @@ import Overview from "./CardStyles/Overview";
 
 const Anchor = styled.a`
   margin: 10px;
+  min-width: 300px;
+  min-height: 522px;
   color: ${({ theme: { colors } }) => colors.white};
 
   &:hover {
@@ -19,6 +20,8 @@ const Anchor = styled.a`
   @media (min-width: ${({ theme: { mediaQueryMinWidth } }) =>
       mediaQueryMinWidth}) {
     margin: 20px;
+    min-width: 483px;
+    min-height: 298px;
   }
 `;
 
@@ -55,7 +58,7 @@ const CardItem = ({
 }) => {
   return (
     <Link
-      href={mediaType === "movie" ? `movies?id=${id}` : `series?id=${id}`}
+      href={mediaType === "movie" ? `/movies?id=${id}` : `/series?id=${id}`}
       passHref
     >
       <Anchor>

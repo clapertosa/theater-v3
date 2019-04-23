@@ -15,7 +15,7 @@ const Container = styled.div`
 const Logo = ({ gridArea }) => {
   return (
     <Container gridArea={gridArea}>
-      <Link href="#">
+      <Link href="/">
         <a>
           <img src="/static/images/logo.svg" alt="Popcorn with 3D glasses" />
         </a>

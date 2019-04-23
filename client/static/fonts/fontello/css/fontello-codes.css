@@ -7,7 +7,4 @@
 .icon-down-dir:before { content: '\e805'; } /* '' */
 .icon-star-1:before { content: '\e806'; } /* '' */
 .icon-cancel:before { content: '\e807'; } /* '' */
-.icon-angle-double-left:before { content: '\f100'; } /* '' */
-.icon-angle-double-right:before { content: '\f101'; } /* '' */
-.icon-angle-left:before { content: '\f104'; } /* '' */
-.icon-angle-right:before { content: '\f105'; } /* '' */
+.icon-heart-filled:before { content: '\e808'; } /* '' */

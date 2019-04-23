@@ -14,12 +14,15 @@ export const theme = {
   },
   navbarHeight: "4rem",
   mediaQueryMinWidth: "55rem",
+  backdropPosterHeight: "650px",
   zIndex: {
     navbar: 10,
     footer: 10,
     sideDrawer: 9,
     backdrop: 7,
     filter: 6,
+    singleMedia: 6,
+    backdropPoster: 5,
     carouselArrows: 8
   }
 };

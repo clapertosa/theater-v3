@@ -69,7 +69,7 @@ export const SEARCH_QUERY = gql`
   }
 `;
 
-// DISCOVER
+//* DISCOVER
 // Discover Movies
 export const DISCOVER_MOVIES_QUERY = gql`
   query DISCOVER_MOVIES_QUERY(
@@ -147,6 +147,156 @@ export const DISCOVER_SERIES_QUERY = gql`
         overview
         poster_path
         media_type
+      }
+    }
+  }
+`;
+
+//* SINGLEMEDIA (MOVIE / SERIES)
+export const MOVIE_QUERY = gql`
+  query MOVIE_QUERY($id: ID!) {
+    movie(id: $id) {
+      id
+      backdrop_path
+      created_by {
+        id
+        credit_id
+        name
+        gender
+        profile_path
+      }
+      runtime
+      release_date
+      genres {
+        name
+      }
+      homepage
+      title
+      original_title
+      overview
+      poster_path
+      vote_average
+      vote_count
+      images {
+        backdrops {
+          file_path
+        }
+      }
+      videos {
+        results {
+          key
+          name
+          site
+          type
+        }
+      }
+      credits {
+        cast {
+          id
+          name
+          gender
+          character
+          profile_path
+        }
+        crew {
+          id
+          name
+          gender
+          department
+          profile_path
+        }
+      }
+      recommendations {
+        results {
+          id
+          poster_path
+          backdrop_path
+          title
+          name
+          original_name
+          original_title
+          first_air_date
+          vote_average
+        }
+      }
+      external_ids {
+        imdb_id
+        facebook_id
+        instagram_id
+        twitter_id
+      }
+    }
+  }
+`;
+
+export const SERIES_QUERY = gql`
+  query SERIES_QUERY($id: ID!) {
+    series(id: $id) {
+      id
+      backdrop_path
+      in_production
+      episode_run_time
+      first_air_date
+      genres {
+        name
+      }
+      homepage
+      last_air_date
+      number_of_episodes
+      number_of_seasons
+      name
+      original_name
+      overview
+      poster_path
+      vote_average
+      vote_count
+      images {
+        backdrops {
+          file_path
+        }
+      }
+      videos {
+        results {
+          key
+          name
+          site
+          type
+        }
+      }
+      credits {
+        cast {
+          id
+          name
+          gender
+          character
+          profile_path
+        }
+        crew {
+          id
+          name
+          gender
+          department
+          profile_path
+        }
+      }
+      recommendations {
+        results {
+          id
+          poster_path
+          backdrop_path
+          title
+          name
+          original_name
+          original_title
+          first_air_date
+          vote_average
+        }
+      }
+      external_ids {
+        imdb_id
+        facebook_id
+        instagram_id
+        twitter_id
       }
     }
   }

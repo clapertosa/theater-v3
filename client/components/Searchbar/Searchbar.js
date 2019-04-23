@@ -12,6 +12,10 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
+  color: black;
+  background-color: ${({ theme: { colors } }) => colors.white};
+  border-style: none;
+  border-radius: 50px;
   height: 2rem;
   width: inherit;
   text-indent: 30px;
