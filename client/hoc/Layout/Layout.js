@@ -16,12 +16,14 @@ export const theme = {
   mediaQueryMinWidth: "55rem",
   backdropPosterHeight: "650px",
   zIndex: {
+    player: 11,
     navbar: 10,
     footer: 10,
     sideDrawer: 9,
     backdrop: 7,
     filter: 6,
-    singleMedia: 6,
+    poster: 6,
+    info: 6,
     backdropPoster: 5,
     carouselArrows: 8
   }
