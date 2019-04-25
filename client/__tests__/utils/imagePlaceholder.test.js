@@ -7,9 +7,9 @@ describe("ImagePlaceholder default function", () => {
     const generatedUrl = getPlaceholder(
       138,
       175,
+      "placeholder",
       "2b2d42",
-      "edf2f4",
-      "placeholder"
+      "edf2f4"
     );
 
     expect(generatedUrl).toEqual(completeUrl);
@@ -17,7 +17,7 @@ describe("ImagePlaceholder default function", () => {
 
   it("returns the correct URL without any custom text", () => {
     const completeUrl = "https://via.placeholder.com/138x175/2b2d42/edf2f4";
-    const generatedUrl = getPlaceholder(138, 175, "2b2d42", "edf2f4");
+    const generatedUrl = getPlaceholder(138, 175);
 
     expect(generatedUrl).toEqual(completeUrl);
   });
