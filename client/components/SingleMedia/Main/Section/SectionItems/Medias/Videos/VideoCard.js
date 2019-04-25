@@ -44,12 +44,17 @@ const Title = styled.h3`
   text-align: center;
 `;
 
-const VideoCard = ({ videoId, title }) => {
+const VideoCard = ({ openPlayer, setVideoIndex, videoId, title, index }) => {
   const URL = `https://i1.ytimg.com/vi/${videoId}/0.jpg`;
 
   return (
     <Wrapper>
-      <Container>
+      <Container
+        onClick={() => {
+          setVideoIndex(index);
+          openPlayer();
+        }}
+      >
         <img src={URL} alt={title} />
         <Info>
           <Title>{title}</Title>

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import getPlaceholder from "../../../../../../utils/components/imagePlaceholder";
 
 const Container = styled.div`
   display: flex;
@@ -37,7 +38,7 @@ const Info = styled.div`
   left: 0;
   color: ${({ theme: { colors } }) => colors.white};
   background-color: #000000b3;
-  transform: translateY(100%);
+  transform: translateY(200%);
   transition: transform 0.3s ease-out;
 `;
 
@@ -69,11 +70,20 @@ const RecommendationCard = ({
   title,
   voteAverage
 }) => {
+  const RECOMMENDATIONS_POSTER_PATH = "https://image.tmdb.org/t/p/w185";
+
   return (
     <Container>
       <Link href={`/${mediaType === "movie" ? "movies" : "series"}?id=${id}`}>
         <a>
-          <img src={imagePath} alt={`${title} poster`} />
+          <img
+            src={
+              imagePath
+                ? RECOMMENDATIONS_POSTER_PATH + imagePath
+                : getPlaceholder(185, 278, "No Poster")
+            }
+            alt={`${title} poster`}
+          />
           <Info>
             <Title>{title}</Title>
             <Vote>

@@ -46,7 +46,7 @@ const Cast = ({ cast }) => {
         {cast.map(member => (
           <CastCard
             key={member.id}
-            image={member.profile_path}
+            imagePath={member.profile_path}
             name={member.name}
             characterName={member.character}
           />

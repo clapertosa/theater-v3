@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import SectionWrapper from "../../SectionWrapper";
-import Carousel from "../../../../../Carousel/Carousel";
-import ImageCard from "./ImageCard";
-import VideoCard from "./VideoCard";
+import Images from "./Images/Images";
+import Videos from "./Videos/Videos";
 
-const Images = styled.div`
+const ImagesTitle = styled.div`
   grid-area: option1;
   span {
     cursor: pointer;
@@ -18,7 +17,7 @@ const Images = styled.div`
   }
 `;
 
-const Videos = styled.div`
+const VideosTitle = styled.div`
   grid-area: option2;
   span {
     cursor: pointer;
@@ -45,91 +44,25 @@ const Medias = ({ title, images, videos }) => {
       title="Media"
       options={[
         images.length > 0 ? (
-          <Images key={0} highlighted={option === "images"}>
+          <ImagesTitle key={0} highlighted={option === "images"}>
             <span onClick={onOptionClickHandler} name="images">
               Images
             </span>
-          </Images>
+          </ImagesTitle>
         ) : null,
         videos.length > 0 ? (
-          <Videos key={1} highlighted={option === "videos"}>
+          <VideosTitle key={1} highlighted={option === "videos"}>
             <span onClick={onOptionClickHandler} name="videos">
               Videos
             </span>
-          </Videos>
+          </VideosTitle>
         ) : null
       ]}
     >
       {option === "images" ? (
-        <Carousel
-          responsive={[
-            {
-              breakpoint: 1024,
-              settings: {
-                slidesToShow: images.length > 3 ? 3 : images.length,
-                slidesToScroll: images.length > 3 ? 3 : images.length
-              }
-            },
-            {
-              breakpoint: 900,
-              settings: {
-                slidesToShow: images.length > 2 ? 2 : images.length,
-                slidesToScroll: images.length > 2 ? 2 : images.length
-              }
-            },
-            {
-              breakpoint: 600,
-              settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-              }
-            }
-          ]}
-          arrows
-          initialSlide={0}
-          slidesToShow={images.length > 3 ? 3 : images.length}
-          slidesToScroll={images.length > 3 ? 3 : images.length}
-          lazyLoad="ondemand"
-        >
-          {images.map((image, index) => (
-            <ImageCard key={index} imagePath={image.file_path} title={title} />
-          ))}
-        </Carousel>
+        <Images images={images} title={title} />
       ) : (
-        <Carousel
-          responsive={[
-            {
-              breakpoint: 1024,
-              settings: {
-                slidesToShow: videos.length > 3 ? 3 : videos.length,
-                slidesToScroll: videos.length > 3 ? 3 : videos.length
-              }
-            },
-            {
-              breakpoint: 900,
-              settings: {
-                slidesToShow: videos.length > 2 ? 2 : videos.length,
-                slidesToScroll: videos.length > 2 ? 2 : videos.length
-              }
-            },
-            {
-              breakpoint: 600,
-              settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-              }
-            }
-          ]}
-          arrows
-          initialSlide={0}
-          slidesToShow={videos.length > 3 ? 3 : videos.length}
-          slidesToScroll={videos.length > 3 ? 3 : videos.length}
-          lazyLoad="ondemand"
-        >
-          {videos.map(video => (
-            <VideoCard key={video.key} videoId={video.key} title={video.name} />
-          ))}
-        </Carousel>
+        <Videos videos={videos} />
       )}
     </SectionWrapper>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import getPlaceholder from "../../../../../../utils/components/imagePlaceholder";
 
 const Container = styled.div`
   display: grid;
@@ -12,11 +13,17 @@ const Image = styled.div`
   margin: auto;
   height: 175px;
   width: 138px;
+  overflow: hidden;
 
   img {
     box-shadow: 3px 3px 3px black;
     height: auto;
     width: 100%;
+    transition: transform 0.5s ease-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 `;
 
@@ -35,11 +42,18 @@ const Character = styled.span`
   text-align: center;
 `;
 
-const CastCard = ({ image, name, characterName }) => {
+const CastCard = ({ imagePath, name, characterName }) => {
+  const URL = "https://image.tmdb.org/t/p/w138_and_h175_face";
+
   return (
     <Container>
       <Image>
-        <img src={image} alt={`${name} photo`} />
+        <img
+          src={
+            imagePath ? URL + imagePath : getPlaceholder(138, 175, "No Picture")
+          }
+          alt={`${name} photo`}
+        />
       </Image>
       <Name>{name}</Name>
       <Character>{characterName}</Character>

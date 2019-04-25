@@ -16,6 +16,7 @@ const Container = styled.div`
   grid-template-rows: auto auto auto auto 1fr;
   grid-row-gap: 20px;
   font-weight: bold;
+  z-index: ${({ theme: { zIndex } }) => zIndex.info};
 
   @media (min-width: ${({ theme: { mediaQueryMinWidth } }) =>
       mediaQueryMinWidth}) {

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import BackdropImage from "../../BackdropImage/BackdropImage";
 import Poster from "../../Poster/Poster";
 import Info from "./Info/Info";
 
@@ -16,30 +17,13 @@ const Container = styled.div`
     width: 70%;
     height: ${({ theme: { backdropPosterHeight } }) => backdropPosterHeight};
     grid-template-areas: "poster info";
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto;
     grid-column-gap: 20px;
   }
 
   @media (min-width: 55rem) and (max-width: 80rem) {
     width: 95%;
     height: ${({ theme: { backdropPosterHeight } }) => backdropPosterHeight};
-  }
-`;
-
-const BackdropImage = styled.div`
-  position: absolute;
-  height: ${({ theme: { backdropPosterHeight } }) => backdropPosterHeight};
-  width: 100%;
-  top: 0;
-  left: 0;
-  filter: blur(2px) brightness(0.3);
-  z-index: -1;
-
-  img {
-    object-fit: cover;
-    object-position: center;
-    height: 100%;
-    width: 100%;
   }
 `;
 
@@ -59,9 +43,7 @@ const SingleMediaHeader = ({
 }) => {
   return (
     <Container>
-      <BackdropImage>
-        <img src={backdropPath} alt={`${title} backdrop`} />
-      </BackdropImage>
+      <BackdropImage imagePath={backdropPath} title={title} />
       <Poster title={title} posterPath={posterPath} />
       <Info
         title={title}
