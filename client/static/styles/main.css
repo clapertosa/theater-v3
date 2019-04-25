@@ -36,17 +36,31 @@ body {
   font-family: Montserrat, sans-serif;
 }
 
+/* react-css-transition-group animations */
+/* Fade */
+.fade-appear {
+  opacity: 0;
+}
+
+.fade-appear-active {
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+}
+
 .fade-enter {
   opacity: 0;
 }
+
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 0.3s;
+  transition: opacity 300ms ease-out;
 }
+
 .fade-exit {
   opacity: 1;
 }
+
 .fade-exit-active {
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 300ms ease-out;
 }
