@@ -23,7 +23,7 @@ export const getNumbers = (currentPage, totalPages) => {
         numbers.push(i + 1);
       }
     }
-    numbers = numbers.sort();
+    numbers = numbers.sort((a, b) => a - b);
   }
 
   return numbers;
