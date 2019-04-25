@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import getPlaceholder from "../../utils/components/imagePlaceholder";
 
 const Container = styled.div`
   grid-area: poster;
@@ -7,6 +8,7 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   max-width: 300px;
+  z-index: ${({ theme: { zIndex } }) => zIndex.poster};
 
   img {
     height: auto;
@@ -16,9 +18,16 @@ const Container = styled.div`
 `;
 
 const Poster = ({ posterPath, title }) => {
+  const URL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2";
+
   return (
     <Container>
-      <img src={posterPath} alt={`${title} poster`} />
+      <img
+        src={
+          posterPath ? URL + posterPath : getPlaceholder(300, 450, "No Poster")
+        }
+        alt={`${title} poster`}
+      />
     </Container>
   );
 };

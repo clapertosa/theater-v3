@@ -12,11 +12,11 @@ export const getImageUrl = media => {
 
   if (media.poster_path) return POSTER_URL + media.poster_path;
   else if (media.profile_path) return PROFILE_URL + media.profile_path;
-  else return getPlaceholder(50, 75, "2b2d42", "edf2f4", "No Image");
+  else return getPlaceholder(50, 75, "No Image");
 };
 
 export const getUrl = media => {
-  if (media.media_type === "movie") return `movies?id=${media.id}`;
-  else if (media.media_type === "tv") return `series?id=${media.id}`;
-  else if (media.media_type === "person") return `person?id=${media.id}`;
+  if (media.media_type === "movie") return `/movies?id=${media.id}`;
+  else if (media.media_type === "tv") return `/series?id=${media.id}`;
+  else if (media.media_type === "person") return `/person?id=${media.id}`;
 };

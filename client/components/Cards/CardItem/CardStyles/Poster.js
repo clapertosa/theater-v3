@@ -18,11 +18,11 @@ const Container = styled.div`
 `;
 
 const Poster = ({ posterPath, title }) => {
-  const POSTER_URL = "https://image.tmdb.org/t/p/w185";
+  const URL = "https://image.tmdb.org/t/p/w185";
 
   return (
     <Container>
-      <img src={POSTER_URL + posterPath} alt={`${title} poster`} />
+      <img src={URL + posterPath} alt={`${title} poster`} />
     </Container>
   );
 };

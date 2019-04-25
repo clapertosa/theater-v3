@@ -185,8 +185,8 @@ export const getGenres = (type, query = "") => {
 };
 
 export const getProfileImageUrl = profilePath => {
-  const PROFILE_URL = "https://image.tmdb.org/t/p/w45";
+  const URL = "https://image.tmdb.org/t/p/w45";
 
-  if (profilePath) return PROFILE_URL + profilePath;
+  if (profilePath) return URL + profilePath;
   else return "https://via.placeholder.com/45x68/fff?text=No%20Image";
 };
