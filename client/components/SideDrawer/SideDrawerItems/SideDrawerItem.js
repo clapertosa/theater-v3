@@ -38,6 +38,7 @@ const Title = styled.h3`
 const List = styled.ul`
   grid-area: list;
   margin: 0;
+  margin-right: auto;
   padding: 0;
 
   li {
