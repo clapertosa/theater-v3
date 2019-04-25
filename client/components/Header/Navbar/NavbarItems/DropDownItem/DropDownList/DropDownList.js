@@ -13,6 +13,7 @@ const Container = styled.ul`
   max-height: ${({ show }) => (show ? "300px" : 0)};
   overflow: hidden;
   background-color: ${({ theme: { colors } }) => colors.gunMetal};
+  box-shadow: 3px 3px 3px black;
   transition: max-height 0.3s ease-out;
 `;
 
