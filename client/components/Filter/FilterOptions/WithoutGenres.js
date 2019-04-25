@@ -20,7 +20,7 @@ const WithoutGenres = ({ mediaType, onValueChange }) => {
 
   useEffect(() => {
     setMounted(true);
-  });
+  }, []);
 
   useEffect(() => {
     if (mounted) {

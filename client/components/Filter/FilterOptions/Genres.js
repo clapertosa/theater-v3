@@ -20,7 +20,7 @@ const Genres = ({ mediaType, onValueChange }) => {
 
   useEffect(() => {
     setMounted(true);
-  });
+  }, []);
 
   useEffect(() => {
     if (mounted) {
