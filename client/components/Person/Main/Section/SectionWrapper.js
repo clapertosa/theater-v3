@@ -21,7 +21,7 @@ const Options = styled.div`
   display: grid;
   grid-template-areas: "option1 option2";
   grid-template-columns: auto 1fr;
-  grid-column-gap: ${({ firstOption }) => (firstOption ? "20px" : 0)};
+  grid-column-gap: 20px;
   margin-bottom: 10px;
 `;
 
@@ -40,7 +40,7 @@ const SectionWrapper = ({ show, gridArea, options, title, children }) => {
     <Container show={show} gridArea={gridArea} options={options}>
       <Title>{title}</Title>
       {options ? (
-        <Options firstOption={options[0]}>
+        <Options>
           {options[0]}
           {options[1]}
         </Options>

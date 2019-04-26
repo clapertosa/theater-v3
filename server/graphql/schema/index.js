@@ -84,6 +84,15 @@ module.exports = buildSchema(`
     gender: Int
     character: String
     profile_path: String
+    # Combined_Credits_Cast
+    # Same id
+    media_type: String
+    title: String
+    # Same name
+    original_title: String
+    original_name: String
+    poster_path: String
+    vote_average: Float
   }
 
   type Crew {
@@ -179,6 +188,24 @@ module.exports = buildSchema(`
     external_ids: ExternalIds
   }
 
+  # Person
+  type Person {
+    id: ID!
+    birthday: String
+    known_for_department: String
+    deathday: String
+    name: String
+    gender: Int
+    biography: String
+    popularity: Float
+    place_of_birth: String
+    profile_path: String
+    adult: Boolean
+    homepage: String
+    combined_credits: Credits
+    external_ids: ExternalIds
+  }
+
   # User
   type User {
     id: ID!
@@ -217,6 +244,19 @@ module.exports = buildSchema(`
     # Discover
     discoverMovies(input: DiscoverInput): Discover
     discoverSeries(input: DiscoverInput): Discover
+    popular(page: Int media_type: String): Discover
+    topRated(page: Int media_type: String): Discover
+
+    # Discover Movies
+    upcomingMovies(page: Int): Discover
+    nowPlayingMovies(page: Int): Discover
+
+    # Discover Series
+    onTv(page: Int): Discover
+    airingTodayOnTv(page: Int): Discover
+
+    # Person
+    person(id: ID!): Person
 
     # User
     getUser: String

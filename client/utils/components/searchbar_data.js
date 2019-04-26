@@ -6,6 +6,12 @@ export const getTitle = media => {
   );
 };
 
+export const getYear = media => {
+  return (
+    media.release_date? media.release_date.substring(0, 4) : "" || media.first_air_date? media.first_air_date.substring(0, 4): ""
+  );
+};
+
 export const getImageUrl = media => {
   const POSTER_URL = "https://image.tmdb.org/t/p/w92";
   const PROFILE_URL = "https://image.tmdb.org/t/p/w185";

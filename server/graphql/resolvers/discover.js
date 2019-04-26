@@ -19,6 +19,10 @@ module.exports = {
     };
 
     const res = await axios.get("/discover/movie", { params });
+
+    res.data.total_pages =
+      res.data.total_pages > 1000 ? 1000 : res.data.total_pages;
+
     return res.data;
   },
   discoverSeries: async ({
@@ -39,6 +43,10 @@ module.exports = {
     };
 
     const res = await axios.get("/discover/tv", { params });
+
+    res.data.total_pages =
+      res.data.total_pages > 1000 ? 1000 : res.data.total_pages;
+
     return res.data;
   }
 };

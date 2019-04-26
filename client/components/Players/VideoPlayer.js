@@ -54,7 +54,6 @@ const VideoPlayer = ({ closePlayer, videos, index }) => {
                 type="text/html"
                 src={`http://www.youtube.com/embed/${video.key}`}
                 allowFullScreen
-                allowTransparency
               />
             </Video>
           </div>

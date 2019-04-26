@@ -62,6 +62,8 @@ export const SEARCH_QUERY = gql`
         title
         original_title
         media_type
+        release_date
+        first_air_date
         poster_path
         profile_path
       }
@@ -289,6 +291,178 @@ export const SERIES_QUERY = gql`
           original_name
           original_title
           first_air_date
+          vote_average
+        }
+      }
+      external_ids {
+        imdb_id
+        facebook_id
+        instagram_id
+        twitter_id
+      }
+    }
+  }
+`;
+
+//* MEDIALIST (MOVIE / SERIES)
+export const POPULAR_QUERY = gql`
+  query POPULAR_QUERY($page: Int, $media_type: String) {
+    popular(page: $page, media_type: $media_type) {
+      page
+      total_pages
+      results {
+        id
+        original_title
+        original_name
+        title
+        name
+        original_language
+        poster_path
+        overview
+        first_air_date
+        release_date
+        popularity
+        vote_count
+        vote_average
+      }
+    }
+  }
+`;
+// MOVIES
+export const UPCOMING_MOVIES_QUERY = gql`
+  query UPCOMING_MOVIES_QUERY($page: Int) {
+    upcomingMovies(page: $page) {
+      page
+      total_pages
+      results {
+        id
+        original_title
+        title
+        original_language
+        poster_path
+        overview
+        release_date
+        popularity
+        vote_count
+        vote_average
+      }
+    }
+  }
+`;
+
+export const NOW_PLAYING_MOVIES = gql`
+  query NOW_PLAYING_MOVIES($page: Int) {
+    nowPlayingMovies(page: $page) {
+      page
+      total_pages
+      results {
+        id
+        original_title
+        title
+        original_language
+        poster_path
+        overview
+        release_date
+        popularity
+        vote_count
+        vote_average
+      }
+    }
+  }
+`;
+
+// SERIES
+export const TOP_RATED_QUERY = gql`
+  query ON_TV_QUERY($page: Int, $media_type: String) {
+    topRated(page: $page, media_type: $media_type) {
+      page
+      total_pages
+      results {
+        id
+        original_title
+        original_name
+        title
+        name
+        original_language
+        poster_path
+        overview
+        first_air_date
+        release_date
+        popularity
+        vote_count
+        vote_average
+      }
+    }
+  }
+`;
+
+export const ON_TV_QUERY = gql`
+  query ON_TV_QUERY($page: Int) {
+    onTv(page: $page) {
+      page
+      total_pages
+      results {
+        id
+        original_name
+        name
+        original_language
+        poster_path
+        overview
+        first_air_date
+        popularity
+        vote_count
+        vote_average
+      }
+    }
+  }
+`;
+
+export const AIRING_TODAY_ON_TV = gql`
+  query AIRING_TODAY_ON_TV($page: Int) {
+    airingTodayOnTv(page: $page) {
+      page
+      total_pages
+      results {
+        id
+        original_name
+        name
+        original_language
+        poster_path
+        overview
+        first_air_date
+        popularity
+        vote_count
+        vote_average
+      }
+    }
+  }
+`;
+
+//* Person
+export const PERSON_QUERY = gql`
+  query PERSON_QUERY($id: ID!) {
+    person(id: $id) {
+      id
+      birthday
+      known_for_department
+      deathday
+      name
+      gender
+      biography
+      popularity
+      place_of_birth
+      profile_path
+      adult
+      homepage
+      combined_credits {
+        cast {
+          id
+          media_type
+          title
+          original_title
+          name
+          original_name
+          poster_path
           vote_average
         }
       }

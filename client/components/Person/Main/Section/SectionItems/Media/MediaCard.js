@@ -65,14 +65,8 @@ const Vote = styled.div`
   }
 `;
 
-const RecommendationCard = ({
-  mediaType,
-  id,
-  imagePath,
-  title,
-  voteAverage
-}) => {
-  const RECOMMENDATIONS_POSTER_PATH = "https://image.tmdb.org/t/p/w185";
+const MediaCard = ({ mediaType, id, imagePath, title, voteAverage }) => {
+  const MEDIA_CARD_URL = "https://image.tmdb.org/t/p/w185";
 
   return (
     <Container>
@@ -81,7 +75,7 @@ const RecommendationCard = ({
           <img
             src={
               imagePath
-                ? RECOMMENDATIONS_POSTER_PATH + imagePath
+                ? MEDIA_CARD_URL + imagePath
                 : getPlaceholder(185, 278, "No Poster")
             }
             alt={`${title} poster`}
@@ -99,4 +93,4 @@ const RecommendationCard = ({
   );
 };
 
-export default RecommendationCard;
+export default MediaCard;

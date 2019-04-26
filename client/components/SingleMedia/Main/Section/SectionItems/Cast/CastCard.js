@@ -1,6 +1,24 @@
 import React from "react";
 import styled from "styled-components";
+import Link from "next/link";
 import getPlaceholder from "../../../../../../utils/components/imagePlaceholder";
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    text-decoration: none;
+    color: ${({ theme: { colors } }) => colors.white};
+
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
+    }
+  }
+`;
 
 const Container = styled.div`
   display: grid;
@@ -20,10 +38,6 @@ const Image = styled.div`
     height: auto;
     width: 100%;
     transition: transform 0.5s ease-out;
-
-    &:hover {
-      transform: scale(1.1);
-    }
   }
 `;
 
@@ -42,22 +56,30 @@ const Character = styled.span`
   text-align: center;
 `;
 
-const CastCard = ({ imagePath, name, characterName }) => {
+const CastCard = ({ id, imagePath, name, characterName }) => {
   const URL = "https://image.tmdb.org/t/p/w138_and_h175_face";
 
   return (
-    <Container>
-      <Image>
-        <img
-          src={
-            imagePath ? URL + imagePath : getPlaceholder(138, 175, "No Picture")
-          }
-          alt={`${name} photo`}
-        />
-      </Image>
-      <Name>{name}</Name>
-      <Character>{characterName}</Character>
-    </Container>
+    <Wrapper>
+      <Link href={`/person?id=${id}`}>
+        <a>
+          <Container>
+            <Image>
+              <img
+                src={
+                  imagePath
+                    ? URL + imagePath
+                    : getPlaceholder(138, 175, "No Picture")
+                }
+                alt={`${name} photo`}
+              />
+            </Image>
+            <Name>{name}</Name>
+            <Character>{characterName}</Character>
+          </Container>
+        </a>
+      </Link>
+    </Wrapper>
   );
 };
 
