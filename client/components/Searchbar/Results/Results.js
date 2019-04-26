@@ -39,6 +39,7 @@ const Results = ({ showResults, closeResults, query, loading, results }) => {
             key={index}
             index={index}
             title={data.getTitle(result)}
+            year={data.getYear(result)}
             image={data.getImageUrl(result)}
             url={data.getUrl(result)}
           />

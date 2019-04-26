@@ -45,7 +45,7 @@ const Title = styled.div`
   }
 `;
 
-const ResultsItem = ({ index, image, title, url }) => {
+const ResultsItem = ({ index, image, title, year, url }) => {
   return (
     <Link href={url}>
       <a tabIndex={index}>
@@ -54,7 +54,9 @@ const ResultsItem = ({ index, image, title, url }) => {
             <img src={image} alt={`${title} poster`} />
           </Poster>
           <Title>
-            <p>{title}</p>
+            <p>
+              {title}{year.length > 0? ` (${year})`: ""}
+            </p>
           </Title>
         </Container>
       </a>
