@@ -16,7 +16,6 @@ const Container = styled.div`
 
 const Icon = styled.div`
   grid-area: icon;
-  display: flex;
   width: 30px;
   height: auto;
 
