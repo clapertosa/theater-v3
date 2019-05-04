@@ -24,6 +24,8 @@ const Input = styled.input`
 
 const MagnifyingGlass = styled.i`
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 1.5rem;
   color: black;
 `;
