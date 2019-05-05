@@ -10,7 +10,7 @@ if (!process.browser) {
   global.fetch = fetch;
 }
 
-function create(initialState, { getToken }) {
+function create(initialState, { getToken, cookies }) {
   const httpLink = createHttpLink({
     uri:
       process.env.NODE_ENV === "development"
@@ -24,7 +24,8 @@ function create(initialState, { getToken }) {
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : ""
+        Authorization: token ? `Bearer ${token}` : "",
+        cookie: cookies
       }
     };
   });
