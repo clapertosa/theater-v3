@@ -10,7 +10,8 @@ export const theme = {
     gray: "#8d99ae",
     white: "#edf2f4",
     red: "#ef233c",
-    candy: "#d90429"
+    candy: "#d90429",
+    green: "#1ab188"
   },
   navbarHeight: "4rem",
   mediaQueryMinWidth: "55rem",
