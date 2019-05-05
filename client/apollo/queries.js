@@ -475,3 +475,15 @@ export const PERSON_QUERY = gql`
     }
   }
 `;
+
+//* User
+export const CURRENT_USER_QUERY = gql`
+  query CURRENT_USER_QUERY {
+    currentUser {
+      id
+      username
+      email
+      avatar
+    }
+  }
+`;
