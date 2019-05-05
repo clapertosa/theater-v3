@@ -83,6 +83,24 @@
       "css": "angle-right",
       "code": 61701,
       "src": "fontawesome"
+    },
+    {
+      "uid": "8b80d36d4ef43889db10bc1f0dc9a862",
+      "css": "user",
+      "code": 59401,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "ccc2329632396dc096bb638d4b46fb98",
+      "css": "mail-alt",
+      "code": 61664,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8beac4a5fd5bed9f82ca7a96cc8ba218",
+      "css": "key",
+      "code": 59402,
+      "src": "entypo"
     }
   ]
 }

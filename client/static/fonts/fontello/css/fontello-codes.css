@@ -8,6 +8,9 @@
 .icon-star-1:before { content: '\e806'; } /* '' */
 .icon-cancel:before { content: '\e807'; } /* '' */
 .icon-heart-filled:before { content: '\e808'; } /* '' */
+.icon-user:before { content: '\e809'; } /* '' */
+.icon-key:before { content: '\e80a'; } /* '' */
+.icon-mail-alt:before { content: '\f0e0'; } /* '' */
 .icon-angle-double-left:before { content: '\f100'; } /* '' */
 .icon-angle-double-right:before { content: '\f101'; } /* '' */
 .icon-angle-left:before { content: '\f104'; } /* '' */
