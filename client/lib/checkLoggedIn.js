@@ -1,21 +1,14 @@
-import gql from 'graphql-tag'
+import { CURRENT_USER_QUERY } from "../apollo/queries";
 
 export default apolloClient =>
   apolloClient
     .query({
-      query: gql`
-        query getUser {
-          user {
-            id
-            name
-          }
-        }
-      `
+      query: CURRENT_USER_QUERY
     })
     .then(({ data }) => {
-      return { loggedInUser: data }
+      return { currentUser: data.currentUser };
     })
     .catch(() => {
       // Fail gracefully
-      return { loggedInUser: {} }
-    })
+      return { currentUser: {} };
+    });
