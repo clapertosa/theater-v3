@@ -2,6 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const compression = require("compression");
 const graphqlHTTP = require("express-graphql");
+const authenticate = require("./middleware/authenticate");
 const next = require("next");
 
 const dev = process.env.NODE_ENV !== "production";
@@ -23,14 +24,16 @@ server.use(compression());
 // express-graphql
 server.use(
   "/graphql",
-  graphqlHTTP({
+  authenticate,
+  graphqlHTTP((req, res) => ({
     schema: schema,
     rootValue: resolvers,
+    context: { req, res },
     graphiql: process.env.NODE_ENV !== "production"
-  })
+  }))
 );
 
-server.get("*", (req, res) => {
+server.get("*", authenticate, (req, res) => {
   return handle(req, res);
 });
 
