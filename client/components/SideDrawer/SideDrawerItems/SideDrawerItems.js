@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { SEARCH_QUERY } from "../../../apollo/queries";
+import { Query } from "react-apollo";
+import { SEARCH_QUERY, CURRENT_USER_QUERY } from "../../../apollo/queries";
 import SideDrawerItem from "./SideDrawerItem";
 import Searchbar from "../../Searchbar/Searchbar";
 
@@ -50,17 +51,31 @@ const SideDrawerItems = () => {
           { title: "Airing Today", url: "/series/airing-today" }
         ]}
       />
-      <SideDrawerItem
-        gridArea="user"
-        icon="/static/images/navbar/user.svg"
-        title="User"
-        list={[
-          { title: "Log in", url: "/user/login" },
-          { title: "Sign Up", url: "/user/signup" },
-          { title: "Profile", url: "/user/profile" },
-          { title: "Log out", url: "/user/logout" }
-        ]}
-      />
+      <Query query={CURRENT_USER_QUERY}>
+        {({ data: { currentUser } }) => {
+          return currentUser ? (
+            <SideDrawerItem
+              icon="/static/images/navbar/user.svg"
+              title={currentUser.username}
+              list={[
+                { title: "Profile", url: "/user/profile" },
+                { title: "Sign Out", url: "/user/signout" }
+              ]}
+              marginLeft="20px"
+            />
+          ) : (
+            <SideDrawerItem
+              icon="/static/images/navbar/user.svg"
+              title="User"
+              list={[
+                { title: "Sign In", url: "/user/signin" },
+                { title: "Sign Up", url: "/user/signup" }
+              ]}
+              marginLeft="20px"
+            />
+          );
+        }}
+      </Query>
     </Container>
   );
 };

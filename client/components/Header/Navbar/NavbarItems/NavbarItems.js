@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { SEARCH_QUERY } from "../../../../apollo/queries";
+import { Query } from "react-apollo";
+import { SEARCH_QUERY, CURRENT_USER_QUERY } from "../../../../apollo/queries";
 import Item from "./Item";
 import DropDownItem from "./DropDownItem/DropDownItem";
 import Searchbar from "../../../Searchbar/Searchbar";
@@ -75,17 +76,31 @@ const NavbarItems = () => {
         <Item justifyContent="flex-end" width="90%">
           <Searchbar apolloQuery={SEARCH_QUERY} />
         </Item>
-        <DropDownItem
-          icon="/static/images/navbar/user.svg"
-          title="User"
-          list={[
-            { title: "Log in", url: "/user/login" },
-            { title: "Sign Up", url: "/user/signup" },
-            { title: "Profile", url: "/user/profile" },
-            { title: "Log out", url: "/user/logout" }
-          ]}
-          marginLeft="20px"
-        />
+        <Query query={CURRENT_USER_QUERY}>
+          {({ data: { currentUser } }) => {
+            return currentUser ? (
+              <DropDownItem
+                icon="/static/images/navbar/user.svg"
+                title={currentUser.username}
+                list={[
+                  { title: "Profile", url: "/user/profile" },
+                  { title: "Sign Out", url: "/user/signout" }
+                ]}
+                marginLeft="20px"
+              />
+            ) : (
+              <DropDownItem
+                icon="/static/images/navbar/user.svg"
+                title="User"
+                list={[
+                  { title: "Sign In", url: "/user/signin" },
+                  { title: "Sign Up", url: "/user/signup" }
+                ]}
+                marginLeft="20px"
+              />
+            );
+          }}
+        </Query>
       </Second>
     </Container>
   );
