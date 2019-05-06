@@ -6,9 +6,26 @@ import { theme } from "../../hoc/Layout/Layout";
 
 const CircularProgress = ({ gridArea, width, percentage, text }) => {
   const Container = styled.div`
+    position: relative;
     grid-area: ${({ gridArea }) => (gridArea ? gridArea : "")};
     width: ${({ width }) => (width ? width : "60px")};
-    height: auto;
+    height: ${({ height }) => (height ? height : "60px")};
+  `;
+
+  const Text = styled.div`
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-weight: bold;
+    fill: #edf2f4;
+    font-size: 20px;
+
+    span {
+      font-size: 10px;
+    }
   `;
 
   const getPathColor = () => {
@@ -21,9 +38,12 @@ const CircularProgress = ({ gridArea, width, percentage, text }) => {
 
   return (
     <Container gridArea={gridArea} width={width}>
+      <Text>
+        {text} <span>%</span>
+      </Text>
       <CP
         percentage={percentage}
-        text={text}
+        // text={text}
         initialAnimation
         background
         backgroundPadding={6}
