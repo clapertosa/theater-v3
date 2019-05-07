@@ -4,7 +4,8 @@ import styled from "styled-components";
 const Container = styled.form`
   grid-area: form;
   display: grid;
-  grid-template-areas: "input-area" "server-error" "button-area";
+  grid-template-areas: "input-area input-area" "server-error server-error" ". button-area";
+  grid-template-columns: 1fr auto;
   background-color: ${({ theme: { colors } }) => colors.gunMetal};
   padding: 10px 30px;
 `;
