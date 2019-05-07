@@ -17,6 +17,12 @@ module.exports = {
       .format(format);
   },
 
+  addHours: (hours, format = "YYYY-MM-DD") => {
+    return moment()
+      .add({ hours })
+      .format(format);
+  },
+
   getAge: (birthday, deathday) => {
     return deathday
       ? moment(deathday).diff(birthday, "years")
