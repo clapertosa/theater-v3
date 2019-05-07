@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+import Link from "next/link";
 import { Formik } from "formik";
 import { Mutation } from "react-apollo";
 import { SIGNIN_MUTATION } from "../../../apollo/mutations";
@@ -12,6 +14,12 @@ import InputArea from "../StyledFormComponents/InputArea";
 import ButtonArea from "../StyledFormComponents/ButtonArea";
 import Button from "../StyledFormComponents/Button";
 import Error from "../StyledFormComponents/Error";
+
+const ForgotPassword = styled.a`
+  margin-top: 10px;
+  text-shadow: 3px 3px 3px black;
+  color: ${({ theme: { colors } }) => colors.white};
+`;
 
 const Form = () => {
   const [serverError, setServerError] = useState("");
@@ -106,6 +114,9 @@ const Form = () => {
                   <Button type="submit" disabled={isSubmitting || loading}>
                     {loading ? "Submitting" : "Sign In"}
                   </Button>
+                  <Link href="/user/new-password" passHref>
+                    <ForgotPassword>Forgot your password</ForgotPassword>
+                  </Link>
                 </ButtonArea>
               </StyledForm>
             )}

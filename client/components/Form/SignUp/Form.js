@@ -11,7 +11,7 @@ import InputArea from "../StyledFormComponents/InputArea";
 import ButtonArea from "../StyledFormComponents/ButtonArea";
 import Button from "../StyledFormComponents/Button";
 import Error from "../StyledFormComponents/Error";
-import SuccessMessage from "./SuccessMessage";
+import FloatingMessage from "../StyledFormComponents/FloatingMessage";
 
 const Form = () => {
   const [serverError, setServerError] = useState("");
@@ -208,7 +208,9 @@ const Form = () => {
               )}
             </Formik>
           </Container>
-          <SuccessMessage show={success} email={email} />
+          <FloatingMessage show={success}>
+            Success! An email has been sent to {email}
+          </FloatingMessage>
         </>
       )}
     </Mutation>
