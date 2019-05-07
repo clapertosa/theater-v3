@@ -9,7 +9,7 @@ const CircularProgress = ({ gridArea, width, percentage, text }) => {
     position: relative;
     grid-area: ${({ gridArea }) => (gridArea ? gridArea : "")};
     width: ${({ width }) => (width ? width : "60px")};
-    height: ${({ height }) => (height ? height : "60px")};
+    height: ${({ width }) => (width ? width : "60px")};
   `;
 
   const Text = styled.div`
