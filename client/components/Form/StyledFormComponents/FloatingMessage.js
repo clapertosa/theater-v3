@@ -3,13 +3,15 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: ${({ show }) => (show ? "block" : "none")};
-  position: absolute;
+  position: fixed;
   top: calc(4rem + 0.5rem);
   right: 0;
+  max-width: 500px;
   font-size: 1rem;
   background-color: #2b2d42;
   color: #edf2f4;
-  border: 1px solid #1ab188;
+  border: ${({ error, theme: { colors } }) =>
+    error ? `1px solid ${colors.red}` : `1px solid ${colors.green}`};
   border-radius: 3px;
   padding: 20px;
   text-align: center;
@@ -57,12 +59,12 @@ const Container = styled.div`
   }
 `;
 
-const SuccessMessage = ({ show, email }) => {
+const FloatingMessage = ({ children, show, error }) => {
   return (
-    <Container show={show} email={email}>
-      <span>Success! An email has been sent to {email}</span>
+    <Container show={show} error={error}>
+      <span>{children}</span>
     </Container>
   );
 };
 
-export default SuccessMessage;
+export default FloatingMessage;
