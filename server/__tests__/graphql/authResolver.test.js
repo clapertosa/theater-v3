@@ -6,7 +6,9 @@ const schema = require("../../graphql/schema");
 const resolvers = require("../../graphql/resolvers");
 const {
   SIGNUP_MUTATION,
-  ACTIVATE_ACCOUNT_MUTATION
+  ACTIVATE_ACCOUNT_MUTATION,
+  NEW_PASSWORD_MUTATION,
+  RESET_PASSWORD_MUTATION
 } = require("../../../client/apollo/mutations");
 
 const tester = new EasyGraphQLTester(schema);
@@ -34,18 +36,30 @@ const activateAccountMethod = async token => {
   });
 };
 
-describe("SignUp method", () => {
-  beforeAll(async () => {
-    await knex("users").truncate();
-    jest
-      .spyOn(mockSendMail, "send")
-      .mockImplementation(() => Promise.resolve());
+const newPasswordMethod = async email => {
+  return await tester.graphql(NEW_PASSWORD_MUTATION, resolvers, mockedReq, {
+    email
   });
+};
 
-  afterEach(async () => {
-    await knex("users").truncate();
+const resetPasswordMethod = async (token, password, confirmPassword) => {
+  return await tester.graphql(RESET_PASSWORD_MUTATION, resolvers, mockedReq, {
+    token,
+    password,
+    confirmPassword
   });
+};
 
+beforeAll(async () => {
+  await knex("users").truncate();
+  jest.spyOn(mockSendMail, "send").mockImplementation(() => Promise.resolve());
+});
+
+afterEach(async () => {
+  await knex("users").truncate();
+});
+
+describe("Sign Up method", () => {
   it("will register user if data is correct", async () => {
     const res = await signUpMethod(
       "new_user",
@@ -222,15 +236,7 @@ describe("SignUp method", () => {
   });
 });
 
-describe("Account activation method", () => {
-  beforeAll(async () => {
-    await knex("users").truncate();
-  });
-
-  afterEach(async () => {
-    await knex("users").truncate();
-  });
-
+describe("Activate Account method", () => {
   it("activates the account if token is valid", async () => {
     await knex("users").insert({
       username: "user",
@@ -283,5 +289,85 @@ describe("Account activation method", () => {
     const res = await activateAccountMethod(activationToken);
 
     expect(res.errors[0].message).toEqual("User not found");
+  });
+});
+
+describe("New Password method", () => {
+  it("returns false if user doesn't exist", async () => {
+    const res = await newPasswordMethod("fakeEmail@email.com");
+
+    expect(res.data.newPassword).toEqual(false);
+  });
+
+  it("return true if user exists", async () => {
+    await knex("users").insert({
+      username: "user",
+      email: "email@email.com",
+      password: "password"
+    });
+
+    const res = await newPasswordMethod("email@email.com");
+
+    expect(res.data.newPassword).toEqual(true);
+  });
+});
+
+describe("Reset Password method", () => {
+  it("throws an error if user doesn't exist ", async () => {
+    const res = await resetPasswordMethod("faketoken", "password", "password");
+    expect(res.errors[0].message).toEqual("Token not valid");
+  });
+
+  it("throws an error if password checks fail", async () => {
+    await knex("users").insert({
+      username: "user",
+      email: "email@email.com",
+      password: "password",
+      reset_password_token: "123"
+    });
+
+    let res;
+    // Password required
+    res = await resetPasswordMethod("123", "", "");
+    expect(res.errors[0].message).toEqual("Password is required");
+    // Password length
+    res = await resetPasswordMethod("123", "pas", "pas");
+    expect(res.errors[0].message).toEqual(
+      "Password must be between 8 and 16 characters"
+    );
+    // Password and confirm password
+    res = await resetPasswordMethod("123", "password", "betterPassword");
+    expect(res.errors[0].message).toEqual(
+      "Password and confirm password must be equal"
+    );
+  });
+
+  it("send a new email and return true if token is valid but has expired", async () => {
+    const date = new Date();
+    date.setHours(date.getHours() - 24); // It's 24h old, so it has expired
+
+    await knex("users").insert({
+      username: "user",
+      email: "email@email.com",
+      password: "password",
+      reset_password_token: "123",
+      reset_password_token_expiration: date
+    });
+
+    const res = await resetPasswordMethod("123", "newPassword", "newPassword");
+    expect(res.data.resetPassword).toEqual(false);
+  });
+
+  it("successfully reset password if data is valid", async () => {
+    await knex("users").insert({
+      username: "user",
+      email: "email@email.com",
+      password: "password",
+      reset_password_token: "123",
+      reset_password_token_expiration: new Date()
+    });
+
+    const res = await resetPasswordMethod("123", "newPassword", "newPassword");
+    expect(res.data.resetPassword).toEqual(true);
   });
 });

@@ -1,5 +1,6 @@
 const knex = require("../../config/db");
 const bcrypt = require("bcryptjs");
+const uuid = require("uuid/v4");
 const mail = require("../../utils/mail.js");
 const {
   generateAccessToken,
@@ -9,7 +10,6 @@ const {
   verifyJWTToken,
   decodeJWTToken
 } = require("../../utils/token");
-const { userExists } = require("../../utils/database");
 const { isEmpty, isEmail, isLength, normalizeEmail } = require("validator");
 
 module.exports = {
@@ -18,7 +18,16 @@ module.exports = {
     { req }
   ) => {
     // Check if user email or username is already in use
-    await userExists(username, email);
+    const user = await knex("users")
+      .first()
+      .where({ email })
+      .orWhere({ username });
+
+    if (user && user.username === username) {
+      throw new Error("Username already in use");
+    } else if (user && user.email === email) {
+      throw new Error("Email already in use");
+    }
 
     // Check Username
     if (isEmpty(username, { ignore_whitespace: true })) {
@@ -182,7 +191,86 @@ module.exports = {
     }
     return false;
   },
-  currentUser: async (args, { req, res }) => {
+  currentUser: async (args, { req }) => {
     return req.user;
+  },
+  newPassword: async ({ email }, { req }) => {
+    const user = await knex("users")
+      .where({ email: normalizeEmail(email) })
+      .first();
+
+    if (!user) return false;
+
+    const token = uuid();
+    const timestamp = new Date();
+    await knex("users")
+      .where({ email: normalizeEmail(email) })
+      .update({
+        reset_password_token: token,
+        reset_password_token_expiration: timestamp
+      });
+    await mail.send(
+      email,
+      "🎬 Theater - Password Reset",
+      "Please, click on the button to start the password reset procedure",
+      "user/password-reset",
+      token,
+      req
+    );
+
+    return true;
+  },
+  resetPassword: async ({ token, password, confirmPassword }, { req }) => {
+    const user = await knex("users")
+      .where({ reset_password_token: token })
+      .first();
+
+    if (!user) throw new Error("Token not valid");
+
+    // Password checks
+    if (password.trim().length <= 0) {
+      throw new Error("Password is required");
+    } else if (!isLength(password, { min: 8, max: 16 })) {
+      throw new Error("Password must be between 8 and 16 characters");
+    } else if (password !== confirmPassword) {
+      throw new Error("Password and confirm password must be equal");
+    }
+
+    // Get the reset password token expiration time
+    const date = new Date(user.reset_password_token_expiration);
+    // Set date to +24h
+    date.setHours(date.getHours() + 24);
+
+    // Check if token has expired
+    if (date < new Date()) {
+      // Token is valid, but has expired. Let's update the DB and send a new email
+      const newToken = uuid();
+      await knex("users")
+        .where({ reset_password_token: token })
+        .update({
+          reset_password_token: newToken,
+          reset_password_token_expiration: new Date()
+        });
+      await mail.send(
+        user.email,
+        "🎬 Theater - New Reset Password",
+        "Your previous token has expired (it expires after 24h). Click on the button to start the reset password procedure again.",
+        "user/reset-password",
+        newToken,
+        req
+      );
+      return false;
+    }
+
+    // Token is still valid, encrypt and set the new password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await knex("users")
+      .where({ reset_password_token: token })
+      .update({
+        password: hashedPassword,
+        reset_password_token: null,
+        reset_password_token_expiration: null
+      });
+    return true;
   }
 };

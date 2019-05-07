@@ -39,3 +39,23 @@ export const SIGNOUT_MUTATION = gql`
     signOut
   }
 `;
+
+export const NEW_PASSWORD_MUTATION = gql`
+  mutation NEW_PASSWORD_MUTATION($email: String!) {
+    newPassword(email: $email)
+  }
+`;
+
+export const RESET_PASSWORD_MUTATION = gql`
+  mutation RESET_PASSWORD_MUTATION(
+    $token: String!
+    $password: String!
+    $confirmPassword: String!
+  ) {
+    resetPassword(
+      token: $token
+      password: $password
+      confirmPassword: $confirmPassword
+    )
+  }
+`;

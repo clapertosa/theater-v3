@@ -272,6 +272,8 @@ type RootMutation {
   activateAccount(token: String!): String
   signIn(email: String! password: String!): String
   signOut: Boolean
+  newPassword(email: String!): Boolean
+  resetPassword(token: String! password: String! confirmPassword: String!): Boolean
 }
 
 schema {
