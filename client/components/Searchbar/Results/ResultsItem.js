@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import DrawerContext from "../../../contexts/DrawerContext";
 
 const Container = styled.div`
   display: grid;
@@ -46,16 +47,19 @@ const Title = styled.div`
 `;
 
 const ResultsItem = ({ index, image, title, year, url }) => {
+  const { closeSideDrawer } = useContext(DrawerContext);
+
   return (
     <Link href={url}>
-      <a tabIndex={index}>
+      <a tabIndex={index} onClick={closeSideDrawer}>
         <Container index={index % 2}>
           <Poster>
             <img src={image} alt={`${title} poster`} />
           </Poster>
           <Title>
             <p>
-              {title}{year.length > 0? ` (${year})`: ""}
+              {title}
+              {year.length > 0 ? ` (${year})` : ""}
             </p>
           </Title>
         </Container>
