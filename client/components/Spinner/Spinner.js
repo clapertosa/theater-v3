@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 150px;
+  min-height: ${({ minHeight }) => (minHeight ? minHeight : "150px")};
   width: 100%;
 `;
 
@@ -54,9 +54,9 @@ const Container = styled.div`
   }
 `;
 
-const Spinner = ({ size }) => {
+const Spinner = ({ size, minHeight }) => {
   return (
-    <Wrapper>
+    <Wrapper minHeight={minHeight}>
       <Container size={size} />
     </Wrapper>
   );
