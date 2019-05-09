@@ -101,6 +101,12 @@
       "css": "key",
       "code": 59402,
       "src": "entypo"
+    },
+    {
+      "uid": "862129f833b09f3d34ae39acf8484a7b",
+      "css": "heart-broken",
+      "code": 61480,
+      "src": "mfglabs"
     }
   ]
 }
