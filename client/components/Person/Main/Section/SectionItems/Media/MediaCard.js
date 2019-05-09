@@ -38,6 +38,7 @@ const Info = styled.div`
   width: 100%;
   bottom: 0;
   left: 0;
+  padding: 5px;
   color: ${({ theme: { colors } }) => colors.white};
   background-color: #000000b3;
   transform: translateY(200%);

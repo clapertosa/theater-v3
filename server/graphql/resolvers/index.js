@@ -5,6 +5,7 @@ const singleMediaResolver = require("./singleMedia");
 const mediaListResolver = require("./mediaList");
 const personResolver = require("./person");
 const authResolver = require("./auth");
+const userResolver = require("./user");
 
 module.exports = {
   ...searchResolver,
@@ -13,5 +14,6 @@ module.exports = {
   ...singleMediaResolver,
   ...mediaListResolver,
   ...personResolver,
-  ...authResolver
+  ...authResolver,
+  ...userResolver
 };

@@ -229,6 +229,13 @@ input UserInput {
   confirmPassword: String!
 }
 
+type FavoriteMedia {
+  media_id: ID!
+  media_type: String!
+  title: String!
+  poster_path: String
+}
+
 # Configuration
 # Root Query
 type RootQuery {
@@ -261,8 +268,11 @@ type RootQuery {
   # Person
   person(id: ID!): Person
 
-  # User
+  # Auth
   currentUser: User
+
+  # User
+  getFavorites: [FavoriteMedia]
 }
 
 # Root Mutation
@@ -274,6 +284,10 @@ type RootMutation {
   signOut: Boolean
   newPassword(email: String!): Boolean
   resetPassword(token: String! password: String! confirmPassword: String!): Boolean
+
+  # User
+  addToFavorites(media_id: ID! media_type: String! title: String! poster_path: String): Boolean
+  removeFromFavorites(media_id: ID!): Boolean
 }
 
 schema {

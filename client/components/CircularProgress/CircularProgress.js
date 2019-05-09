@@ -42,7 +42,7 @@ const CircularProgress = ({ gridArea, width, percentage, text }) => {
         {text} <span>%</span>
       </Text>
       <CP
-        percentage={percentage}
+        percentage={percentage || 0}
         // text={text}
         initialAnimation
         background

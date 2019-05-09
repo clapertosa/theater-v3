@@ -29,7 +29,9 @@ const Container = styled.div`
 
 const SingleMediaHeader = ({
   backdropPath,
+  id,
   title,
+  mediaType,
   posterPath,
   overview,
   releaseDate,
@@ -46,7 +48,10 @@ const SingleMediaHeader = ({
       <BackdropImage imagePath={backdropPath} title={title} />
       <Poster title={title} posterPath={posterPath} />
       <Info
+        id={id}
         title={title}
+        mediaType={mediaType}
+        posterPath={posterPath}
         overview={overview}
         releaseDate={releaseDate}
         runtime={runtime}

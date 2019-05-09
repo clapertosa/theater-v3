@@ -17,7 +17,7 @@ const Overview = ({ overview }) => {
   return (
     <Container>
       <p>
-        {overview.length > 250
+        {overview && overview.length > 250
           ? overview.substring(0, 250).trim() + "..."
           : overview}
       </p>

@@ -4,19 +4,21 @@ import PaginationButton from "./PaginationButton";
 import { getNumbers } from "../../utils/components/pagination";
 
 const Container = styled.div`
+  grid-area: ${({ gridArea }) => (gridArea ? gridArea : null)};
   display: ${({ loading }) => (loading ? "none" : "flex")};
   flex-wrap: wrap;
   margin: 10px auto;
 `;
 
 const Pagination = ({
+  gridArea,
   loading,
   pageChanged,
   currentPage = 1,
   totalPages = 1
 }) => {
   return (
-    <Container loading={loading}>
+    <Container gridArea={gridArea} loading={loading}>
       <PaginationButton
         clicked={pageChanged}
         value={1}

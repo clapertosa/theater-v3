@@ -476,7 +476,7 @@ export const PERSON_QUERY = gql`
   }
 `;
 
-//* User
+//* Auth
 export const CURRENT_USER_QUERY = gql`
   query CURRENT_USER_QUERY {
     currentUser {
@@ -484,6 +484,18 @@ export const CURRENT_USER_QUERY = gql`
       username
       email
       avatar
+    }
+  }
+`;
+
+//* User
+export const GET_FAVORITES_QUERY = gql`
+  query GET_FAVORITES_QUERY {
+    getFavorites {
+      media_id
+      media_type
+      title
+      poster_path
     }
   }
 `;

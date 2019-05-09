@@ -1,6 +1,8 @@
 export const sortData = data => {
   let sortedData = {};
 
+  // ID
+  sortedData.id = data.id;
   // Title
   sortedData.title =
     data.title || data.original_title || data.name || data.original_name;

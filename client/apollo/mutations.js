@@ -59,3 +59,26 @@ export const RESET_PASSWORD_MUTATION = gql`
     )
   }
 `;
+
+//* User
+export const ADD_TO_FAVORITES_MUTATION = gql`
+  mutation ADD_TO_FAVORITES_MUTATION(
+    $media_id: ID!
+    $media_type: String!
+    $title: String!
+    $poster_path: String
+  ) {
+    addToFavorites(
+      media_id: $media_id
+      media_type: $media_type
+      title: $title
+      poster_path: $poster_path
+    )
+  }
+`;
+
+export const REMOVE_FROM_FAVORITES_MUTATION = gql`
+  mutation REMOVE_FROM_FAVORITES_MUTATION($media_id: ID!) {
+    removeFromFavorites(media_id: $media_id)
+  }
+`;

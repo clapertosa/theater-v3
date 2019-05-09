@@ -15,7 +15,9 @@ const SingleMedia = ({ data }) => {
   return (
     <Container>
       <SingleMediaHeader
+        id={data.id}
         title={data.title}
+        mediaType={data.mediaType}
         backdropPath={data.backdropPath}
         posterPath={data.posterPath}
         overview={data.overview}

@@ -25,7 +25,10 @@ const Container = styled.div`
 `;
 
 const Info = ({
+  id,
   title,
+  mediaType,
+  posterPath,
   overview,
   releaseDate,
   runtime,
@@ -46,7 +49,12 @@ const Info = ({
         director={director}
       />
       <Score voteAverage={voteAverage} voteCount={voteCount} />
-      <Favorite />
+      <Favorite
+        id={id}
+        title={title}
+        mediaType={mediaType}
+        posterPath={posterPath}
+      />
       <Links homepage={homepage} externalIds={externalIds} />
       <Description overview={overview} />
     </Container>

@@ -51,13 +51,15 @@ const resetPasswordMethod = async (token, password, confirmPassword) => {
 };
 
 beforeAll(async () => {
-  await knex("users").truncate();
+  await knex.raw("TRUNCATE users RESTART IDENTITY CASCADE");
   jest.spyOn(mockSendMail, "send").mockImplementation(() => Promise.resolve());
 });
 
 afterEach(async () => {
-  await knex("users").truncate();
+  await knex.raw("TRUNCATE users RESTART IDENTITY CASCADE");
 });
+
+afterAll(async () => {});
 
 describe("Sign Up method", () => {
   it("will register user if data is correct", async () => {

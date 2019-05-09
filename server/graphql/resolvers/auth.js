@@ -151,6 +151,13 @@ module.exports = {
       throw new Error("Email or password wrong");
     }
 
+    // If user is not activated, throw an error
+    if (!user.activated) {
+      throw new Error(
+        "Account not activate yet, check your inbox to activate it."
+      );
+    }
+
     // Create JWT
     const accessToken = await generateAccessToken({
       id: user.id,
