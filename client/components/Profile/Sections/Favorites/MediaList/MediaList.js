@@ -1,88 +1,112 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import Filter from "./Filter";
+import Carousel from "../../../../Carousel/Carousel";
 import MediaItem from "./MediaItem";
-import Pagination from "../../../../Pagination/Pagination";
+import Spinner from "../../../../Spinner/Spinner";
 
 const Container = styled.div`
   grid-area: ${({ gridArea }) => gridArea};
-  display: grid;
-  grid-template-areas: "title" "main";
+  margin: 20px auto;
+  width: 100%;
+  grid-template-areas: "title" "content";
+  min-width: 0;
 `;
 
-const Title = styled.div`
+const Title = styled.h2`
   grid-area: title;
-  display: flex;
-
-  h1 {
-    cursor: pointer;
-    display: flex;
-    i {
-      transition: transform 0.3s;
-      transform: ${({ showList }) =>
-        showList ? "rotate(-180deg)" : "rotate(0)"};
-    }
-  }
+  margin: 0 0 10px 0;
+  text-shadow: 3px 3px 3px black;
 `;
 
-const Main = styled.div`
-  grid-area: main;
-  display: grid;
-  grid-template-areas: "filter" "media" "pagination";
-  border: ${({ showList }) => (showList ? "1px solid black" : null)};
+const Content = styled.div`
+  grid-area: content;
+  min-width: 0;
+  min-height: 195px;
   background-color: ${({ theme: { colors } }) => colors.gunMetal};
-  box-shadow: ${({ showList }) => (showList ? "3px 3px 3px black" : null)};
-  max-height: ${({ showList }) => (showList ? "900px" : "0")};
-  transition: max-height 0.3s;
-  overflow: hidden;
+  padding: 20px;
+  border: ${({ theme: { colors } }) => `1px solid ${colors.white}`};
+  border-radius: 5px;
 `;
 
-const Media = styled.div`
-  grid-area: media;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 10px;
-`;
+const MediaList = ({
+  show,
+  loading,
+  initialData,
+  gridArea,
+  title,
+  mediaType
+}) => {
+  const [data, setData] = useState([]);
 
-const MediaList = ({ gridArea, data, title, mediaType }) => {
-  const [showList, setShowList] = useState(true);
-  const showListToggle = () => {
-    setShowList(showList => !showList);
-  };
+  useEffect(() => {
+    return setData(initialData);
+  });
 
-  return data.length > 0 ? (
+  return (
     <Container gridArea={gridArea}>
-      <Title showList={showList}>
-        <h1 onClick={showListToggle}>
-          {title} <i className="icon-down-open" />
-        </h1>
-      </Title>
-      <Main showList={showList}>
-        <Filter />
-        <Media>
-          <TransitionGroup component={null}>
-            {data.map(media => (
-              <CSSTransition
-                key={media.media_id}
-                classNames="fade"
-                timeout={300}
-              >
-                <MediaItem
-                  id={media.media_id}
-                  title={media.title}
-                  mediaType={mediaType}
-                  posterPath={media.poster_path}
-                />
-              </CSSTransition>
+      <Title>{title}</Title>
+      <Content>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <Carousel
+            arrows
+            lazyLoad="ondemand"
+            initialSlide={0}
+            responsive={[
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: data.length > 5 ? 5 : data.length,
+                  slidesToScroll: data.length > 5 ? 5 : data.length
+                }
+              },
+              {
+                breakpoint: 950,
+                settings: {
+                  slidesToShow: data.length > 4 ? 4 : data.length,
+                  slidesToScroll: data.length > 4 ? 4 : data.length
+                }
+              },
+              {
+                breakpoint: 800,
+                settings: {
+                  slidesToShow: data.length > 3 ? 3 : data.length,
+                  slidesToScroll: data.length > 3 ? 3 : data.length
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: data.length > 2 ? 2 : data.length,
+                  slidesToScroll: data.length > 2 ? 2 : data.length
+                }
+              },
+              {
+                breakpoint: 450,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1
+                }
+              }
+            ]}
+            slidesToShow={data.length > 5 ? 5 : data.length}
+            slidesToScroll={data.length > 5 ? 5 : data.length}
+          >
+            {data.map(favorite => (
+              <MediaItem
+                key={favorite.media_id}
+                mediaId={favorite.media_id}
+                mediaType={mediaType}
+                title={favorite.title}
+                posterPath={favorite.poster_path}
+              />
             ))}
-          </TransitionGroup>
-        </Media>
-        <Pagination gridArea="pagination" />
-      </Main>
+          </Carousel>
+        )}
+      </Content>
     </Container>
-  ) : null;
+  );
 };
 
 export default MediaList;

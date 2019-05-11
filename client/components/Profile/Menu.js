@@ -56,12 +56,6 @@ const Menu = ({ clicked, activeSection }) => {
           <span>Favorites</span>
         </Item>
         <Item
-          active={activeSection === "recommendations"}
-          onClick={() => clicked("recommendations")}
-        >
-          <span>Recommendations</span>
-        </Item>
-        <Item
           active={activeSection === "settings"}
           onClick={() => clicked("settings")}
         >

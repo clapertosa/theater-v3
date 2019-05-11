@@ -272,7 +272,9 @@ type RootQuery {
   currentUser: User
 
   # User
-  getFavorites: [FavoriteMedia]
+  getFavoritesMovies: [FavoriteMedia]
+  getFavoritesSeries: [FavoriteMedia]
+  isFavorite(media_id: ID!): Boolean!
 }
 
 # Root Mutation

@@ -60,12 +60,26 @@ module.exports = {
       return false;
     }
   },
-  getFavorites: async (args, { req }) => {
+  getFavoritesMovies: async (args, { req }) => {
     if (!req.user) {
       throw new Error("You must be signed in to get favorites");
     }
 
-    const res = await knex("favorites").where({ user_id: req.user.id });
+    const res = await knex("favorites").where({
+      user_id: req.user.id,
+      media_type: "movie"
+    });
+    return res;
+  },
+  getFavoritesSeries: async (args, { req }) => {
+    if (!req.user) {
+      throw new Error("You must be signed in to get favorites");
+    }
+
+    const res = await knex("favorites").where({
+      user_id: req.user.id,
+      media_type: "series"
+    });
     return res;
   },
   removeFromFavorites: async ({ media_id }, { req }) => {
@@ -78,5 +92,16 @@ module.exports = {
       .del();
 
     return true;
+  },
+  isFavorite: async ({ media_id }, { req }) => {
+    if (!req.user) {
+      return false;
+    }
+
+    const isFavorite = await knex("favorites")
+      .where({ user_id: req.user.id, media_id })
+      .first();
+
+    return isFavorite ? true : false;
   }
 };

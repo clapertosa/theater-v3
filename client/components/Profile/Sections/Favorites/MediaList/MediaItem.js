@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Mutation } from "react-apollo";
 import { REMOVE_FROM_FAVORITES_MUTATION } from "../../../../../apollo/mutations";
-import { GET_FAVORITES_QUERY } from "../../../../../apollo/queries";
+import {
+  GET_FAVORITES_MOVIES_QUERY,
+  GET_FAVORITES_SERIES_QUERY
+} from "../../../../../apollo/queries";
 import Link from "next/link";
 import getPlaceholder from "../../../../../utils/components/imagePlaceholder";
 
@@ -12,14 +15,15 @@ const Container = styled.div`
   max-width: 200px;
   max-height: 302px;
   width: 150px;
-  margin: 10px;
+  min-height: 210px;
+  margin: auto;
   border: 1px solid black;
   box-shadow: 3px 3px 3px black;
   overflow: hidden;
 
   &:hover {
-    img {
-      transform: scale(1.2);
+    div {
+      transform: translateY(0);
     }
   }
 
@@ -27,7 +31,6 @@ const Container = styled.div`
     width: 100%;
     height: auto;
     object-fit: contain;
-    transition: transform 0.3s ease-out;
   }
 `;
 
@@ -36,15 +39,20 @@ const Info = styled.div`
   bottom: 0;
   padding: 5px;
   width: 100%;
+  padding: 5px;
   background-color: #000000b3;
   color: ${({ theme: { colors } }) => colors.white};
   text-decoration: none;
+  transform: translateY(200%);
+  transition: transform 0.3s ease-out;
 `;
 
 const Title = styled.h3`
   grid-area: title;
   margin: 0;
+  font-size: 1rem;
   text-align: center;
+  color: ${({ theme: { colors } }) => colors.white};
 `;
 
 const BrokenHeart = styled.i`
@@ -55,7 +63,7 @@ const BrokenHeart = styled.i`
   font-size: 2.5rem;
   color: ${({ theme: { colors } }) => colors.candy};
   transition: color 0.3s;
-  z-index: 1;
+  z-index: ${({ theme: { zIndex } }) => zIndex.carouselArrows + 1};
 
   animation: ${({ loading }) => (loading ? "rotate 1s linear infinite" : null)};
 
@@ -70,7 +78,7 @@ const BrokenHeart = styled.i`
   }
 `;
 
-const MediaItem = ({ mediaType, id, title, posterPath }) => {
+const MediaItem = ({ mediaId, mediaType, title, posterPath }) => {
   const imagePath = posterPath
     ? `https://image.tmdb.org/t/p/w185${posterPath}`
     : getPlaceholder(185, 278, "No Poster");
@@ -78,7 +86,10 @@ const MediaItem = ({ mediaType, id, title, posterPath }) => {
   return (
     <Mutation
       mutation={REMOVE_FROM_FAVORITES_MUTATION}
-      refetchQueries={[{ query: GET_FAVORITES_QUERY }]}
+      refetchQueries={[
+        { query: GET_FAVORITES_MOVIES_QUERY },
+        { query: GET_FAVORITES_SERIES_QUERY }
+      ]}
       awaitRefetchQueries
     >
       {(removeFromFavorites, { loading }) => (
@@ -87,11 +98,13 @@ const MediaItem = ({ mediaType, id, title, posterPath }) => {
             loading={loading}
             className="icon-heart-broken"
             onClick={async () =>
-              await removeFromFavorites({ variables: { media_id: id } })
+              await removeFromFavorites({ variables: { media_id: mediaId } })
             }
           />
           <Link
-            href={`/${mediaType === "movie" ? "movies" : "series"}?id=${id}`}
+            href={`/${
+              mediaType === "movie" ? "movies" : "series"
+            }?id=${mediaId}`}
           >
             <a>
               <img src={imagePath} />

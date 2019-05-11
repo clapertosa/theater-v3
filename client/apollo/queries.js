@@ -489,13 +489,30 @@ export const CURRENT_USER_QUERY = gql`
 `;
 
 //* User
-export const GET_FAVORITES_QUERY = gql`
-  query GET_FAVORITES_QUERY {
-    getFavorites {
+export const GET_FAVORITES_MOVIES_QUERY = gql`
+  query GET_FAVORITES_MOVIES_QUERY {
+    getFavoritesMovies {
       media_id
       media_type
       title
       poster_path
     }
+  }
+`;
+
+export const GET_FAVORITES_SERIES_QUERY = gql`
+  query GET_FAVORITES_SERIES_QUERY {
+    getFavoritesSeries {
+      media_id
+      media_type
+      title
+      poster_path
+    }
+  }
+`;
+
+export const IS_FAVORITE_QUERY = gql`
+  query IS_FAVORITE_QUERY($media_id: ID!) {
+    isFavorite(media_id: $media_id)
   }
 `;

@@ -19,20 +19,15 @@ const UserProfile = ({ user }) => {
   return (
     <Container>
       <Menu clicked={changeSection} activeSection={currentSection} />
-      <TransitionGroup>
+      <TransitionGroup component={null}>
         {currentSection === "favorites" ? (
           <CSSTransition classNames="fade" timeout={300} exit={null}>
             <Favorites />
           </CSSTransition>
         ) : null}
-        {currentSection === "recommendations" ? (
-          <CSSTransition classNames="fade" timeout={300} exit={null}>
-            <div>asd</div>
-          </CSSTransition>
-        ) : null}
         {currentSection === "settings" ? (
           <CSSTransition classNames="fade" timeout={300} exit={null}>
-            <div>ciao</div>
+            <div>Settings page</div>
           </CSSTransition>
         ) : null}
       </TransitionGroup>

@@ -6,7 +6,9 @@ import {
   REMOVE_FROM_FAVORITES_MUTATION
 } from "../../../../../apollo/mutations";
 import {
-  GET_FAVORITES_QUERY,
+  GET_FAVORITES_MOVIES_QUERY,
+  GET_FAVORITES_SERIES_QUERY,
+  IS_FAVORITE_QUERY,
   CURRENT_USER_QUERY
 } from "../../../../../apollo/queries";
 import Link from "next/link";
@@ -62,24 +64,35 @@ const Favorite = ({ id, mediaType, title, posterPath }) => {
     <Container>
       <Mutation
         mutation={ADD_TO_FAVORITES_MUTATION}
-        refetchQueries={[{ query: GET_FAVORITES_QUERY }]}
+        refetchQueries={[
+          { query: GET_FAVORITES_MOVIES_QUERY },
+          { query: GET_FAVORITES_SERIES_QUERY },
+          { query: IS_FAVORITE_QUERY, variables: { media_id: id } }
+        ]}
         awaitRefetchQueries
       >
         {(addToFavorites, { loading }) => (
           <Query query={CURRENT_USER_QUERY}>
             {({ data: { currentUser } }) =>
               currentUser ? (
-                <Query query={GET_FAVORITES_QUERY}>
-                  {({ data: { getFavorites = null } }) => {
-                    if (
-                      getFavorites &&
-                      getFavorites.filter(favorite => favorite.media_id === id)
-                        .length > 0
-                    ) {
+                <Query query={IS_FAVORITE_QUERY} variables={{ media_id: id }}>
+                  {({ data: { isFavorite } }) => {
+                    if (isFavorite) {
                       return (
                         <Mutation
                           mutation={REMOVE_FROM_FAVORITES_MUTATION}
-                          refetchQueries={[{ query: GET_FAVORITES_QUERY }]}
+                          refetchQueries={[
+                            {
+                              query: GET_FAVORITES_MOVIES_QUERY
+                            },
+                            {
+                              query: GET_FAVORITES_SERIES_QUERY
+                            },
+                            {
+                              query: IS_FAVORITE_QUERY,
+                              variables: { media_id: id }
+                            }
+                          ]}
                           awaitRefetchQueries
                         >
                           {(removeFromFavorites, { loading }) => (
