@@ -51,7 +51,7 @@ const Pagination = ({
       </PaginationButton>
       <PaginationButton
         clicked={pageChanged}
-        value={totalPages}
+        value={Math.ceil(totalPages)}
         disabled={currentPage >= totalPages}
       >
         <i className="icon-angle-double-right" />
