@@ -4,11 +4,9 @@ import Slider from "react-slick";
 
 const NextButton = styled.i`
   cursor: pointer;
-  display: flex !important;
-  align-items: center;
   position: absolute;
-  top: 0;
-  height: 100%;
+  top: 50%;
+  transform: translateY(-50%);
   right: 0;
   color: ${({ theme: { colors } }) => colors.gray};
   font-size: 3rem;
@@ -22,11 +20,9 @@ const NextButton = styled.i`
 
 const PrevButton = styled.i`
   cursor: pointer;
-  display: flex !important;
-  align-items: center;
   position: absolute;
-  top: 0;
-  height: 100%;
+  top: 50%;
+  transform: translateY(-50%);
   left: 0;
   color: ${({ theme: { colors } }) => colors.gray};
   font-size: 3rem;
@@ -51,7 +47,13 @@ const settings = {
     <PrevButton>
       <i className="icon-left-circle" />
     </PrevButton>
-  )
+  ),
+  appendDots: dots => (
+    <div>
+      <ul>{dots}</ul>
+    </div>
+  ),
+  customPaging: i => <i className="icon-circle">{i + 1}</i>
 };
 
 const Carousel = ({
@@ -60,6 +62,7 @@ const Carousel = ({
   slidesToShow,
   slidesToScroll,
   arrows,
+  dots,
   autoplay,
   autoplaySpeed,
   responsive,
@@ -76,6 +79,7 @@ const Carousel = ({
       autoplaySpeed={autoplaySpeed}
       responsive={responsive}
       lazyLoad={lazyLoad}
+      dots={dots}
     >
       {children}
     </Slider>
