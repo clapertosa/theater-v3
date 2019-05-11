@@ -36,6 +36,7 @@ const Info = styled.div`
   grid-template-areas: "title vote";
   position: absolute;
   width: 100%;
+  padding: 5px;
   bottom: 0;
   left: 0;
   color: ${({ theme: { colors } }) => colors.white};
@@ -48,6 +49,7 @@ const Title = styled.h3`
   grid-area: title;
   margin: 0;
   font-size: 1rem;
+  color: ${({ theme: { colors } }) => colors.white};
 `;
 
 const Vote = styled.div`
@@ -55,6 +57,7 @@ const Vote = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  color: ${({ theme: { colors } }) => colors.white};
 
   i {
     color: yellow;
