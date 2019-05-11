@@ -64,3 +64,15 @@ body {
   opacity: 0;
   transition: opacity 300ms ease-out;
 }
+
+/* Shrink CardItem in user's profile */
+.shrink-card-exit {
+  max-width: 200px;
+  max-height: 302px;
+}
+
+.shrink-card-exit-active {
+  max-width: 0;
+  max-height: 0;
+  transition: max-width 300ms ease-out, max-height 300ms ease-out;
+}
