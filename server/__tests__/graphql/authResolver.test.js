@@ -52,14 +52,19 @@ const resetPasswordMethod = async (token, password, confirmPassword) => {
 
 beforeAll(async () => {
   await knex.raw("TRUNCATE users RESTART IDENTITY CASCADE");
+  await knex.raw("TRUNCATE favorites RESTART IDENTITY");
   jest.spyOn(mockSendMail, "send").mockImplementation(() => Promise.resolve());
 });
 
 afterEach(async () => {
   await knex.raw("TRUNCATE users RESTART IDENTITY CASCADE");
+  await knex.raw("TRUNCATE favorites RESTART IDENTITY");
 });
 
-afterAll(async () => {});
+afterAll(async () => {
+  await knex.raw("TRUNCATE users RESTART IDENTITY CASCADE");
+  await knex.raw("TRUNCATE favorites RESTART IDENTITY");
+});
 
 describe("Sign Up method", () => {
   it("will register user if data is correct", async () => {

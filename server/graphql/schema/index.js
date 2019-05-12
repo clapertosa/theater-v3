@@ -288,8 +288,15 @@ type RootMutation {
   resetPassword(token: String! password: String! confirmPassword: String!): Boolean
 
   # User
+    # Favorites
   addToFavorites(media_id: ID! media_type: String! title: String! poster_path: String): Boolean
   removeFromFavorites(media_id: ID!): Boolean
+    # User Settings
+  # changeAvatar(file: Upload): Boolean
+  changeUsername(username: String!): Boolean
+  changeEmail(email: String! confirmEmail: String): Boolean
+  recoverEmail(token: String!): String
+  changePassword(oldPassword: String password: String! confirmPassword: String!): Boolean
 }
 
 schema {

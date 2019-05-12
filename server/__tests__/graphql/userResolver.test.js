@@ -9,9 +9,15 @@ const {
 } = require("../../../client/apollo/queries");
 const {
   ADD_TO_FAVORITES_MUTATION,
-  REMOVE_FROM_FAVORITES_MUTATION
+  REMOVE_FROM_FAVORITES_MUTATION,
+  CHANGE_USERNAME_MUTATION,
+  CHANGE_EMAIL_MUTATION,
+  RECOVER_EMAIL_MUTATION,
+  CHANGE_PASSWORD_MUTATION
 } = require("../../../client/apollo/mutations");
 const axios = require("../../axiosInstance");
+const mail = require("../../utils/mail");
+const tokenUtils = require("../../utils/token");
 
 const tester = new EasyGraphQLTester(schema);
 
@@ -23,7 +29,8 @@ const getMockedReq = authenticated => {
           id: 1,
           username: "user",
           email: "email@email.com",
-          password: "password"
+          password:
+            "$2a$10$FwZO1J6lHo1CXVjOUXtv5uC31lQx3VApgsmJmNIeBo2Qq9w58dwJa"
         }
       }
     };
@@ -79,22 +86,68 @@ const isFavoriteMethod = async (authenticated, media_id) => {
   );
 };
 
+const changeUsernameMethod = async (authenticated, username) => {
+  return await tester.graphql(
+    CHANGE_USERNAME_MUTATION,
+    resolvers,
+    getMockedReq(authenticated),
+    { username }
+  );
+};
+
+const changeEmailMethod = async (authenticated, email, confirmEmail) => {
+  return await tester.graphql(
+    CHANGE_EMAIL_MUTATION,
+    resolvers,
+    getMockedReq(authenticated),
+    { email, confirmEmail }
+  );
+};
+
+const recoverEmailMethod = async token => {
+  return await tester.graphql(
+    RECOVER_EMAIL_MUTATION,
+    resolvers,
+    getMockedReq(false),
+    { token }
+  );
+};
+
+const changePasswordMethod = async (
+  authenticated,
+  oldPassword,
+  password,
+  confirmPassword
+) => {
+  return await tester.graphql(
+    CHANGE_PASSWORD_MUTATION,
+    resolvers,
+    getMockedReq(authenticated),
+    { oldPassword, password, confirmPassword }
+  );
+};
+
 beforeAll(async () => {
   await knex.raw("TRUNCATE favorites RESTART IDENTITY");
+  await knex.raw("TRUNCATE users RESTART IDENTITY CASCADE");
+});
+
+beforeEach(async () => {
   await knex("users").insert({
     username: "user",
     email: "email@email.com",
-    password: "password"
+    password: "$2a$10$FwZO1J6lHo1CXVjOUXtv5uC31lQx3VApgsmJmNIeBo2Qq9w58dwJa"
   });
 });
 
 afterEach(async () => {
   await knex.raw("TRUNCATE favorites RESTART IDENTITY");
+  await knex.raw("TRUNCATE users RESTART IDENTITY CASCADE");
 });
 
 afterAll(async () => {
-  await knex.raw("TRUNCATE users RESTART IDENTITY CASCADE");
   await knex.raw("TRUNCATE favorites RESTART IDENTITY");
+  await knex.raw("TRUNCATE users RESTART IDENTITY CASCADE");
 });
 
 describe("getFavoritesMovies method", () => {
@@ -277,5 +330,181 @@ describe("isFavorite method", () => {
     });
     const res = await isFavoriteMethod(true, 597);
     expect(res.data.isFavorite).toBe(true);
+  });
+});
+
+describe("changeUsername method", () => {
+  it("throws an error if user is not signed in", async () => {
+    const res = await changeUsernameMethod(false, "new_username");
+    expect(res.errors[0].message).toEqual(
+      "You must be signed in to change your username"
+    );
+  });
+
+  it("throws an error if username's checks fail", async () => {
+    let res;
+    // Required
+    res = await changeUsernameMethod(true, "");
+    expect(res.errors[0].message).toEqual("Username is required");
+    // Length
+    res = await changeUsernameMethod(true, "usr");
+    expect(res.errors[0].message).toEqual(
+      "Username must be between 4 and 16 characters"
+    );
+    // Lowercase
+    res = await changeUsernameMethod(true, "User");
+    expect(res.errors[0].message).toEqual("Username must be lowercase");
+  });
+
+  it("throws an error if username already in use", async () => {
+    await knex("users").insert({
+      username: "superuser",
+      email: "newemail@email.com",
+      password: "password"
+    });
+
+    const res = await changeUsernameMethod(true, "superuser");
+    expect(res.errors[0].message).toEqual("Username already in use");
+  });
+
+  it("successfully changes username if data is valid", async () => {
+    const res = await changeUsernameMethod(true, "superuser");
+    expect(res.data.changeUsername).toBeTruthy();
+  });
+});
+
+describe("changeEmail method", () => {
+  beforeEach(() => {
+    jest.spyOn(mail, "send").mockImplementationOnce(() => Promise.resolve());
+  });
+
+  it("throws an error if user is not signed in", async () => {
+    const res = await changeEmailMethod(
+      false,
+      "newemail@email.com",
+      "newemail@email.com"
+    );
+    expect(res.errors[0].message).toEqual(
+      "You must be signed in to change your email"
+    );
+  });
+
+  it("throws an error if email's checks fail", async () => {
+    let res;
+    // Required
+    res = await changeEmailMethod(true, "", "");
+    expect(res.errors[0].message).toEqual("Email is required");
+    // Email valid
+    res = await changeEmailMethod(true, "fakemail.com", "fakemail.com");
+    expect(res.errors[0].message).toEqual("Email not valid");
+    // Email and confirm email must be equal
+    res = await changeEmailMethod(
+      true,
+      "email@email.com",
+      "anotheremail@email.com"
+    );
+    expect(res.errors[0].message).toEqual(
+      "Email and confirm email must be equal"
+    );
+  });
+
+  it("throws an error if email already in the DB", async () => {
+    const res = await changeEmailMethod(
+      true,
+      "email@email.com",
+      "email@email.com"
+    );
+    expect(res.errors[0].message).toEqual(
+      "Email already in use: if you don't remember your password, please reset it in the login page"
+    );
+  });
+
+  it("successfully changes email if data is valid", async () => {
+    const res = await changeEmailMethod(
+      true,
+      "newemail@email.com",
+      "newemail@email.com"
+    );
+
+    expect(res.data.changeEmail).toBeTruthy();
+  });
+});
+
+describe("recoverEmail method", () => {
+  it("throws an error if token is not provided or invalid", async () => {
+    let res;
+    res = await recoverEmailMethod("");
+    expect(res.errors[0].message).toEqual("Invalid or expired token");
+    res = await recoverEmailMethod("eqoisujf8923uj32.f23f8923jh98f2j398f");
+    expect(res.errors[0].message).toEqual("Invalid or expired token");
+  });
+
+  it("successfully recovers email if token is valid", async () => {
+    await knex("users")
+      .where({ id: 1 })
+      .update({ email: "newemail@newemail.com" });
+    const validToken = await tokenUtils.generateRecoverEmailToken(
+      1,
+      "email@email.com",
+      "newemail@newemail.com"
+    );
+    const res = await recoverEmailMethod(validToken);
+    expect(res.data.recoverEmail).toEqual("Old email recovered");
+  });
+});
+
+describe("changePassword method", () => {
+  it("throws an error if user is not signed in", async () => {
+    const res = await changePasswordMethod(
+      false,
+      "password",
+      "password",
+      "password"
+    );
+    expect(res.errors[0].message).toEqual(
+      "You must be signed in to change your password"
+    );
+  });
+
+  it("throws an error if old password doesn't match the db one", async () => {
+    const res = await changePasswordMethod(
+      true,
+      "anotherpass",
+      "password",
+      "password"
+    );
+    expect(res.errors[0].message).toEqual("The old password is wrong");
+  });
+
+  it("throws an error if password checks fail", async () => {
+    let res;
+    // Required
+    res = await changePasswordMethod(true, "password", "", "");
+    expect(res.errors[0].message).toEqual("Password is required");
+    // Length
+    res = await changePasswordMethod(true, "password", "pass", "pass");
+    expect(res.errors[0].message).toEqual(
+      "Password must be between 8 and 16 characters"
+    );
+    // Password and confirm password must be equal
+    res = await changePasswordMethod(
+      true,
+      "password",
+      "password",
+      "anotherpassword"
+    );
+    expect(res.errors[0].message).toEqual(
+      "Password and confirm password must be equal"
+    );
+  });
+
+  it("successfully changes password if data is valid", async () => {
+    const res = await changePasswordMethod(
+      true,
+      "password",
+      "password",
+      "password"
+    );
+    expect(res.data.changePassword).toBeTruthy();
   });
 });

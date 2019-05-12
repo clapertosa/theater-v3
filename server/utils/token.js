@@ -35,6 +35,22 @@ module.exports = {
       );
     });
   },
+  generateRecoverEmailToken: (userId, oldEmail, newEmail) => {
+    return new Promise((resolve, reject) => {
+      jwt.sign(
+        { userId, oldEmail, newEmail },
+        keys.JWT_SECRET,
+        { expiresIn: "7d" },
+        (err, token) => {
+          if (!err) {
+            return resolve(token);
+          } else {
+            return reject(err);
+          }
+        }
+      );
+    });
+  },
   verifyJWTToken: token => {
     return new Promise((resolve, reject) =>
       jwt.verify(token, keys.JWT_SECRET, (err, decoded) => {

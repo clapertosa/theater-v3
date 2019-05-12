@@ -61,6 +61,7 @@ export const RESET_PASSWORD_MUTATION = gql`
 `;
 
 //* User
+// Favorites
 export const ADD_TO_FAVORITES_MUTATION = gql`
   mutation ADD_TO_FAVORITES_MUTATION(
     $media_id: ID!
@@ -80,5 +81,38 @@ export const ADD_TO_FAVORITES_MUTATION = gql`
 export const REMOVE_FROM_FAVORITES_MUTATION = gql`
   mutation REMOVE_FROM_FAVORITES_MUTATION($media_id: ID!) {
     removeFromFavorites(media_id: $media_id)
+  }
+`;
+
+// Settings
+export const CHANGE_USERNAME_MUTATION = gql`
+  mutation CHANGE_USERNAME_MUTATION($username: String!) {
+    changeUsername(username: $username)
+  }
+`;
+
+export const CHANGE_EMAIL_MUTATION = gql`
+  mutation CHANGE_EMAIL_MUTATION($email: String!, $confirmEmail: String!) {
+    changeEmail(email: $email, confirmEmail: $confirmEmail)
+  }
+`;
+
+export const RECOVER_EMAIL_MUTATION = gql`
+  mutation RECOVER_EMAIL_MUTATION($token: String!) {
+    recoverEmail(token: $token)
+  }
+`;
+
+export const CHANGE_PASSWORD_MUTATION = gql`
+  mutation CHANGE_PASSWORD_MUTATION(
+    $oldPassword: String!
+    $password: String!
+    $confirmPassword: String!
+  ) {
+    changePassword(
+      oldPassword: $oldPassword
+      password: $password
+      confirmPassword: $confirmPassword
+    )
   }
 `;

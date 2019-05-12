@@ -10,7 +10,12 @@ const {
   verifyJWTToken,
   decodeJWTToken
 } = require("../../utils/token");
-const { isEmpty, isEmail, isLength, normalizeEmail } = require("validator");
+const {
+  checkUsername,
+  checkEmails,
+  checkPasswords
+} = require("../../utils/inputValidator");
+const { normalizeEmail } = require("validator");
 
 module.exports = {
   signUp: async (
@@ -29,32 +34,10 @@ module.exports = {
       throw new Error("Email already in use");
     }
 
-    // Check Username
-    if (isEmpty(username, { ignore_whitespace: true })) {
-      throw new Error("Username is required");
-    } else if (!isLength(username, { min: 4, max: 16 })) {
-      throw new Error("Username must be between 4 and 16 characters");
-    } else if (username !== username.toLowerCase()) {
-      throw new Error("Username must be lowercase");
-    }
-
-    // Check Email
-    if (isEmpty(email, { ignore_whitespace: true })) {
-      throw new Error("Email is required");
-    } else if (!isEmail(email)) {
-      throw new Error("Email not valid");
-    } else if (email !== confirmEmail) {
-      throw new Error("Email and confirm email must be equal");
-    }
-
-    // Check Password
-    if (isEmpty(password, { ignore_whitespace: true })) {
-      throw new Error("Password is required");
-    } else if (!isLength(password, { min: 8, max: 16 })) {
-      throw new Error("Password must be between 8 and 16 characters");
-    } else if (password !== confirmPassword) {
-      throw new Error("Password and confirm password must be equal");
-    }
+    // Input checks
+    checkUsername(username);
+    checkEmails(email, confirmEmail);
+    checkPasswords(password, confirmPassword);
 
     // Hashed password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -235,13 +218,7 @@ module.exports = {
     if (!user) throw new Error("Token not valid");
 
     // Password checks
-    if (password.trim().length <= 0) {
-      throw new Error("Password is required");
-    } else if (!isLength(password, { min: 8, max: 16 })) {
-      throw new Error("Password must be between 8 and 16 characters");
-    } else if (password !== confirmPassword) {
-      throw new Error("Password and confirm password must be equal");
-    }
+    checkPasswords(password, confirmPassword);
 
     // Get the reset password token expiration time
     const date = new Date(user.reset_password_token_expiration);

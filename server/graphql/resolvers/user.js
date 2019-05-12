@@ -1,7 +1,21 @@
 const knex = require("../../config/db");
 const axios = require("../../axiosInstance");
+const {
+  checkUsername,
+  checkEmails,
+  checkPasswords
+} = require("../../utils/inputValidator");
+const { normalizeEmail } = require("validator");
+const {
+  generateActivationToken,
+  generateRecoverEmailToken,
+  verifyJWTToken
+} = require("../../utils/token");
+const mail = require("../../utils/mail.js");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
+  // Favorites db mutations
   addToFavorites: async (
     { media_id, media_type, title, poster_path },
     { req }
@@ -103,5 +117,133 @@ module.exports = {
       .first();
 
     return isFavorite ? true : false;
+  },
+
+  //User settings mutations
+  changeUsername: async ({ username }, { req }) => {
+    if (!req.user) {
+      throw new Error("You must be signed in to change your username");
+    }
+
+    // Username checks
+    checkUsername(username);
+
+    // Check if username already exists
+    const userExists = await knex("users")
+      .where({ username })
+      .first();
+
+    if (userExists) {
+      throw new Error("Username already in use");
+    }
+
+    // Update username
+    await knex("users")
+      .where({ id: req.user.id })
+      .update({ username });
+
+    return true;
+  },
+  changeEmail: async ({ email, confirmEmail }, { req }) => {
+    if (!req.user) {
+      throw new Error("You must be signed in to change your email");
+    }
+
+    // Email checks
+    checkEmails(email, confirmEmail);
+
+    // Check if user with this new email already exists
+    const userExists = await knex("users")
+      .where({
+        email: normalizeEmail(email)
+      })
+      .first();
+
+    if (userExists) {
+      throw new Error(
+        "Email already in use: if you don't remember your password, please reset it in the login page"
+      );
+    }
+    // Send an email to the old email with a token which expires after 7 days to recover the previous one
+    //Generate token
+    const recoveryToken = await generateRecoverEmailToken(
+      req.user.id,
+      req.user.email,
+      normalizeEmail(email)
+    );
+    await mail.send(
+      normalizeEmail(email),
+      "🎬 Theater - Your email has been changed",
+      "If you haven't changed the email, please click on the button to recover this one and change your password as soon as possible, because your account could have been compromised.",
+      "user/recover-email",
+      recoveryToken,
+      req
+    );
+
+    // Update email
+    await knex("users")
+      .where({ id: req.user.id })
+      .update({ email: normalizeEmail(email), activated: false });
+
+    // Send an activation email with the activation token
+    const activationToken = await generateActivationToken(
+      normalizeEmail(email)
+    );
+    await mail.send(
+      normalizeEmail(email),
+      "🎬 Theater - Activate new Email",
+      'Click on the "Activate" button to confirm your new email.',
+      "user/account-activation",
+      activationToken,
+      req
+    );
+
+    return true;
+  },
+  recoverEmail: async ({ token }) => {
+    let decodedToken;
+
+    try {
+      decodedToken = await verifyJWTToken(token);
+    } catch (e) {
+      throw new Error("Invalid or expired token");
+    }
+
+    // Set the old email
+    await knex("users")
+      .where({ id: decodedToken.userId, email: decodedToken.newEmail })
+      .update({ email: decodedToken.oldEmail });
+
+    return "Old email recovered";
+  },
+  changePassword: async (
+    { oldPassword, password, confirmPassword },
+    { req }
+  ) => {
+    if (!req.user) {
+      throw new Error("You must be signed in to change your password");
+    }
+
+    // Check if the oldPassword match the current one
+    const user = await knex("users")
+      .where({ id: req.user.id })
+      .first();
+    const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!passwordMatch) {
+      throw new Error("The old password is wrong");
+    }
+
+    // Check the new password
+    checkPasswords(password, confirmPassword);
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Update password
+    await knex("users")
+      .where({ id: req.user.id })
+      .update({ password: hashedPassword });
+
+    return true;
   }
 };

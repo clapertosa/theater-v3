@@ -1,7 +1,7 @@
-import { ACTIVATE_ACCOUNT_MUTATION } from "../../apollo/mutations";
+import { RECOVER_EMAIL_MUTATION } from "../../apollo/mutations";
 import Message from "../../components/Message/Message";
 
-const AccountActivation = ({ message }) => {
+const RecoverEmail = ({ message }) => {
   if (process.browser) {
     setTimeout(() => {
       window.location.href = "/user/signin";
@@ -10,16 +10,16 @@ const AccountActivation = ({ message }) => {
   return <Message>{message}</Message>;
 };
 
-AccountActivation.getInitialProps = async ({ query, apolloClient }) => {
+RecoverEmail.getInitialProps = async ({ query, apolloClient }) => {
   let message;
   try {
     const res = await apolloClient.mutate({
-      mutation: ACTIVATE_ACCOUNT_MUTATION,
+      mutation: RECOVER_EMAIL_MUTATION,
       variables: {
         token: query.token
       }
     });
-    message = res.data.activateAccount;
+    message = res.data.recoverEmail;
   } catch (e) {
     if (query.token) {
       message = e.graphQLErrors[0].message;
@@ -30,4 +30,4 @@ AccountActivation.getInitialProps = async ({ query, apolloClient }) => {
   return { message };
 };
 
-export default AccountActivation;
+export default RecoverEmail;
