@@ -1,5 +1,7 @@
 const knex = require("../../config/db");
 const axios = require("../../axiosInstance");
+const keys = require("../../config/keys");
+const crypto = require("crypto");
 const {
   checkUsername,
   checkEmails,
@@ -120,6 +122,61 @@ module.exports = {
   },
 
   //User settings mutations
+  changeAvatar: async ({ file }, { req }) => {
+    if (!req.user) {
+      throw new Error("You must be signed in to change your avatar");
+    }
+
+    const { mimetype, createReadStream } = await file;
+
+    const timestamp = Date.now();
+    let signature = `timestamp=${timestamp}&upload_preset=theater${
+      keys.CLOUDINARY_SECRET_KEY
+    }`;
+    signature = crypto
+      .createHash("sha1")
+      .update(signature)
+      .digest("hex");
+
+    const { toDataUri } = require("../../utils/streamToDataURI");
+    const dataURI = await toDataUri(mimetype, createReadStream());
+
+    let res;
+    try {
+      res = await fetch(
+        `https://api.cloudinary.com/v1_1/${
+          keys.CLOUDINARY_CLOUD_NAME
+        }/image/upload`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            file: dataURI,
+            api_key: keys.CLOUDINARY_API_KEY,
+            timestamp,
+            signature,
+            upload_preset: "theater"
+          })
+        }
+      );
+    } catch (e) {
+      throw new Error("An error occurred");
+    }
+
+    if (!res.ok) {
+      throw new Error("Image not valid");
+    }
+
+    //Upload complete and avatar url path retrieved
+    const { secure_url: avatarPath } = await res.json();
+
+    // Set avatar
+    await knex("users")
+      .where({ id: req.user.id })
+      .update({ avatar: avatarPath });
+
+    return true;
+  },
   changeUsername: async ({ username }, { req }) => {
     if (!req.user) {
       throw new Error("You must be signed in to change your username");

@@ -85,6 +85,12 @@ export const REMOVE_FROM_FAVORITES_MUTATION = gql`
 `;
 
 // Settings
+export const CHANGE_AVATAR_MUTATION = gql`
+  mutation CHANGE_AVATAR_MUTATION($file: Upload!) {
+    changeAvatar(file: $file)
+  }
+`;
+
 export const CHANGE_USERNAME_MUTATION = gql`
   mutation CHANGE_USERNAME_MUTATION($username: String!) {
     changeUsername(username: $username)
