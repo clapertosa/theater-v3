@@ -2,8 +2,8 @@ import checkLoggedIn from "../../lib/checkLoggedIn";
 import redirect from "../../lib/redirect";
 import UserProfile from "../../containers/UserProfile";
 
-const Profile = ({ user }) => {
-  return <UserProfile user={user} />;
+const Profile = () => {
+  return <UserProfile />;
 };
 
 Profile.getInitialProps = async ctx => {
@@ -13,7 +13,7 @@ Profile.getInitialProps = async ctx => {
     redirect(ctx, "/user/signin");
   }
 
-  return { user: currentUser };
+  return {};
 };
 
 export default Profile;
