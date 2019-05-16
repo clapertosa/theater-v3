@@ -182,7 +182,16 @@ module.exports = {
     return false;
   },
   currentUser: async (args, { req }) => {
-    return req.user;
+    if (!req.user) {
+      return;
+    }
+
+    const user = await knex("users")
+      .where({ id: req.user.id })
+      .select("id", "username", "email", "avatar")
+      .first();
+
+    return user;
   },
   newPassword: async ({ email }, { req }) => {
     const user = await knex("users")
