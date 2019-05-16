@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Label from "./Label";
-import Error from "../Error";
+import Message from "../Message";
 
 const Container = styled.div`
   position: relative;
   display: grid;
-  grid-template-areas: "label" "input" "error";
+  grid-template-areas: "label" "input" "message";
   grid-template-rows: auto 1fr auto;
   width: 100%;
   margin: 5px 0;
@@ -50,7 +50,7 @@ const Input = ({
         placeholder={placeholder}
         value={value || ""}
       />
-      <Error>{error}</Error>
+      <Message error>{error}</Message>
     </Container>
   );
 };

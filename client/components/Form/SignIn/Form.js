@@ -13,7 +13,7 @@ import Input from "../StyledFormComponents/Input/Input";
 import InputArea from "../StyledFormComponents/InputArea";
 import ButtonArea from "../StyledFormComponents/ButtonArea";
 import Button from "../StyledFormComponents/Button";
-import Error from "../StyledFormComponents/Error";
+import Message from "../StyledFormComponents/Message";
 
 const ForgotPassword = styled.a`
   margin-top: 10px;
@@ -109,7 +109,9 @@ const Form = () => {
                     }
                   />
                 </InputArea>
-                <Error gridArea="server-error">{serverError}</Error>
+                <Message gridArea="server-message" error>
+                  {serverError}
+                </Message>
                 <ButtonArea>
                   <Button type="submit" disabled={isSubmitting || loading}>
                     {loading ? "Submitting" : "Sign In"}

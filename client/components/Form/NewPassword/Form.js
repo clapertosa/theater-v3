@@ -10,7 +10,7 @@ import InputArea from "../StyledFormComponents/InputArea";
 import ButtonArea from "../StyledFormComponents/ButtonArea";
 import Input from "../StyledFormComponents/Input/Input";
 import Button from "../StyledFormComponents/Button";
-import FloatingMessage from "../StyledFormComponents/FloatingMessage";
+import FloatingMessage from "../../FloatingMessage/FloatingMessage";
 
 const Form = () => {
   const [email, setEmail] = useState("");

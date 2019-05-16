@@ -20,6 +20,7 @@ const Container = styled.div`
   text-shadow: 3px 3px 3px black;
   box-shadow: 3px 3px 3px black;
   animation: bounce-in-right 1.1s both;
+  z-index: ${({ theme: { zIndex } }) => `calc(${zIndex.navbar} + 1)`};
 
   @keyframes bounce-in-right {
     0% {

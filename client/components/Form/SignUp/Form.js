@@ -10,8 +10,8 @@ import Input from "../StyledFormComponents/Input/Input";
 import InputArea from "../StyledFormComponents/InputArea";
 import ButtonArea from "../StyledFormComponents/ButtonArea";
 import Button from "../StyledFormComponents/Button";
-import Error from "../StyledFormComponents/Error";
-import FloatingMessage from "../StyledFormComponents/FloatingMessage";
+import Message from "../StyledFormComponents/Message";
+import FloatingMessage from "../../FloatingMessage/FloatingMessage";
 
 const Form = () => {
   const [serverError, setServerError] = useState("");
@@ -195,7 +195,9 @@ const Form = () => {
                       }
                     />
                   </InputArea>
-                  <Error gridArea="server-error">{serverError}</Error>
+                  <Message gridArea="server-message" error>
+                    {serverError}
+                  </Message>
                   <ButtonArea>
                     <Button
                       type="submit"
