@@ -38,6 +38,7 @@ const Item = styled.li`
     padding: 5px 20px;
     font-weight: bold;
     transform: skew(20deg);
+    text-shadow: 3px 3px 3px black;
   }
 
   @media (min-width: 30rem) {
