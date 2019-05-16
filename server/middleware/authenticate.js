@@ -68,8 +68,7 @@ module.exports = async (req, res, next) => {
       const newToken = await generateAccessToken({
         id: user.id,
         username: user.username,
-        email: user.email,
-        avatar: user.avatar
+        email: user.email
       });
 
       // Set access and refresh tokens in cookies
@@ -81,8 +80,7 @@ module.exports = async (req, res, next) => {
       req.user = {
         id: user.id,
         username: user.username,
-        email: user.email,
-        avatar: user.avatar
+        email: user.email
       };
 
       return next();
