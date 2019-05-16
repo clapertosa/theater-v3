@@ -113,6 +113,30 @@
       "css": "circle",
       "code": 61713,
       "src": "fontawesome"
+    },
+    {
+      "uid": "dc3f1d5b1d006f7f7b3b6295eccab9da",
+      "css": "camera",
+      "code": 59403,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "0f99ab40ab0b4d64a74f2d0deeb03e42",
+      "css": "videocam",
+      "code": 59404,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "700cae9dc028202c4549471b56f516dd",
+      "css": "monitor",
+      "code": 61490,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "d35a1d35efeb784d1dc9ac18b9b6c2b6",
+      "css": "pencil",
+      "code": 59405,
+      "src": "fontawesome"
     }
   ]
 }

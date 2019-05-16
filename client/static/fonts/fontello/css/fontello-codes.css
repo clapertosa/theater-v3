@@ -10,7 +10,11 @@
 .icon-heart-filled:before { content: '\e808'; } /* '' */
 .icon-user:before { content: '\e809'; } /* '' */
 .icon-key:before { content: '\e80a'; } /* '' */
+.icon-camera:before { content: '\e80b'; } /* '' */
+.icon-videocam:before { content: '\e80c'; } /* '' */
+.icon-pencil:before { content: '\e80d'; } /* '' */
 .icon-heart-broken:before { content: '\f028'; } /* '' */
+.icon-monitor:before { content: '\f032'; } /* '' */
 .icon-mail-alt:before { content: '\f0e0'; } /* '' */
 .icon-angle-double-left:before { content: '\f100'; } /* '' */
 .icon-angle-double-right:before { content: '\f101'; } /* '' */
