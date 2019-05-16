@@ -2,6 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const compression = require("compression");
 const graphqlHTTP = require("express-graphql");
+const { graphqlUploadExpress } = require("graphql-upload");
 const authenticate = require("./middleware/authenticate");
 const next = require("next");
 
@@ -25,6 +26,7 @@ server.use(compression());
 server.use(
   "/graphql",
   authenticate,
+  graphqlUploadExpress({ maxFileSize: 20000000, maxFiles: 1 }),
   graphqlHTTP((req, res) => ({
     schema: schema,
     rootValue: resolvers,

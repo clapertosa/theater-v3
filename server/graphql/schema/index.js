@@ -1,4 +1,5 @@
 const { buildSchema } = require("graphql");
+const { GraphQLUpload } = require("graphql-upload");
 
 module.exports = buildSchema(`
 # Creator
@@ -221,6 +222,8 @@ type User {
   updated_at: String!
 }
 
+scalar Upload
+
 input UserInput {
   username: String!
   email: String!
@@ -292,7 +295,7 @@ type RootMutation {
   addToFavorites(media_id: ID! media_type: String! title: String! poster_path: String): Boolean
   removeFromFavorites(media_id: ID!): Boolean
     # User Settings
-  # changeAvatar(file: Upload): Boolean
+  changeAvatar(file: Upload!): Boolean
   changeUsername(username: String!): Boolean
   changeEmail(email: String! confirmEmail: String): Boolean
   recoverEmail(token: String!): String
