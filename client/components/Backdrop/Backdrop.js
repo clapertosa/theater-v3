@@ -7,6 +7,7 @@ const Container = styled.div`
   height: ${({ theme: { navbarHeight } }) => `calc(100% - ${navbarHeight})`};
   width: 100%;
   top: ${({ theme: { navbarHeight } }) => navbarHeight};
+  left: 0;
   background-color: #00000080;
   z-index: ${({ theme: { zIndex } }) => zIndex.backdrop};
 `;
