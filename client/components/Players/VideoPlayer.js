@@ -52,7 +52,7 @@ const VideoPlayer = ({ closePlayer, videos, index }) => {
             <Video>
               <iframe
                 type="text/html"
-                src={`http://www.youtube.com/embed/${video.key}`}
+                src={`https://www.youtube.com/embed/${video.key}`}
                 allowFullScreen
               />
             </Video>
