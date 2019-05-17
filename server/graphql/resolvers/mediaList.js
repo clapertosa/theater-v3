@@ -1,5 +1,4 @@
 const axios = require("../../axiosInstance");
-const moment = require("../../../utils/moment");
 
 module.exports = {
   popular: async ({ page, media_type }) => {

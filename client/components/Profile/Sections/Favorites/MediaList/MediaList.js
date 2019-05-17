@@ -28,14 +28,7 @@ const Content = styled.div`
   border-radius: 5px;
 `;
 
-const MediaList = ({
-  show,
-  loading,
-  initialData,
-  gridArea,
-  title,
-  mediaType
-}) => {
+const MediaList = ({ loading, initialData, gridArea, title, mediaType }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {

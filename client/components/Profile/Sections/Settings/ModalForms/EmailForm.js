@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Mutation } from "react-apollo";
 import { CHANGE_EMAIL_MUTATION } from "../../../../../apollo/mutations";
-import { CURRENT_USER_QUERY } from "../../../../../apollo/queries";
 import ModalHoc from "./ModalHoc";
 import { Formik } from "formik";
 import { isEmail } from "validator";

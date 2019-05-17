@@ -5,6 +5,7 @@ module.exports = {
     let dataUri;
     return new Promise((resolve, reject) => {
       stream
+        .on("error", e => reject(e))
         .on("data", chunk => {
           buffers.push(chunk);
         })
