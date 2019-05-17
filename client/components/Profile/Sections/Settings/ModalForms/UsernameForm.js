@@ -51,6 +51,7 @@ const UsernameForm = ({ closeModal }) => {
                   }
                 });
                 setSuccess(true);
+                setTimeout(() => closeModal(), 2500);
               } catch (e) {
                 setServerError(e.graphQLErrors[0].message);
               }
