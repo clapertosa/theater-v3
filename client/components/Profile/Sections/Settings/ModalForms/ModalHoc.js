@@ -9,7 +9,9 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   border: ${({ theme: { colors } }) => `1px solid ${colors.green}`};
   box-shadow: 3px 3px 3px black;
+  max-width: 350px;
   min-width: 220px;
+  transition: all 0.3s;
   z-index: ${({ theme: { zIndex } }) => zIndex.navbar};
 `;
 
