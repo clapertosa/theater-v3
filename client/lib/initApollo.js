@@ -15,7 +15,7 @@ function create(initialState, { getToken, cookies }) {
     uri:
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000/graphql"
-        : "http://localhost:3000/graphql",
+        : "https://theater-webapp.herokuapp.com/graphql",
     credentials: "same-origin"
   });
 

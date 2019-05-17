@@ -1,3 +1,4 @@
+import React from "react";
 import { RECOVER_EMAIL_MUTATION } from "../../apollo/mutations";
 import Message from "../../components/Message/Message";
 

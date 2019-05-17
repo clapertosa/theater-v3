@@ -1,9 +1,18 @@
+import React from "react";
+import Head from "next/head";
 import checkLoggedIn from "../../lib/checkLoggedIn";
 import redirect from "../../lib/redirect";
 import Form from "../../components/Form/PasswordReset/Form";
 
 const PasswordReset = ({ token }) => {
-  return <Form token={token} />;
+  return (
+    <>
+      <Head>
+        <title>🎬 Theater - Password reset</title>
+      </Head>
+      <Form token={token} />
+    </>
+  );
 };
 
 PasswordReset.getInitialProps = async ctx => {

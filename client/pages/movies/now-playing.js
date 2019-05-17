@@ -1,13 +1,20 @@
+import React from "react";
+import Head from "next/head";
 import MediaList from "../../containers/MediaList";
 import { NOW_PLAYING_MOVIES } from "../../apollo/queries";
 
 const Popular = ({ initialData }) => {
   return (
-    <MediaList
-      initialData={initialData}
-      query={NOW_PLAYING_MOVIES}
-      mediaType="movie"
-    />
+    <>
+      <Head>
+        <title>🎬 Theater - Now playing Movies</title>
+      </Head>
+      <MediaList
+        initialData={initialData}
+        query={NOW_PLAYING_MOVIES}
+        mediaType="movie"
+      />
+    </>
   );
 };
 

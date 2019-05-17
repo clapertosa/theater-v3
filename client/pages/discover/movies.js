@@ -1,9 +1,17 @@
 import React from "react";
+import Head from "next/head";
 import DiscoverMovies from "../../containers/DiscoverMovies";
 import { DISCOVER_MOVIES_QUERY } from "../../apollo/queries";
 
 const Movies = ({ initialData }) => {
-  return <DiscoverMovies mediaType="movie" initialData={initialData} />;
+  return (
+    <>
+      <Head>
+        <title>🎬 Theater - Discover Movies</title>
+      </Head>
+      <DiscoverMovies mediaType="movie" initialData={initialData} />
+    </>
+  );
 };
 
 Movies.getInitialProps = async ({ apolloClient }) => {

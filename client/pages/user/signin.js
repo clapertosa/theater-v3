@@ -1,9 +1,18 @@
+import React from "react";
+import Head from "next/head";
 import checkLoggedIn from "../../lib/checkLoggedIn";
 import redirect from "../../lib/redirect";
 import Form from "../../components/Form/SignIn/Form";
 
 const SignIn = () => {
-  return <Form />;
+  return (
+    <>
+      <Head>
+        <title>🎬 Theater - Sign In</title>
+      </Head>
+      <Form />
+    </>
+  );
 };
 
 SignIn.getInitialProps = async ctx => {
