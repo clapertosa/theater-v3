@@ -20,6 +20,10 @@ const Input = styled.input`
   width: inherit;
   text-indent: 30px;
   font-size: 1.2rem;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const MagnifyingGlass = styled.i`
