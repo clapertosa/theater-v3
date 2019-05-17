@@ -16,6 +16,8 @@ const Container = styled.div`
 
 const Icon = styled.div`
   grid-area: icon;
+  display: flex;
+  align-items: center;
   width: 30px;
   height: auto;
 
@@ -45,7 +47,7 @@ const List = styled.ul`
 
     a {
       color: ${({ theme: { colors } }) => colors.white};
-      text-decoration: underline;
+      font-weight: bold;
       transition: color 0.3s;
     }
 
