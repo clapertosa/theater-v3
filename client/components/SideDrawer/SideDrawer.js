@@ -22,8 +22,7 @@ const Container = styled.div`
     display: none;
   }
 
-  @media (min-width: ${({ theme: { mediaQueryMinWidth } }) =>
-      `calc(${mediaQueryMinWidth} - 20rem)`}) {
+  @media (min-width: 35rem) {
     width: 45%;
   }
 `;
