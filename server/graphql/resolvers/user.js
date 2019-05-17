@@ -1,6 +1,7 @@
 const knex = require("../../config/db");
 const axios = require("../../axiosInstance");
 const keys = require("../../config/keys");
+const cookie = require("cookie");
 const crypto = require("crypto");
 const {
   checkUsername,
@@ -177,13 +178,26 @@ module.exports = {
 
     return true;
   },
-  changeUsername: async ({ username }, { req }) => {
+  changeUsername: async ({ username }, { req, res }) => {
     if (!req.user) {
       throw new Error("You must be signed in to change your username");
     }
 
     // Username checks
     checkUsername(username);
+
+    // Check if refresh-token in DB is the same in cookies
+    const refreshToken = cookie.parse(req.headers.cookie)["x-refresh-token"];
+    const userDB = await knex("users")
+      .where({ id: req.user.id })
+      .first();
+
+    // If cookie's refresh-token !== user.refresh_token, then user could have been compromised
+    if (refreshToken !== userDB.refresh_token) {
+      res.clearCookie("x-access-token");
+      res.clearCookie("x-refresh-token");
+      throw new Error("Session not valid, you've been disconnected");
+    }
 
     // Check if username already exists
     const userExists = await knex("users")
@@ -201,7 +215,7 @@ module.exports = {
 
     return true;
   },
-  changeEmail: async ({ email, confirmEmail }, { req }) => {
+  changeEmail: async ({ email, confirmEmail }, { req, res }) => {
     if (!req.user) {
       throw new Error("You must be signed in to change your email");
     }
@@ -209,14 +223,27 @@ module.exports = {
     // Email checks
     checkEmails(email, confirmEmail);
 
+    // Check if refresh-token in DB is the same in cookies
+    const refreshToken = cookie.parse(req.headers.cookie)["x-refresh-token"];
+    const userDB = await knex("users")
+      .where({ id: req.user.id })
+      .first();
+
+    // If cookie's refresh-token !== user.refresh_token, then user could have been compromised
+    if (refreshToken !== userDB.refresh_token) {
+      res.clearCookie("x-access-token");
+      res.clearCookie("x-refresh-token");
+      throw new Error("Session not valid, you've been disconnected");
+    }
+
     // Check if user with this new email already exists
-    const userExists = await knex("users")
+    const user = await knex("users")
       .where({
         email: normalizeEmail(email)
       })
       .first();
 
-    if (userExists) {
+    if (user) {
       throw new Error(
         "Email already in use: if you don't remember your password, please reset it in the login page"
       );
@@ -229,7 +256,7 @@ module.exports = {
       normalizeEmail(email)
     );
     await mail.send(
-      normalizeEmail(email),
+      normalizeEmail(req.user.email),
       "🎬 Theater - Your email has been changed",
       "If you haven't changed the email, please click on the button to recover this one and change your password as soon as possible, because your account could have been compromised.",
       "user/recover-email",
@@ -255,6 +282,10 @@ module.exports = {
       req
     );
 
+    // Delete previous cookies
+    res.clearCookie("x-access-token");
+    res.clearCookie("x-refresh-token");
+
     return true;
   },
   recoverEmail: async ({ token }) => {
@@ -269,13 +300,17 @@ module.exports = {
     // Set the old email
     await knex("users")
       .where({ id: decodedToken.userId, email: decodedToken.newEmail })
-      .update({ email: decodedToken.oldEmail });
+      .update({
+        email: decodedToken.oldEmail,
+        activated: true,
+        refresh_token: null
+      });
 
     return "Old email recovered";
   },
   changePassword: async (
     { oldPassword, password, confirmPassword },
-    { req }
+    { req, res }
   ) => {
     if (!req.user) {
       throw new Error("You must be signed in to change your password");
@@ -292,6 +327,19 @@ module.exports = {
 
     // Check the new password
     checkPasswords(password, confirmPassword);
+
+    // Check if refresh-token in DB is the same in cookies
+    const refreshToken = cookie.parse(req.headers.cookie)["x-refresh-token"];
+    const userDB = await knex("users")
+      .where({ id: req.user.id })
+      .first();
+
+    // If cookie's refresh-token !== user.refresh_token, then user could have been compromised
+    if (refreshToken !== userDB.refresh_token) {
+      res.clearCookie("x-access-token");
+      res.clearCookie("x-refresh-token");
+      throw new Error("Session not valid, you've been disconnected");
+    }
 
     // Hash new password
     const hashedPassword = await bcrypt.hash(password, 10);

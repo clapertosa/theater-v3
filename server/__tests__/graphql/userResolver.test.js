@@ -21,7 +21,7 @@ const tokenUtils = require("../../utils/token");
 
 const tester = new EasyGraphQLTester(schema);
 
-const getMockedReq = authenticated => {
+const getMockedCtx = authenticated => {
   if (authenticated) {
     return {
       req: {
@@ -31,17 +31,22 @@ const getMockedReq = authenticated => {
           email: "email@email.com",
           password:
             "$2a$10$FwZO1J6lHo1CXVjOUXtv5uC31lQx3VApgsmJmNIeBo2Qq9w58dwJa"
+        },
+        headers: {
+          cookie:
+            "x-access-token=access-token-code; x-refresh-token=refresh-token-code"
         }
-      }
+      },
+      res: { clearCookie: jest.fn(() => {}) }
     };
-  } else return { req: {} };
+  } else return { req: {}, res: {} };
 };
 
 const getFavoritesMoviesMethod = async authenticated => {
   return await tester.graphql(
     GET_FAVORITES_MOVIES_QUERY,
     resolvers,
-    getMockedReq(authenticated)
+    getMockedCtx(authenticated)
   );
 };
 
@@ -49,7 +54,7 @@ const getFavoritesSeriessMethod = async authenticated => {
   return await tester.graphql(
     GET_FAVORITES_SERIES_QUERY,
     resolvers,
-    getMockedReq(authenticated)
+    getMockedCtx(authenticated)
   );
 };
 
@@ -63,7 +68,7 @@ const addToFavoritesMethod = async (
   return await tester.graphql(
     ADD_TO_FAVORITES_MUTATION,
     resolvers,
-    getMockedReq(authenticated),
+    getMockedCtx(authenticated),
     { media_id, media_type, title, poster_path }
   );
 };
@@ -72,7 +77,7 @@ const removeFromFavoritesMethod = async (authenticated, media_id) => {
   return await tester.graphql(
     REMOVE_FROM_FAVORITES_MUTATION,
     resolvers,
-    getMockedReq(authenticated),
+    getMockedCtx(authenticated),
     { media_id }
   );
 };
@@ -81,7 +86,7 @@ const isFavoriteMethod = async (authenticated, media_id) => {
   return await tester.graphql(
     IS_FAVORITE_QUERY,
     resolvers,
-    getMockedReq(authenticated),
+    getMockedCtx(authenticated),
     { media_id }
   );
 };
@@ -90,7 +95,7 @@ const changeUsernameMethod = async (authenticated, username) => {
   return await tester.graphql(
     CHANGE_USERNAME_MUTATION,
     resolvers,
-    getMockedReq(authenticated),
+    getMockedCtx(authenticated),
     { username }
   );
 };
@@ -99,7 +104,7 @@ const changeEmailMethod = async (authenticated, email, confirmEmail) => {
   return await tester.graphql(
     CHANGE_EMAIL_MUTATION,
     resolvers,
-    getMockedReq(authenticated),
+    getMockedCtx(authenticated),
     { email, confirmEmail }
   );
 };
@@ -108,7 +113,7 @@ const recoverEmailMethod = async token => {
   return await tester.graphql(
     RECOVER_EMAIL_MUTATION,
     resolvers,
-    getMockedReq(false),
+    getMockedCtx(false),
     { token }
   );
 };
@@ -122,7 +127,7 @@ const changePasswordMethod = async (
   return await tester.graphql(
     CHANGE_PASSWORD_MUTATION,
     resolvers,
-    getMockedReq(authenticated),
+    getMockedCtx(authenticated),
     { oldPassword, password, confirmPassword }
   );
 };
@@ -136,7 +141,8 @@ beforeEach(async () => {
   await knex("users").insert({
     username: "user",
     email: "email@email.com",
-    password: "$2a$10$FwZO1J6lHo1CXVjOUXtv5uC31lQx3VApgsmJmNIeBo2Qq9w58dwJa"
+    password: "$2a$10$FwZO1J6lHo1CXVjOUXtv5uC31lQx3VApgsmJmNIeBo2Qq9w58dwJa",
+    refresh_token: "refresh-token-code"
   });
 });
 
