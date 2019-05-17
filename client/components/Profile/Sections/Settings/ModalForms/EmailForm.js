@@ -18,11 +18,7 @@ const EmailForm = ({ closeModal }) => {
   const [email, setEmail] = useState("");
 
   return (
-    <Mutation
-      mutation={CHANGE_EMAIL_MUTATION}
-      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-      awaitRefetchQueries
-    >
+    <Mutation mutation={CHANGE_EMAIL_MUTATION}>
       {(changeEmail, { loading }) => (
         <ModalHoc closeModal={closeModal}>
           <Formik
@@ -47,12 +43,16 @@ const EmailForm = ({ closeModal }) => {
               try {
                 await changeEmail({
                   variables: {
-                    email: values.username,
+                    email: values.email,
                     confirmEmail: values.confirmEmail
                   }
                 });
                 setEmail(values.email.trim().toLowerCase());
                 setSuccess(true);
+                setTimeout(() => {
+                  closeModal();
+                  window.location.href = "/user/signin";
+                }, 3500);
               } catch (e) {
                 setServerError(e.graphQLErrors[0].message);
               }
@@ -89,7 +89,7 @@ const EmailForm = ({ closeModal }) => {
                     label="Confirm Email"
                     icon="mail-alt"
                     required
-                    name="email"
+                    name="confirmEmail"
                     type="email"
                     onChange={e => {
                       handleChange(e);
