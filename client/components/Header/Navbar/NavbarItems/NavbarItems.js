@@ -80,8 +80,12 @@ const NavbarItems = () => {
           {({ data: { currentUser } }) => {
             return currentUser ? (
               <DropDownItem
-                icon="/static/images/navbar/user.svg"
-                title={currentUser.username}
+                icon={currentUser.avatar || "/static/images/navbar/user.svg"}
+                title={
+                  currentUser.username.length > 8
+                    ? currentUser.username.substring(0, 8) + "..."
+                    : currentUser.username
+                }
                 list={[
                   { title: "Profile", url: "/user/profile" },
                   { title: "Sign Out", url: "/user/signout" }
