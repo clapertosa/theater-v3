@@ -10,7 +10,7 @@ const Container = styled.div`
   border: ${({ theme: { colors } }) => `1px solid ${colors.green}`};
   box-shadow: 3px 3px 3px black;
   max-width: 350px;
-  min-width: 220px;
+  min-width: 340px;
   transition: all 0.3s;
   z-index: ${({ theme: { zIndex } }) => zIndex.navbar};
 `;
