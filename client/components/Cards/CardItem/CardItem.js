@@ -7,7 +7,6 @@ import Overview from "./CardStyles/Overview";
 
 const Anchor = styled.a`
   margin: 10px;
-  min-width: 300px;
   min-height: 522px;
   color: ${({ theme: { colors } }) => colors.white};
 
