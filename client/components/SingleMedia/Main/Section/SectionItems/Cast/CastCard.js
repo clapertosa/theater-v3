@@ -31,10 +31,10 @@ const Image = styled.div`
   margin: auto;
   height: 175px;
   width: 138px;
+  box-shadow: 3px 3px 3px black;
   overflow: hidden;
 
   img {
-    box-shadow: 3px 3px 3px black;
     height: auto;
     width: 100%;
     transition: transform 0.5s ease-out;
