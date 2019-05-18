@@ -6,6 +6,7 @@ import Spinner from "../../../../Spinner/Spinner";
 
 const Container = styled.div`
   grid-area: ${({ gridArea }) => gridArea};
+  display: grid;
   margin: 20px auto;
   width: 100%;
   grid-template-areas: "title" "content";
