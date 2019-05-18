@@ -29,11 +29,17 @@ const Container = styled.div`
 
 const SideDrawer = () => {
   const { showSideDrawer, closeSideDrawer } = useContext(DrawerContext);
+  let touchStart, touchEnd;
 
   return (
     <>
       <Backdrop show={showSideDrawer} clicked={closeSideDrawer} />
-      <Container show={showSideDrawer}>
+      <Container
+        show={showSideDrawer}
+        onTouchStart={e => (touchStart = e.touches[0].clientX)}
+        onTouchMove={e => (touchEnd = e.touches[0].clientX)}
+        onTouchEnd={() => (touchEnd < touchStart ? closeSideDrawer() : null)}
+      >
         <SideDrawerItems />
       </Container>
     </>
