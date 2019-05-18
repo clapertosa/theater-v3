@@ -63,7 +63,7 @@ const Images = ({ images, title }) => {
           />
         ))}
       </Carousel>
-      <TransitionGroup>
+      <TransitionGroup component={null}>
         {showPlayer ? (
           <CSSTransition classNames="fade" timeout={300}>
             <ImagePlayer

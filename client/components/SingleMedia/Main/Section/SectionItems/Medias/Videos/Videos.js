@@ -63,7 +63,7 @@ const Videos = ({ videos }) => {
           />
         ))}
       </Carousel>
-      <TransitionGroup>
+      <TransitionGroup component={null}>
         {showPlayer ? (
           <CSSTransition classNames="fade" timeout={300}>
             <VideoPlayer
