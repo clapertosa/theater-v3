@@ -80,7 +80,7 @@ const BrokenHeart = styled.i`
 
 const MediaItem = ({ mediaId, mediaType, title, posterPath }) => {
   const imagePath = posterPath
-    ? `https://image.tmdb.org/t/p/w185${posterPath}`
+    ? `https://image.tmdb.org/t/p/w342${posterPath}`
     : getPlaceholder(185, 278, "No Poster");
 
   return (

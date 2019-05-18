@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Poster = ({ posterPath, title }) => {
-  const URL = "https://image.tmdb.org/t/p/w185";
+  const URL = "https://image.tmdb.org/t/p/w342";
 
   return (
     <Container>

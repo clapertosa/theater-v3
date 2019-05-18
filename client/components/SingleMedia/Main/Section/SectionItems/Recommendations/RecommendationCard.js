@@ -75,7 +75,7 @@ const RecommendationCard = ({
   title,
   voteAverage
 }) => {
-  const RECOMMENDATIONS_POSTER_PATH = "https://image.tmdb.org/t/p/w185";
+  const RECOMMENDATIONS_POSTER_PATH = "https://image.tmdb.org/t/p/w342";
 
   return (
     <Container>

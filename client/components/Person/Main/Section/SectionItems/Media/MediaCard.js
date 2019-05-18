@@ -67,7 +67,7 @@ const Vote = styled.div`
 `;
 
 const MediaCard = ({ mediaType, id, imagePath, title, voteAverage }) => {
-  const MEDIA_CARD_URL = "https://image.tmdb.org/t/p/w185";
+  const MEDIA_CARD_URL = "https://image.tmdb.org/t/p/w342";
 
   return (
     <Container>
