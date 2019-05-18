@@ -71,6 +71,7 @@ const EmailForm = ({ closeModal }) => {
                 <InputArea>
                   <Input
                     autoCapitalize="none"
+                    autoComplete="off"
                     label="New Email"
                     icon="mail-alt"
                     required

@@ -71,6 +71,7 @@ const UsernameForm = ({ closeModal }) => {
                 <InputArea>
                   <Input
                     autoCapitalize="none"
+                    autoComplete="off"
                     label="New Username"
                     icon="user"
                     required
