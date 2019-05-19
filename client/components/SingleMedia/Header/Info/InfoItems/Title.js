@@ -5,10 +5,12 @@ const Container = styled.h1`
   grid-area: title;
   margin: auto;
   text-shadow: 3px 3px 3px black;
+  text-align: center;
 
   @media (min-width: ${({ theme: { mediaQueryMinWidth } }) =>
       mediaQueryMinWidth}) {
     margin: 0;
+    text-align: left;
   }
 `;
 
