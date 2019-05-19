@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
+import "../../static/styles/main.css";
 import Navbar from "../../components/Header/Navbar/Navbar";
 import Footer from "../../components/Footer";
-import "../../static/styles/main.css";
 
 export const theme = {
   colors: {

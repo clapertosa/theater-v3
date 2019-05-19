@@ -49,12 +49,15 @@
   "devDependencies": {
     "@types/jest": "^24.0.12",
     "@types/styled-components": "^4.1.14",
+    "autoprefixer": "^9.5.1",
     "easygraphql-tester": "^5.1.3",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "eslint-plugin-jest": "^22.5.1",
     "jest": "^24.8.0",
     "nodemon": "^1.19.0",
+    "postcss-easy-import": "^3.0.0",
+    "postcss-url": "^8.0.0",
     "supertest": "^4.0.2",
     "typescript": "^3.5.0-dev.20190518"
   }
